@@ -34,7 +34,9 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+
+  },
+
 
   /***************************************************************************
   *                                                                          *
@@ -45,5 +47,7 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
-
+  'POST /retailer/signup':'RetailerController.signUp',
+  'GET /retailer/allUser': 'RetailerController.getRetailerList',
+    'POST /retailer/login': 'RetailerController.login'
 };
