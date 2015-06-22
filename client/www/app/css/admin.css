@@ -1,13 +1,23 @@
+.app-container {
+  padding: 15px;
+  font-size: 16px;
+}
 .retailer-detail {
   padding: 10px;
-  border-bottom: 1px solid #a4a4a4;
-}
-.retailer-detail p {
-  margin-bottom: 5px;
 }
 .retailer-detail input {
   display: block;
   padding: 5px;
   margin-bottom: 5px;
   width: 90%;
+}
+.retailer {
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+.retailer:hover {
+  background-color: #eee;
+}
+.logo img {
+  width: 70px;
 }

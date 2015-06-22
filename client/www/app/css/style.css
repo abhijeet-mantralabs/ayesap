@@ -81,19 +81,6 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.retailer-detail {
-  padding: 10px;
-  border-bottom: 1px solid #a4a4a4;
-}
-.retailer-detail p {
-  margin-bottom: 5px;
-}
-.retailer-detail input {
-  display: block;
-  padding: 5px;
-  margin-bottom: 5px;
-  width: 90%;
-}
 button::-moz-focus-inner {
   border: 0;
 }
