@@ -1,0 +1,12 @@
+{
+	"name": "Angular Require JS Application",
+	"version": "1.0.0",
+	"dependencies": {
+		"jquery":"2.0.3",
+		"angular": "1.2.16",
+		"angular-resource": "1.2.16",
+		"requirejs":"2.1.10",
+		"angular-route":"",
+		"bootstrap":"*"
+	}
+}

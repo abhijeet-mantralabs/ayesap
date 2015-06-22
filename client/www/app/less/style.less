@@ -1,0 +1,116 @@
+
+@import 'variables.less';
+@import 'fonts.less';
+@import 'mixins.less';
+@import 'admin.less';
+button::-moz-focus-inner {
+  border: 0;
+}
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
+
+
+// helper classes
+
+a {
+    color:inherit;
+    text-decoration: none;
+    &:focus,&:visited,&:hover{
+        color:inherit;
+        text-decoration: none;
+    }
+}
+
+//general classes
+.btn-green{
+    background-color: @light-green;
+    height: 50px;
+    border-radius: 35px;
+    font-size: 24px;
+    box-shadow: none;
+    border: none;
+    padding: 0 40px;
+    color: #fff;
+}
+.link{
+    text-decoration: underline;
+    color: @text-color;
+}
+.line{
+    display: block;
+    width: 24px;
+    height: 3px;
+    background: #020202;
+    margin-bottom: 4px;
+}
+
+
+
+.app-container{
+    color: @text-color;
+    position: relative;
+}
+.logo{
+    padding: 30px;
+    img{
+        width: 90px;
+    }
+}
+.form-groups{
+    padding: 50px 10px;
+}
+.input-form{
+    position: relative;
+    margin-bottom: 25px;
+    // height: 33px;
+    input{
+        border: none;
+        font-size: 20px;
+        width: 100%;
+        padding: 0 4px;
+        &::-webkit-input-placeholder { 
+            color:    @text-color;
+        }
+        &:-moz-placeholder {
+           color:    @text-color;
+           opacity:  1;
+        }
+        &::-moz-placeholder {
+           color:    @text-color;
+           opacity:  1;
+        }
+        &:-ms-input-placeholder {
+           color:    @text-color;
+        }
+        &:focus{
+          outline: none;
+          border: none;
+        }
+    }
+    .ip-holder{
+        margin: 0;
+        height: 5px;
+        border-bottom: 1px solid;
+        border-right: 1px solid;
+        border-left: 1px solid;
+        position: absolute;
+        bottom:-3px;
+        width: 100%;
+    }
+}
+.btn-container{
+    padding: 20px 0;
+    .btn-green{
+        margin-bottom: 25px;
+    }
+}
+.register-me{
+    position: absolute;
+    bottom:0;
+    left: 0;
+    right: 0;
+    // margin-bottom: 20px;
+    .link{
+        color: @light-green;
+    }
+}
