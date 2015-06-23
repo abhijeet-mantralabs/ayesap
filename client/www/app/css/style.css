@@ -168,9 +168,10 @@ header {
   background-color: #a4a4a4;
 }
 .side-menu .side-menu-items {
-  padding: 10px;
   color: #00345b;
   font-size: 18px;
+  border-bottom: 2px solid #eee;
+  padding: 10px 10px 10px 20px;
 }
 .time-to-db {
   padding: 10px 0;
@@ -179,4 +180,10 @@ header {
 }
 .time-to-db p {
   margin: 0;
+}
+.footer-home {
+  background-color: #6cbf29;
+}
+.footer-home p {
+  color: #ffffff;
 }
