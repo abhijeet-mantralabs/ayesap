@@ -43,10 +43,10 @@
                     </thead>
                     <tbody>
                         <tr class="retailer" ng-click="showDetails()" ng-repeat="retailer in retailers">
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <th scope="row">{{$index+1}}</th>
+                            <td>{{retailer.name}}</td>
+                            <td>{{retailer.email}}</td>
+                            <td>{{retailer.mobile}}</td>
                         </tr>
                     </tbody>
                 </table>
