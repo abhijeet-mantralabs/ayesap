@@ -82,5 +82,5 @@ platforms/ios/www/*
 .Spotlight-V100
 .Trashes
 
-client/www/app/scripts/vendor/**/*.js
-client-admin/app/scripts/vendor/**/*.js
+client/www/app/scripts/vendor
+client-admin/app/scripts/vendor
