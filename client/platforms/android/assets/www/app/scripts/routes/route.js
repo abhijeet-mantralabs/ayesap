@@ -32,6 +32,10 @@ define(['angular', 'modules/AyesapModule','controllers/AyesapController']/*deps*
           templateUrl: 'app/templates/register.html',
           controller: 'SignUpCtrl'
         })
+        .when('/menu', {
+          templateUrl: 'app/templates/directive-templates/side-menu.html',
+          controller: 'MenuCtrl'
+        })
         .otherwise({
           redirectTo: '/'
         });

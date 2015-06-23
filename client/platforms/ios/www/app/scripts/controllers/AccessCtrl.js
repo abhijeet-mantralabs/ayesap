@@ -5,6 +5,9 @@ define(['modules/AccessModule'], function (AccessModule) {
   AccessModule.controller('SignUpCtrl', function () {
       console.log("hello signup");
   })
+  AccessModule.controller('MenuCtrl', function () {
+      console.log("hello menu");
+  })
 }) 
 
 // define(['angular'], function (angular) {

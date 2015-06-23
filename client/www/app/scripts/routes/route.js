@@ -1,7 +1,7 @@
 
 
  /*jshint unused: vars */
-define(['angular', 'modules/AyesapModule','controllers/AyesapController']/*deps*/, function (angular, AyesapModule)/*invoke*/ {
+define(['angular', 'modules/AyesapModule','controllers/AccessCtrl']/*deps*/, function (angular, AyesapModule)/*invoke*/ {
     // resolve= {
       // "getUserAccountService": function( $q, $timeout, $location){
       //   var userAccount = $q.defer();
@@ -31,6 +31,14 @@ define(['angular', 'modules/AyesapModule','controllers/AyesapController']/*deps*
         .when('/signup', {
           templateUrl: 'app/templates/register.html',
           controller: 'SignUpCtrl'
+        })
+        .when('/home', {
+          templateUrl: 'app/templates/home.html',
+          controller: 'HomeCtrl'
+        })
+        .when('/pickup', {
+          templateUrl: 'app/templates/pickup.html',
+          controller: 'PickupCtrl'
         })
         .otherwise({
           redirectTo: '/'

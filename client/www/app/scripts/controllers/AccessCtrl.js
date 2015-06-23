@@ -1,21 +1,14 @@
-define(['modules/AccessModule'], function (AccessModule) {
-  AccessModule.controller('SignInCtrl', function () {
+define(['modules/AyesapModule', 'directives/sidemenu'], function (AyesapModule) {
+  AyesapModule.controller('SignInCtrl', function () {
       console.log("hello");
   })
-  AccessModule.controller('SignUpCtrl', function () {
-      console.log("hello signup");
+  AyesapModule.controller('SignUpCtrl', function () {
+		console.log("hello signup");
+  })
+  AyesapModule.controller('HomeCtrl', function ($scope) {
+      
+  })
+  AyesapModule.controller('PickupCtrl', function ($scope) {
+      
   })
 }) 
-
-// define(['angular'], function (angular) {
-//   'use strict';
-
-//   angular.module('ayeapp.controllers.AccessCtrl', [])
-//     .controller('SignInCtrl', function () {
-      
-//     })
-
-//     .controller('SignUpCtrl', function () {
-      
-//     })
-// });

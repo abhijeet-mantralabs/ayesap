@@ -4,7 +4,8 @@ require.config({
 		'angular': 'vendor/angular/angular.min',
 		'angularResource': 'vendor/angular-resource/angular-resource.min',
 	    'angularRoute' :'vendor/angular-route/angular-route.min',
-        'bootstrap'   : 'vendor/bootstrap/dist/js/bootstrap.min'
+        'bootstrap'    : 'vendor/bootstrap/dist/js/bootstrap.min'
+        // 'jqueryMobile'    : 'vendor/jquery-mobile/jquery.mobile-1.4.5.min'
     },
 	shim: {
         'angular' : {'exports' : 'angular'},
@@ -21,7 +22,10 @@ require.config({
         },
         'bootstrap' : {
             deps:['jquery']
-        }
+        },
+        // 'jqueryMobile':{
+        //     deps:['jquery']
+        // }
     }
 });
 

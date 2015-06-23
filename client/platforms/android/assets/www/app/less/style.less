@@ -2,6 +2,10 @@
 @import 'variables.less';
 @import 'fonts.less';
 @import 'mixins.less';
+
+body{
+    font-family: 'robotoregular';
+}
 button::-moz-focus-inner {
   border: 0;
 }
@@ -21,8 +25,7 @@ a {
 }
 
 //general classes
-.btn-green{
-    background-color: @light-green;
+.btn-aye{
     height: 50px;
     border-radius: 35px;
     font-size: 24px;
@@ -31,15 +34,21 @@ a {
     padding: 0 40px;
     color: #fff;
 }
+.btn-green{
+    background-color: @light-green;
+}
+.btn-orange{
+    background-color: @color-orange;
+}
 .link{
     text-decoration: underline;
     color: @text-color;
 }
 .line{
     display: block;
-    width: 24px;
+    width: 30px;
     height: 3px;
-    background: #020202;
+    background: #fff;
     margin-bottom: 4px;
 }
 
@@ -111,5 +120,31 @@ a {
     // margin-bottom: 20px;
     .link{
         color: @light-green;
+    }
+}
+//side menu and header
+header{
+    position: relative;
+}
+.menu-icon{
+    padding: 10px 10px 10px 20px;
+    background-color: @dark-blue;
+}
+.show-menu{
+  .transition(width .9s ease 0s);
+  display: block !important;  
+}
+.side-menu{
+    padding: 20px 5px;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    background-color: #fff;
+    width: 85%;
+    display: none;
+    .side-menu-items{
+        padding: 10px;
+        color: @dark-blue;
+        font-size: 18px;
     }
 }
