@@ -29,8 +29,9 @@ node_modules
 
 
 .idea
-client/www/app/scripts/vendor/**
-client-admin/www/app/scripts/vendor/**
+
+client/www/app/scripts/vendor
+client-admin/www/app/scripts/vendor
 # ANDROID / ECLIPSE
 
 # built application files
