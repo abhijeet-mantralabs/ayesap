@@ -5,6 +5,7 @@
 
 body{
     font-family: 'robotoregular';
+    font-size: 16px;
 }
 button::-moz-focus-inner {
   border: 0;
@@ -40,6 +41,9 @@ a {
 .btn-orange{
     background-color: @color-orange;
 }
+.light-red{
+    color: @light-red;
+}
 .link{
     text-decoration: underline;
     color: @text-color;
@@ -50,6 +54,12 @@ a {
     height: 3px;
     background: #fff;
     margin-bottom: 4px;
+}
+.triangle-bottomright {
+    width: 0;
+    height: 0;
+    border-bottom: 10px solid @black;
+    border-left: 10px solid transparent;
 }
 
 
@@ -66,6 +76,7 @@ a {
 }
 .form-groups{
     padding: 50px 10px;
+    min-height: 250px;
 }
 .input-form{
     position: relative;
@@ -73,7 +84,7 @@ a {
     // height: 33px;
     input{
         border: none;
-        font-size: 20px;
+        font-size: 18px;
         width: 100%;
         padding: 0 4px;
         &::-webkit-input-placeholder { 
@@ -117,7 +128,8 @@ a {
     bottom:0;
     left: 0;
     right: 0;
-    // margin-bottom: 20px;
+    font-size: 18px;
+    padding: 20px 0;
     .link{
         color: @light-green;
     }
@@ -125,26 +137,262 @@ a {
 //side menu and header
 header{
     position: relative;
+    background-color: @dark-blue;
+    height: 40px;
 }
 .menu-icon{
     padding: 10px 10px 10px 20px;
-    background-color: @dark-blue;
+    display: inline-block;
 }
 .show-menu{
-  .transition(width .9s ease 0s);
-  display: block !important;  
+    // display: block !important;
+    // width: 0; 
+    left: 0 !important; 
 }
 .side-menu{
+    transition: left 1s;
     padding: 20px 5px;
     position: absolute;
     top: 0;
+    left: -100%;
     z-index: 10;
     background-color: #fff;
     width: 85%;
-    display: none;
+    .side-menu-options{
+        min-height: 250px;
+    }
     .side-menu-items{
-        padding: 10px;
         color: @dark-blue;
         font-size: 18px;
+        border-bottom: 2px solid  @light-grey;
+        padding: 10px 10px 10px 20px;
+    }
+    .logout-div{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 20px;
+    }
+}
+//home page
+.time-to-db{
+    padding: 10px 0;
+    background-color: rgba(0,0,0,0.1);
+    // color: @white;
+    color: @black;
+    p{
+        .min{
+            font-size: 22px;
+        }
+        span{
+            vertical-align: middle;
+        }
+        margin: 0;
+    }
+}
+.footer-home{
+    background-color: @light-green;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    p{
+        color: @white;
+        padding: 15px;
+        font-size: 16px;
+        margin-bottom: 0;
+    }
+}
+
+//order-details-form page
+.custom-check{
+    margin-right: 10px;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    background-color: @light-green;
+    .glyphicon{
+        margin-left: 4px;
+        color: @white;
+    }
+}
+.form-info{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.mandatory{
+    font-size: 12px;
+    color: @light-red;
+}
+.order-details-container{
+    .footer-home{
+        background-color: @light-red;
+    }
+}
+.order-details-form{
+    padding: 10px 15px;
+}
+.odf-top{
+    .time-to-reach{
+        height: 80px;
+        padding: 15px 10px;
+        background-color: @light-grey;
+        .border-top-left-radius(5px);
+        .border-top-right-radius(5px);
+        .time-to-reach-head{
+            font-size: 20px;
+        }
+        p{
+            margin-bottom: 0;
+            &:last-child{
+                font-size: 14px;
+            }
+        }
+    }
+    .skip-details{
+        height: 80px;
+        padding: 28px 10px;
+        background-color: #d4d4d4;
+        .border-bottom-left-radius(5px);
+        .border-bottom-right-radius(5px);
+        span{
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+}
+.odf{
+    margin-top: 25px;
+    .input-form{
+        input{
+            padding-right: 65px;
+            font-size: 16px;
+        }
+        .triangle-bottomright{
+            margin-bottom: 0;
+            position: absolute;
+            bottom: -3px;
+            right: 0;
+        }
+    }
+}
+.locality{
+    .ip-holder{
+        height: 0;
+    }
+}
+.sub-locality{
+    width: 80%;
+}
+.cust-address{
+    input{
+        border-bottom: 1px solid #a4a4a4;
+    }
+}
+
+//pickup page
+.biker-details{
+    padding: 10px;
+    font-size: 16px;
+    border-bottom: 1px solid @dark-grey;
+    span{
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 10px;
+    }
+    .biker-time{
+        padding: 10px;
+        margin-bottom: 10px;
+        span{
+            &:last-child{
+                color: @light-red;
+            }
+        }
+    }
+}
+.mob-no{
+    text-decoration: underline;
+    color:@dark-blue; 
+}
+.pickup-details{
+   .biker-details{
+    border-bottom: none;
+   } 
+}
+.order-deatails{
+    background-color: @light-grey;
+    .border-radius(5px);
+    margin: 10px;
+    >div{
+        padding: 0 10px;
+    }
+    .od-header{
+        padding: 10px;
+        color: @light-green;
+        p{
+            margin: 0;
+        }
+    }
+    .od-mob-no{
+        
+    }
+    .od-address{
+        margin-bottom: 10px;
+        p{
+            margin-bottom: 0;
+        }
+    }
+    .od-btns{
+        border-top: 1px solid @dark-grey;
+        span{
+            float: left;
+            width: 50%;
+            text-align: center;
+            padding: 10px 0;
+            &:first-child{
+                border-right: 1px solid #a4a4a4;
+            }
+            &:last-child{
+                color: @light-red;
+            }
+        }
+    }
+}
+//customer details page
+.customer-details{
+    border-bottom: 1px solid #a4a4a4;
+    .deliver-details{
+        border-bottom: none;
+    }
+    .order-deatails{
+        background-color: @white;
+        .od-header{
+            color: red;
+        }
+    }
+}
+//delivery-page
+.deliver-details{
+     border-bottom: 1px solid @dark-grey;
+     padding-top: 10px;
+     p{
+        margin-bottom: 0;
+     }
+    >div{
+        padding: 0 10px;
+    }
+    .dd-order{
+        padding: 10px 10px 5px 10px;
+        p{
+            display: inline-block;
+            float: left;
+            width: 50%;
+        }
+    }
+    .dd-time{
+        color: @light-green;
+        margin-bottom: 5px;
+        font-size: 14px;
     }
 }

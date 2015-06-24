@@ -40,6 +40,22 @@ define(['angular', 'modules/AyesapModule','controllers/AccessCtrl']/*deps*/, fun
           templateUrl: 'app/templates/pickup.html',
           controller: 'PickupCtrl'
         })
+        .when('/pickupDetails', {
+          templateUrl: 'app/templates/pickup-details.html',
+          controller: 'PickupDetailsCtrl'
+        })
+        .when('/delivered', {
+          templateUrl: 'app/templates/delivered.html',
+          controller: 'deliveryCtrl'
+        })
+        .when('/customerDetails', {
+          templateUrl: 'app/templates/customer-details.html',
+          controller: 'customerDetailsCtrl'
+        })
+        .when('/orderDetails', {
+          templateUrl: 'app/templates/order-details.html',
+          controller: 'orderDetailsCtrl'
+        })
         .otherwise({
           redirectTo: '/'
         });
