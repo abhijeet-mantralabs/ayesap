@@ -90,6 +90,10 @@ a:hover {
   border-bottom: 10px solid #000000;
   border-left: 10px solid transparent;
 }
+.align-middle {
+  display: inline-block;
+  vertical-align: middle;
+}
 .app-container {
   color: #636363;
   position: relative;
@@ -172,7 +176,7 @@ header {
   left: 0 !important;
 }
 .side-menu {
-  transition: left 1s;
+  transition: left 500ms;
   padding: 20px 5px;
   position: absolute;
   top: 0;
@@ -232,6 +236,7 @@ header {
 }
 .custom-check .glyphicon {
   margin-left: 4px;
+  margin-top: 4px;
   color: #ffffff;
 }
 .form-info {
@@ -303,8 +308,8 @@ header {
 .sub-locality {
   width: 80%;
 }
-.cust-address input {
-  border-bottom: 1px solid #a4a4a4;
+.cust-address .ip-holder {
+  height: 0;
 }
 .biker-details {
   padding: 10px;
@@ -317,11 +322,8 @@ header {
   margin-left: 10px;
 }
 .biker-details .biker-time {
-  padding: 10px;
+  padding: 10px 0;
   margin-bottom: 10px;
-}
-.biker-details .biker-time span:last-child {
-  color: #f56743;
 }
 .mob-no {
   text-decoration: underline;

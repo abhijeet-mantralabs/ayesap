@@ -12,7 +12,7 @@ body{
 		display: block;
 		padding: 5px;
 		margin-bottom: 5px;
-		width: 90%;
+		// width: 90%;
 	}
 }
 .retailer{
@@ -22,11 +22,26 @@ body{
 		background-color: #eee;
 	}
 }
+
+.custom-select{
+	border: 1px solid #a4a4a4;
+	box-shadow: none;
+	height: 34px;
+	// width: 90%;
+}
+.form-control{
+	width: 450px;
+}
 .logo{
 	img{
 		width: 70px;
+		margin-right: 10px;
+	}
+	span{
+		font-size: 24px;
 	}
 }
+
 //font-size: 
 @font-face {
     font-family: 'robotoregular';
@@ -38,4 +53,7 @@ body{
          url('fonts/roboto/roboto-regular-webfont.svg#robotoregular') format('svg');
     font-weight: normal;
     font-style: normal;
+}
+@media (max-width:480px) {
+width: 90%;
 }

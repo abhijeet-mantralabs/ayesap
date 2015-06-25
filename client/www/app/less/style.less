@@ -61,6 +61,10 @@ a {
     border-bottom: 10px solid @black;
     border-left: 10px solid transparent;
 }
+.align-middle{
+    display: inline-block;
+    vertical-align: middle;
+}
 
 
 
@@ -150,7 +154,7 @@ header{
     left: 0 !important; 
 }
 .side-menu{
-    transition: left 1s;
+    transition: left 500ms;
     padding: 20px 5px;
     position: absolute;
     top: 0;
@@ -213,6 +217,7 @@ header{
     background-color: @light-green;
     .glyphicon{
         margin-left: 4px;
+        margin-top: 4px;
         color: @white;
     }
 }
@@ -286,8 +291,8 @@ header{
     width: 80%;
 }
 .cust-address{
-    input{
-        border-bottom: 1px solid #a4a4a4;
+    .ip-holder{
+        height: 0;
     }
 }
 
@@ -302,13 +307,13 @@ header{
         margin-left: 10px;
     }
     .biker-time{
-        padding: 10px;
+        padding: 10px 0;
         margin-bottom: 10px;
-        span{
-            &:last-child{
-                color: @light-red;
-            }
-        }
+        // span{
+        //     &:last-child{
+        //         color: @light-red;
+        //     }
+        // }
     }
 }
 .mob-no{

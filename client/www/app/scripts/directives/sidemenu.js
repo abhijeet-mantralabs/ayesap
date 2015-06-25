@@ -14,7 +14,7 @@ AyesapModule.directive('sidemenu', function(){
 					{
 						console.log('inside mouse');
 					    // var container = $("side-menu");
-					    console.log(e.target.className);
+					    // console.log(e.target.className);
 					    if(e.target.className !== "side-menu")
 					    {
 					      $(".side-menu").removeClass('show-menu');
