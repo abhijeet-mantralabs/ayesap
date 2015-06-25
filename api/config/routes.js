@@ -47,7 +47,8 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
-  'POST /retailer/signup':'RetailerController.signUp',
-  'GET /retailer/allUser': 'RetailerController.getRetailerList',
-    'POST /retailer/login': 'RetailerController.login'
+  'POST /retailer/requestForRegister': 'RetailerController.reqForRegister',
+  'PUT /retailer/RegisterByAdmin':'RetailerController.registerRetailerAdmin',
+  'GET /retailer/listRetailers': 'RetailerController.getRetailerList',
+  'POST /retailer/login': 'RetailerController.login'
 };

@@ -1,51 +1,144 @@
 /**
-* Retailer.js
-*
-* @description :: TODO: You might write a short summary of how this model works and what it represents here.
-* @docs        :: http://sailsjs.org/#!documentation/models
-*/
+ * Retailer.js
+ *
+ * @description :: TODO: You might write a short summary of how this model works and what it represents here.
+ * @docs        :: http://sailsjs.org/#!documentation/models
+ */
 
 var crypto = require('crypto');
 module.exports = {
-
     attributes: {
+        retailerId:{
+            type: 'string',
+            unique: true
+        },
+        name: {
+            type: 'string',
+            required: true,
+            minLength: 3
+        },
         email: {
             type: 'email',
+            minLength: 5,
+            unique: true
+        },
+        mobile: {
+            type: 'integer',
             required: true,
-            minLength: 5
+            minLength: 10,
+            unique: true
         },
         password: {
             type: 'string',
-            required: true,
-            minLength: 8
+            minLength: 6,
+            defaultsTo:"12345678"
         },
-        mobile: {
+        address:{
+            type: 'string'
+        },
+        street: {
+            type: 'string'
+        },
+        area:{
+            type: 'string'
+        },
+        city:{
+            type: 'string'
+        },
+        state:{
+            type: 'string'
+        },
+        country:{
+            type: 'string'
+        },
+        pincode:{
+            type: 'integer',
+            minLength: 6,
+            maxLength: 6
+        },
+        retailerType:{
+            type: 'string'
+        },
+        registrationStatus:{
             type: 'string',
-            required: true,
-            minLength: 8
+            enum: ['pending', 'approved', 'denied','notRegistered'],
+            defaultsTo: 'notRegistered'
         },
-        name: {type: 'string', required: true},
-        gender: {type: 'string'}
+        location:{
+            latitude: {
+                type: 'string'
+            },
+            longitude: {
+                type: 'string'
+            }
+        }
     },
-    signUp : function(opts,cb){
-        Retailer.findOne({email:opts.email}).exec(function(err, user){
-            if(err)
+    countRetailers: function(cb){
+        Retailer.count().exec(function(err, num){
+            if(err) cb(err);
+            else if(num){
+                cb(null,num);
+            }
+        });
+    },
+    requestSignUp:function(opts,cb){
+        sails.log.debug(opts);
+        Retailer.findOne({mobile:opts.mobile}).exec(function(err, user){
+            if(err){
                 cb(err);
+                sails.log.debug("err in find db");
+            }
             else if(!user){
-                saltAndHash(opts.password,function(hash){
-                    opts.password = hash;
-                    Retailer.create(opts, function(err, user){
-                        if(err)
-                            cb(err);
-                        else{
-                            delete user['password'];
-                            cb(null, user);
-                        }
-                    });
-                })
+                sails.log.debug(user);
+                Retailer.find().exec(function(err, retailers){
+                    if(err){
+                        sails.log.debug("err in count")
+                        cb(err);
+                    }else if(retailers){
+                        opts.retailerId =   retailers.length + 1;
+                        Retailer.create(opts, function(err, user){
+                            if(err){
+                                sails.log.debug("err in create retailer")
+                                cb(err);
+                            }else{
+                                cb(null, user);
+                            }
+                        });
+                    }else{
+                        sails.log.debug("else in count")
+                    }
+                });
             }
             else{
-                cb("User Already exists", null);
+                sails.log.debug("Retailer Already exists with this mobile no.");
+                cb("Retailer Already exists", null);
+            }
+        });
+    },
+    signUp : function(opts,cb){
+        Retailer.findOne({retailerId:opts.retailerId, mobile:opts.mobile}).exec(function(err, retailer){
+            if(err){
+                cb(err);
+            }else if(retailer){
+                sails.log.debug("in if retailer");
+                saltAndHash(generatePassword(retailer),function(hash) {
+                    sails.log.debug("in salt hash retailer"+hash);
+//                    opts.password = hash;
+                    //retailerId: opts.retailerId, mobile: opts.mobile
+                    opts.password = generatePassword(retailer);
+//                    opts.password = hash;
+                    opts.registrationStatus = "approved";
+                    Retailer.update({retailerId: opts.retailerId, mobile: opts.mobile}, opts ,  function (err, retailerUpdated) {
+                        if (!err){
+                            sails.log.debug("in update success retailer"+ retailerUpdated[0]);
+                            cb(null, retailerUpdated[0]);
+                        }else
+                            sails.log.debug("in update err  retailer"+err);
+                            cb(err);
+                    });
+                })
+            }else if(!retailer){
+                cb("No user found with matching retailerID or mobile no.", null);
             }
         });
     },
@@ -69,13 +162,15 @@ module.exports = {
             }
         });
     },
-    list: function (req, callback) {
-        Retailer.find().exec(function (err, family) {
-            if (!err) {
-                return callback(null, family);
-
-            } else {
-                return callback(err, {"status": "failed"});
+    listRetailer: function (req, cb) {
+        Retailer.find().exec(function(err, retailers){
+            if(err){
+                sails.log.debug("err in count")
+                cb(err);
+            }else if(retailers){
+                cb(null, retailers);
+            }else if(!retailers){
+                cb("no retailers found");
             }
         });
     },
@@ -121,4 +216,9 @@ var validatePassword = function(plainPass, hashedPass, callback){
     var salt = hashedPass.substr(0, 10);
     var validHash = salt + md5(plainPass + salt);
     callback(hashedPass === validHash);
+}
+
+var generatePassword = function(retailer){
+    var pwd = retailer.id.slice(retailer.id.length - 6, retailer.id.length);
+    return pwd;
 }
