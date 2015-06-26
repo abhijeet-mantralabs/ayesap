@@ -31,7 +31,6 @@ module.exports = {
         },
         password: {
             type: 'string',
-            minLength: 6,
             defaultsTo:"12345678"
         },
         address:{
@@ -97,13 +96,9 @@ module.exports = {
             if(err){
                 cb(err);
             }else if(retailer){
-                sails.log.debug("in if retailer");
-                saltAndHash(generatePassword(retailer),function(hash) {
-                    sails.log.debug("in salt hash retailer"+hash);
-//                    opts.password = hash;
-                    //retailerId: opts.retailerId, mobile: opts.mobile
-                    opts.password = generatePassword(retailer);
-//                    opts.password = hash;
+                    opts.plainPass = generateSalt(6);
+                saltAndHash(opts.plainPass ,function(hash) {
+                    opts.password = hash;
                     opts.registrationStatus = "approved";
                     Retailer.update({retailerId: opts.retailerId, mobile: opts.mobile}, opts ,  function (err, retailerUpdated) {
                         if (!err){
@@ -119,22 +114,27 @@ module.exports = {
         });
     },
     login : function(opts, cb){
-        Retailer.findOne({where:{email:opts.email}}).exec(function(err, user){
+        if(opts.mobile){
+            var fetchObj = {mobile:opts.mobile, registrationStatus: "approved" }
+        }else if(opts.email){
+            var fetchObj = {email:opts.email, registrationStatus: "approved" }
+        }
+        Retailer.findOne({where:fetchObj}).exec(function(err, user){
             if(err)
                 cb(err);
             else if(user){
                 validatePassword(opts.password,user.password,function(res){
                     if(res){
-                        delete user['password'];
+//                        delete user['password'];
                         cb(null,user);
                     }
                     else{
-                        cb("Email or password does not match");
+                        cb({status: 401 , message: "wrong credentials" }, null);
                     }
                 });
             }
             else{
-                cb("user does not exist");
+                cb({status: 401 , message: "user does not exist with this email or mobile no." }, null);
             }
         });
     },
@@ -166,10 +166,10 @@ module.exports = {
     }
 };
 
-var generateSalt = function(){
+var generateSalt = function(passLength){
     var set = '0123456789abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQURSTUVWXYZ';
     var salt = '';
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < passLength; i++) {
         var p = Math.floor(Math.random() * set.length);
         salt += set[p];
     }
@@ -181,7 +181,7 @@ var md5 = function(str) {
 }
 
 var saltAndHash = function(pass, callback){
-    var salt = generateSalt();
+    var salt = generateSalt(10);
     callback(salt + md5(pass + salt));
 }
 
@@ -191,7 +191,7 @@ var validatePassword = function(plainPass, hashedPass, callback){
     callback(hashedPass === validHash);
 }
 
-var generatePassword = function(retailer){
-    var pwd = retailer.id.slice(retailer.id.length - 6, retailer.id.length);
-    return pwd;
-}
+//var generatePassword = function(retailer){
+//    var pwd = retailer.id.slice(retailer.id.length - 6, retailer.id.length);
+//    return pwd;
+//}

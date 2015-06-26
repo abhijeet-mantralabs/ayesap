@@ -19,12 +19,12 @@ module.exports = {
             return id;
         }
         if(!req.body || !req.body.mobile ||  !req.body.name){
-            res.status(400).json({error: "some field(s) missing"});
+            res.status(400).json( {status: 400 , message: "some field(s) missing" });
         }else{
             console.log(req.body);
             Retailer.listRetailers(req.body, function (err, retailers) {
                 if (err) {
-                    res.status(err.status).json({message: err});
+                    res.status(err.status).json(err);
                 } else {
                     req.body.retailerId = generateAutoIncId(retailers);
                     Retailer.requestSignUp(req.body, function(err, user){
@@ -33,6 +33,8 @@ module.exports = {
                         }
                         else{
                             console.log(user)
+                            delete user.createdAt;
+                            delete user.updatedAt;
                             res.json({message: "request registered", details:{ user: user}} );
                         }
                     });
@@ -43,36 +45,51 @@ module.exports = {
     registerRetailerAdmin : function(req, res){
         console.log(req.body)
         if(!req.body || !req.body.mobile || !req.body.name || !req.body.address  || !req.body.street || !req.body.area || !req.body.city || !req.body.state || !req.body.country || !req.body.pincode || !req.body.retailerType) {
-            res.status(400).json({error: "some field(s) missing"});
+            res.status(400).json( {status: 400 , message: "some field(s) missing" });
         }
         else{
             console.log(req.body);
             Retailer.signUp(req.body, function(err, user){
                 if(err)
-                    res.serverError(err);
+                    res.status(err.status).json(err);
                 else{
-                    sails.log.debug()
+
+                    delete user.createdAt;
+                    delete user.updatedAt;
+                    delete user.password;
                     res.json({message: "Retailer successfully registered", details:{ user: user}});
                 }
             });
         }
     },
     login : function(req, res){
-        if(!req.body || !req.body.email || !req.body.password)
-            res.badRequest('Email or password missing in request');
+        console.log("hello--->>", req.body)
+        if(!req.body || !req.body.password || (!req.body.mobile && !req.body.email) )
+            res.status(400).json( {status: 400 , message: "missing credentials" });
         else{
             Retailer.login(req.body, function(err, user){
                 if(err){
-                    res.serverError(err);
+                    res.status(err.status).json(err);
                 }
                 else{
                     req.session.authenticated = true;
                     req.session.user = user;
-                    res.json("You are logged in");
+                    delete user.createdAt;
+                    delete user.updatedAt;
+                    delete user.password;
+                    console.log("req session auth ", req.session.authenticated);
+                    console.log("req session ", req.session.user);
+                    res.json({message: "Retailer logged in successfully", details:{ user: user}});
                     // console.log(req.session.user);
                 }
             });
         }
+    },
+    logout: function(req, res){
+        
+    },
+    isLoggedIn: function(){
+
     },
     getRetailerList: function (req, res) {
         Retailer.listRetailers(req.body, function (err, retailers) {

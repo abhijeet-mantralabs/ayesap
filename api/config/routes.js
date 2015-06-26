@@ -50,5 +50,7 @@ module.exports.routes = {
   'POST /retailer/requestForRegister': 'RetailerController.reqForRegister',
   'PUT /retailer/RegisterByAdmin':'RetailerController.registerRetailerAdmin',
   'GET /retailer/listRetailers': 'RetailerController.getRetailerList',
-  'POST /retailer/login': 'RetailerController.login'
+  'POST /retailer/login': 'RetailerController.login',
+  'POST /retailer/isLoggedIn': 'RetailerController.isLoggedIn',
+  'POST /retailer/loggedOut': 'RetailerController.logout'
 };
