@@ -8,7 +8,6 @@ var retailerId
 module.exports = {
     reqForRegister: function(req, res){
         function generateAutoIncId(retailers){
-            console.log("retailers------>>",retailers);
             if(retailers.length == 0){
                 var str = "" + (retailers.length+1);
             }else if(retailers.length > 0){
@@ -63,7 +62,6 @@ module.exports = {
         }
     },
     login : function(req, res){
-        console.log("hello--->>", req.body)
         if(!req.body || !req.body.password || (!req.body.mobile && !req.body.email) )
             res.status(400).json( {status: 400 , message: "missing credentials" });
         else{
@@ -86,7 +84,7 @@ module.exports = {
         }
     },
     logout: function(req, res){
-        
+
     },
     isLoggedIn: function(){
 
