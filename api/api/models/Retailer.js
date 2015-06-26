@@ -10,7 +10,8 @@ module.exports = {
     attributes: {
         retailerId:{
             type: 'string',
-            unique: true
+            unique: true,
+            required: true
         },
         name: {
             type: 'string',
@@ -73,45 +74,21 @@ module.exports = {
             }
         }
     },
-    countRetailers: function(cb){
-        Retailer.count().exec(function(err, num){
-            if(err) cb(err);
-            else if(num){
-                cb(null,num);
-            }
-        });
-    },
     requestSignUp:function(opts,cb){
-        sails.log.debug(opts);
+        sails.log.debug("opts in db function ----  >> ", opts);
         Retailer.findOne({mobile:opts.mobile}).exec(function(err, user){
             if(err){
                 cb(err);
-                sails.log.debug("err in find db");
-            }
-            else if(!user){
-                sails.log.debug(user);
-                Retailer.find().exec(function(err, retailers){
+            }else if(!user){
+                Retailer.create(opts, function(err, user){
                     if(err){
-                        sails.log.debug("err in count")
-                        cb(err);
-                    }else if(retailers){
-                        opts.retailerId =   retailers.length + 1;
-                        Retailer.create(opts, function(err, user){
-                            if(err){
-                                sails.log.debug("err in create retailer")
-                                cb(err);
-                            }else{
-                                cb(null, user);
-                            }
-                        });
+                         cb(err);
                     }else{
-                        sails.log.debug("else in count")
+                         cb(null,user);
                     }
                 });
-            }
-            else{
-                sails.log.debug("Retailer Already exists with this mobile no.");
-                cb("Retailer Already exists", null);
+            }else if(user){
+                cb({status: 400 , message: "Retailer Already exists with this mobile no." }, null);
             }
         });
     },
@@ -130,15 +107,14 @@ module.exports = {
                     opts.registrationStatus = "approved";
                     Retailer.update({retailerId: opts.retailerId, mobile: opts.mobile}, opts ,  function (err, retailerUpdated) {
                         if (!err){
-                            sails.log.debug("in update success retailer"+ retailerUpdated[0]);
                             cb(null, retailerUpdated[0]);
-                        }else
-                            sails.log.debug("in update err  retailer"+err);
+                        }else{
                             cb(err);
+                        }
                     });
                 })
             }else if(!retailer){
-                cb("No user found with matching retailerID or mobile no.", null);
+                cb({status: 400 , message: "No user found with matching retailerID and mobile no." }, null);
             }
         });
     },
@@ -162,15 +138,12 @@ module.exports = {
             }
         });
     },
-    listRetailer: function (req, cb) {
+    listRetailers: function (req, cb) {
         Retailer.find().exec(function(err, retailers){
             if(err){
-                sails.log.debug("err in count")
                 cb(err);
             }else if(retailers){
                 cb(null, retailers);
-            }else if(!retailers){
-                cb("no retailers found");
             }
         });
     },
