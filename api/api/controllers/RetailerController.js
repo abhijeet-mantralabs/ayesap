@@ -70,11 +70,12 @@ module.exports = {
                     res.status(err.status).json(err);
                 }
                 else{
+                    console.log(user)
                     req.session.authenticated = true;
                     req.session.user = user;
                     delete user.createdAt;
                     delete user.updatedAt;
-                    delete user.password;
+                    delete user.password
                     console.log("req session auth ", req.session.authenticated);
                     console.log("req session ", req.session.user);
                     res.json({message: "Retailer logged in successfully", details:{ user: user}});
@@ -84,10 +85,30 @@ module.exports = {
         }
     },
     logout: function(req, res){
+        if( req.session.authenticated == false && req.session.user == null){
+            res.status(400).json({status: 400 , message: "user already logged out" })
+        }else {
+            req.session.authenticated = false;
+            req.session.user =  null;
+            res.json({message: "user logged out successfully"});
+        }
+
 
     },
-    isLoggedIn: function(){
+    isLoggedIn: function(req, res){
 
+        if(!req.body || !req.body.retailerId ||  !req.body.mobile || !req.body.registrationStatus){
+            res.status(400).json( {status: 400 , message: "some field(s) missing" });
+        }else{
+            console.log(req.session.authenticated)
+            console.log(req.session.user);
+            console.log(req.body);
+            if( req.session.authenticated == true && req.session.user){
+                res.json({message: "logged In"});
+            }else{
+                res.status(401).json({status: 401 , message: "not loggedIn" })
+            }
+        }
     },
     getRetailerList: function (req, res) {
         Retailer.listRetailers(req.body, function (err, retailers) {
@@ -101,7 +122,7 @@ module.exports = {
 
 
     getRetailerDetail: function (req, res) {
-        var userId = req.param('id');
+//        var userId = req.param('id');
         if (userId) {
             Retailer.userDetail(userId, function (err, data) {
                 if (err) {
