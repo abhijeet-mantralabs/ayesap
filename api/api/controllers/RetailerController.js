@@ -79,7 +79,7 @@ module.exports = {
             if (err) {
                 res.status(err.status).json({error: err});
             } else {
-                res.json({ details:{ retailerList: user}} );
+                res.json({ details:{ retailerList: retailers}} );
             }
         });
     },
