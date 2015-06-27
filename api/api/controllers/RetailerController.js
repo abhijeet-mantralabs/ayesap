@@ -62,9 +62,10 @@ module.exports = {
         }
     },
     login : function(req, res){
-        if(!req.body || !req.body.password || (!req.body.mobile && !req.body.email) )
+        if(!req.body || !req.body.password || (!req.body.mobile && !req.body.email) ){
+            console.log('in 400');
             res.status(400).json( {status: 400 , message: "missing credentials" });
-        else{
+        } else {
             Retailer.login(req.body, function(err, user){
                 if(err){
                     res.status(err.status).json(err);

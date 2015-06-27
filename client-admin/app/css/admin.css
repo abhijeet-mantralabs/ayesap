@@ -5,6 +5,13 @@ body {
   padding: 15px;
   font-size: 16px;
 }
+.admin-login .align-center {
+  margin: 0 auto;
+  margin: 20px auto;
+}
+.admin-login button {
+  width: 100px;
+}
 .retailer-detail {
   padding: 10px;
 }
@@ -20,13 +27,9 @@ body {
 .retailer:hover {
   background-color: #eee;
 }
-.custom-select {
-  border: 1px solid #a4a4a4;
+.pre-populated {
+  border: none;
   box-shadow: none;
-  height: 34px;
-}
-.form-control {
-  width: 450px;
 }
 .logo img {
   width: 70px;
@@ -43,5 +46,5 @@ body {
   font-style: normal;
 }
 @media (max-width: 480px) {
-  width: 90%;
+  
 }

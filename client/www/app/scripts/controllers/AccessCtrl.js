@@ -1,17 +1,51 @@
-define(['modules/AyesapModule', 'directives/sidemenu'], function (AyesapModule) {
+define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], function (AyesapModule) {
 
-    AyesapModule.controller('SignInCtrl', function ($scope) {
-      console.log('SignInCtrl');
-      $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
-    })
-
-    AyesapModule.controller('SignUpCtrl', function ($scope) {
-		console.log('SignUpCtrl');
+    AyesapModule.controller('SignUpCtrl', function ($scope, Retailer) {
+        console.log('SignUpCtrl');
         if($(window).innerHeight() < 480){
             $('.app-container').css('min-height', '480px')
         }else{
             $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
         }
+        $scope.reqForRegister = function(retailer){
+            console.log('retailer',retailer);
+            $scope.error='';
+            $scope.message='';
+            Retailer.requestForRegister(retailer)
+            .then(function(response){
+                console.log(response);
+                $scope.message = response.message;
+            }).catch(function(err){
+                console.log(err);
+                $scope.error = err.message;
+            });
+        }
+    })
+
+    AyesapModule.controller('SignInCtrl', function ($scope, $location, Retailer) {
+      console.log('SignInCtrl');
+      $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
+
+      $scope.login = function(retailer){
+        var credentials = { };
+        if(retailer.username.includes('.com')){
+            credentials.email = retailer.username;
+            credentials.password = retailer.password;
+        } else {
+            credentials.mobile = retailer.username;
+            credentials.password = retailer.password;
+        }
+        if(credentials){
+            console.log('credentials',credentials);
+            Retailer.login(credentials)
+            .then(function(response){
+                console.log(response);
+                $location.path('/home');
+            }).catch(function(err){
+                $scope.error = err.message;
+            });
+        }
+      }
     })
 
     AyesapModule.controller('HomeCtrl', function ($scope) {

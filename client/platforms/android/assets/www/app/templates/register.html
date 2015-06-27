@@ -4,19 +4,19 @@
 <div class="form-groups">
     <form>
         <div class="input-form">
-            <input type="text" placeholder="Full Name">
+            <input type="text" placeholder="Full Name" ng-model="retailer.name">
             <p class="ip-holder"></p>
         </div>
         <div class="input-form">
-            <input type="text" placeholder="Mobile No">
+            <input type="text" placeholder="Mobile No" ng-model="retailer.mobile">
             <p class="ip-holder"></p>
         </div>
         <div class="input-form">
-            <input type="text" placeholder="Email id">
+            <input type="email" placeholder="Email id" ng-model="retailer.email">
             <p class="ip-holder"></p>
         </div>
         <div class="text-center register-me">
-            <button class="btn-aye btn-green">Register</button>
+            <button class="btn-aye btn-green" ng-click="reqForRegister(retailer)">Register</button>
         </div>
     </form>
 </div>
