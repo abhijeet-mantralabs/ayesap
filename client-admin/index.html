@@ -111,7 +111,7 @@
                                 <p class="form-control pre-populated">{{retailerRegister.email}}</p>
                             </div>
                         </div> -->
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="type" class="col-sm-2 control-label">Retailer Type:</label>
                             <div class="col-sm-5">
                                 <select name="retailer-type-list" id="type" class="form-control" ng-model = "retailerRegister.retailerType">
@@ -119,6 +119,12 @@
                                     <option value="Grocery" ng-selected="retailerRegister.retailerType">Grocery</option>
                                     <option value="Giftshop" ng-selected="retailerRegister.retailerType">Giftshop</option>
                                 </select>
+                            </div>
+                        </div> -->
+                        <div class="form-group">
+                            <label for="retailerType" class="col-sm-2 control-label">Retailer Type</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="retailerType" placeholder="retailerType" ng-model="retailerRegister.retailerType">
                             </div>
                         </div>
                         <div class="form-group">
@@ -211,11 +217,16 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-5">
-                                <button type="submit" class="btn btn-success" ng-click="registerRetailer(retailerRegister)">Register Retailer</button>
+                                <button type="submit" class="btn btn-success" ng-click="registerRetailer(retailerRegister)">Confirm and Generate Password</button>
                             </div>
                         </div>
                     </form>
-                    <div class="alert alert-danger" role="alert" ng-if="error">{{error}}</div>
+                    <div ng-if="password" class="alert alert-success col-sm-5 col-sm-offset-2">
+                        <p>Retailer successfully registered</p>
+                        Generated Password : {{password}}
+                    </div>
+                    <div class="alert alert-danger col-sm-5 col-sm-offset-2" role="alert" ng-if="error">{{error}}</div>
+
                 </div>
             </div>
         </div>

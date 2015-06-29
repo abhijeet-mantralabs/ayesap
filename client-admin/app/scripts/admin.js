@@ -41,7 +41,8 @@ angular
 			$scope.error='';			
 			retailerAdmin.registerRetailer(retailerDetails)
 			.then(function(response){
-				console.log(response);
+				console.log(response.details.user);
+				$scope.password = response.details.user.plainPass;
 			}).catch(function(err){
 				$scope.error = err.message;
 			});
