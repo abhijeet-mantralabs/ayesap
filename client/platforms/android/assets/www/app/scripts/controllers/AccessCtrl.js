@@ -26,9 +26,22 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
       console.log('SignInCtrl');
       $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
 
-      $scope.login = function(retailer){
+    function validateEmail(email) 
+    {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }         
+
+    $scope.login = function(retailer){
         var credentials = { };
-        if(retailer.username.includes('.com')){
+        // if(retailer.username.includes('.com')){
+        //     credentials.email = retailer.username;
+        //     credentials.password = retailer.password;
+        // } else {
+        //     credentials.mobile = retailer.username;
+        //     credentials.password = retailer.password;
+        // }
+        if(validateEmail(retailer.username)){
             credentials.email = retailer.username;
             credentials.password = retailer.password;
         } else {

@@ -28,7 +28,10 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
 
       $scope.login = function(retailer){
         var credentials = { };
-        if(retailer.username.includes('.com')){
+        console.log(retailer);
+        var username = retailer.username;
+        console.log(username);
+        if(username.includes('.com')){
             credentials.email = retailer.username;
             credentials.password = retailer.password;
         } else {

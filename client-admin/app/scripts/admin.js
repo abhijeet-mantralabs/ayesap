@@ -5,7 +5,7 @@ angular
 	.module('admin', [
 	'ngResource',
 	])
-	.controller('AdminCtrl', function ($scope, retailerAdmin) {
+	.controller('AdminCtrl', function ($scope, retailerAdmin, $interval) {
 		console.log('inadmin');
 		$scope.retailerRegister = {};
 			$scope.showDetails = function(retailerDetails, selectedIndex){
@@ -28,13 +28,19 @@ angular
 			$scope.retailerRegister.pincode = retailerDetails.pincode;
 		}
 
-
-		retailerAdmin.fetchRetailers().then(function(response){
+		// retailerAdmin.fetchRetailers().then(function(response){
+		// 	$scope.retailers = response.details.retailerList;
+		// 	console.log(response);
+		// }).catch(function(err){
+		// 	$scope.error = err.message;
+		// })
+		$interval(retailerAdmin.fetchRetailers().then(function(response){
 			$scope.retailers = response.details.retailerList;
 			console.log(response);
 		}).catch(function(err){
 			$scope.error = err.message;
-		});
+		}),1000)
+		
 
 		// $scope.enterDetails = false;	
 		$scope.registerRetailer = function(retailerDetails){
