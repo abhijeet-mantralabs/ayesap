@@ -23,110 +23,203 @@
             <img src="app/img/retailer-logo.png" alt="">
             <span>Ayesap Admin</span>
         </div> 
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#retailer-list" aria-controls="retailer-list" role="tab" data-toggle="tab">retailer-list</a></li>
-            <li role="presentation"><a href="#add-retailer" aria-controls="add-retailer" role="tab" data-toggle="tab">add-retailer</a></li>
-        </ul>
 
-      <!-- Tab panes -->
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active retailer-detail" id="retailer-list">
-                <table class="table">
-                    <caption>List of Retailers.</caption>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>E mail</th>
-                            <th>Mobile-no</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="retailer" ng-click="showDetails()" ng-repeat="retailer in retailers">
-                            <th scope="row">{{$index+1}}</th>
-                            <td>{{retailer.name}}</td>
-                            <td>{{retailer.email}}</td>
-                            <td>{{retailer.mobile}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div role="tabpanel" class="tab-pane retailer-detail" id="add-retailer">
-               <!--  <input type="text" name="" id="" placeholder="name">
-                <input type="text" name="" id="" placeholder="mobile no">
-                <input type="text" name="" id="" placeholder="email"> -->
-                <div class="form-group">
-                    {{retailer.name}}
+        <div class="admin-login" ng-show="login">
+            <form>
+                <div class="form-group text-center">
+                    <input type="text" class="form-control align-center" placeholder="Id" ng-model="admin.id">
                 </div>
-                <div class="form-group">
-                    {{retailer.email}}
+                <div class="form-group text-center">
+                    <input type="password" class="form-control align-center" placeholder="password" ng-model="admin.password">
                 </div>
-                <div class="form-group">
-                    {{retailer.mobile}}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success" ng-click="adminLogin(admin)">Login</button>
                 </div>
-                <form>
-                    <div class="form-group">
-                        <label for="country">Country</label>
-                        <select name="clist" id="country" class="custom-select form-control">
-                            <option value="India">India</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="state">State</label>
-                        <select name="slist" class="custom-select form-control" id="state">
-                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                            <option value="Andhra Pradesh">Andhra Pradesh</option>
-                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                            <option value="Assam">Assam</option>
-                            <option value="Bihar">Bihar</option>
-                            <option value="Chandigarh">Chandigarh</option>
-                            <option value="Chhattisgarh">Chhattisgarh</option>
-                            <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
-                            <option value="Daman and Diu">Daman and Diu</option>
-                            <option value="Delhi">Delhi</option>
-                            <option value="Goa">Goa</option>
-                            <option value="Gujarat">Gujarat</option>
-                            <option value="Haryana">Haryana</option>
-                            <option value="Himachal Pradesh">Himachal Pradesh</option>
-                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                            <option value="Jharkhand">Jharkhand</option>
-                            <option value="Karnataka">Karnataka</option>
-                            <option value="Kerala">Kerala</option>
-                            <option value="Lakshadweep">Lakshadweep</option>
-                            <option value="Madhya Pradesh">Madhya Pradesh</option>
-                            <option value="Maharashtra">Maharashtra</option>
-                            <option value="Manipur">Manipur</option>
-                            <option value="Meghalaya">Meghalaya</option>
-                            <option value="Mizoram">Mizoram</option>
-                            <option value="Nagaland">Nagaland</option>
-                            <option value="Orissa">Orissa</option>
-                            <option value="Pondicherry">Pondicherry</option>
-                            <option value="Punjab">Punjab</option>
-                            <option value="Rajasthan">Rajasthan</option>
-                            <option value="Sikkim">Sikkim</option>
-                            <option value="Tamil Nadu">Tamil Nadu</option>
-                            <option value="Tripura">Tripura</option>
-                            <option value="Uttaranchal">Uttaranchal</option>
-                            <option value="Uttar Pradesh">Uttar Pradesh</option>
-                            <option value="West Bengal">West Bengal</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="city">City</label>
-                        <input type="text" class="form-control" id="city" placeholder="city">
-                    </div>
-                    <div class="form-group">
-                        <label for="pincode">Pincode</label>
-                        <input type="text" class="form-control" id="pincode" placeholder="pincode">
-                    </div>
-                    <div class="form-group">
-                        <label for="pincode">Pincode</label>
-                        <input type="text" class="form-control" id="pincode" placeholder="pincode">
-                    </div>
-                </form>
+                
+            </form>
+        </div>
+        <div class="nav-container" ng-show="true">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#retailer-list" aria-controls="retailer-list" role="tab" data-toggle="tab">retailer-list</a></li>
+                <li role="presentation"><a href="#add-retailer" aria-controls="add-retailer" role="tab" data-toggle="tab">add-retailer</a></li>
+            </ul>
+
+          <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active retailer-detail" id="retailer-list">
+                    <table class="table">
+                        <caption>List of Retailers.</caption>
+                        <thead>
+                            <tr>
+                                <!-- <th>#</th> -->
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>E mail</th>
+                                <th>Mobile-no</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="retailer" ng-click="showDetails(retailer)" ng-repeat="retailer in retailers">
+                                <!-- <th scope="row">{{$index+1}}</th> -->
+                                <th scope="row">{{retailer.retailerId}}</th>
+                                <td>{{retailer.name}}</td>
+                                <td>{{retailer.email}}</td>
+                                <td>{{retailer.mobile}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane retailer-detail" id="add-retailer">
+                    <!-- <label class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-5">
+                      <p class="form-control-static">email@example.com</p>
+                    </div> -->
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Id:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{retailerRegister.retailerId}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Mobile:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{retailerRegister.mobile}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">Name:</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="name" placeholder="name" ng-model="retailerRegister.name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="col-sm-2 control-label">Email:</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="email" placeholder="email" ng-model="retailerRegister.email">
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label class="col-sm-2 control-label">Name:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{retailerRegister.name}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Email:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{retailerRegister.email}}</p>
+                            </div>
+                        </div> -->
+                        <div class="form-group">
+                            <label for="type" class="col-sm-2 control-label">Retailer Type:</label>
+                            <div class="col-sm-5">
+                                <select name="retailer-type-list" id="type" class="form-control" ng-model = "retailerRegister.retailerType">
+                                    <option value="Homeneed" ng-selected="retailerRegister.retailerType">Homeneed</option>
+                                    <option value="Grocery" ng-selected="retailerRegister.retailerType">Grocery</option>
+                                    <option value="Giftshop" ng-selected="retailerRegister.retailerType">Giftshop</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="country" class="col-sm-2 control-label">Country:</label>
+                            <div class="col-sm-5">
+                                <select name="clist" id="country" class="form-control" ng-model = "retailerRegister.country">
+                                    <option value="India" ng-selected="retailerRegister.country">India</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="state" class="col-sm-2 control-label">State</label>
+                            <div class="col-sm-5">
+                                <select name="slist" class="custom-select form-control" id="state" ng-model="retailerRegister.state" ng-selected="retailerRegister.state">
+                                    <!-- <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option> -->
+                                    <!-- <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                    <option value="Assam">Assam</option>
+                                    <option value="Bihar">Bihar</option>
+                                    <option value="Chandigarh">Chandigarh</option>
+                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                    <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                                    <option value="Daman and Diu">Daman and Diu</option>
+                                    <option value="Delhi">Delhi</option>
+                                    <option value="Goa">Goa</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="Haryana">Haryana</option>
+                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                    <option value="Jharkhand">Jharkhand</option> -->
+                                    <option value="Karnataka" ng-selected="retailerRegister.state">Karnataka</option>
+                                    <!-- <option value="Kerala">Kerala</option>
+                                    <option value="Lakshadweep">Lakshadweep</option>
+                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Manipur">Manipur</option>
+                                    <option value="Meghalaya">Meghalaya</option>
+                                    <option value="Mizoram">Mizoram</option>
+                                    <option value="Nagaland">Nagaland</option>
+                                    <option value="Orissa">Orissa</option>
+                                    <option value="Pondicherry">Pondicherry</option>
+                                    <option value="Punjab">Punjab</option>
+                                    <option value="Rajasthan">Rajasthan</option>
+                                    <option value="Sikkim">Sikkim</option>
+                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                    <option value="Tripura">Tripura</option>
+                                    <option value="Uttaranchal">Uttaranchal</option>
+                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                    <option value="West Bengal">West Bengal</option> -->
+                                </select>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="city" class="col-sm-2 control-label">City</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="city" placeholder="city" ng-model="retailerRegister.city">
+                            </div>
+                        </div> -->
+                        <div class="form-group">
+                            <label for="city" class="col-sm-2 control-label">City:</label>
+                            <div class="col-sm-5">
+                                <select name="citylist" id="city" class="form-control" ng-model = "retailerRegister.city">
+                                    <option value="India" ng-selected="retailerRegister.city">Bangalore</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="area" class="col-sm-2 control-label">Area</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="area" placeholder="area" ng-model="retailerRegister.area">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="street" class="col-sm-2 control-label">Street</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="street" placeholder="street" ng-model="retailerRegister.street">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="col-sm-2 control-label">address</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="address" placeholder="address" ng-model="retailerRegister.address">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pincode" class="col-sm-2 control-label">Pincode</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="pincode" placeholder="pincode" ng-model="retailerRegister.pincode">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-5">
+                                <button type="submit" class="btn btn-success" ng-click="registerRetailer(retailerRegister)">Register Retailer</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="alert alert-danger" role="alert">{{error}}</div>
+                    <div class="clearfix">{{error}}</div>
+                </div>
             </div>
         </div>
-
     </div>
     <script type="text/javascript" src="app/scripts/vendor/angular/angular.min.js"></script>
     <script type="text/javascript" src="app/scripts/vendor/angular-resource/angular-resource.min.js"></script>
