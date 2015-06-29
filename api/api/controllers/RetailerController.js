@@ -97,18 +97,18 @@ module.exports = {
     },
     isLoggedIn: function(req, res){
 
-        if(!req.body || !req.body.retailerId ||  !req.body.mobile || !req.body.registrationStatus){
-            res.status(400).json( {status: 400 , message: "some field(s) missing" });
-        }else{
+//        if(!req.body || !req.body.retailerId ||  !req.body.mobile || !req.body.registrationStatus){
+//            res.status(400).json( {status: 400 , message: "some field(s) missing" });
+//        }else{
             console.log(req.session.authenticated)
             console.log(req.session.user);
             console.log(req.body);
-            if( req.session.authenticated == true && req.session.user){
+            if(req.session && req.session.authenticated && req.session.user){
                 res.json({message: "logged In"});
             }else{
                 res.status(401).json({status: 401 , message: "not loggedIn" })
             }
-        }
+//        }
     },
     getRetailerList: function (req, res) {
         Retailer.listRetailers(req.body, function (err, retailers) {
