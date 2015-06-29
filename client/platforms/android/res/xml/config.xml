@@ -6,9 +6,9 @@
         <param name="onload" value="true" />
     </feature>
     <allow-intent href="market:*" />
-    <name>HelloCordova</name>
+    <name>Ayesap</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        Our app helps you to deliver your products to your customers.
     </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
         Apache Cordova Team

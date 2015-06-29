@@ -38,6 +38,9 @@ body {
 .logo span {
   font-size: 24px;
 }
+.add-bg {
+  background-color: #eee;
+}
 @font-face {
   font-family: 'robotoregular';
   src: url('fonts/roboto/roboto-regular-webfont.eot');

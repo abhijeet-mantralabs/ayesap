@@ -1,18 +1,19 @@
 <div class="logo text-center">
     <img src="app/img/retailer-logo.png" alt="">
 </div>
+<div class="alert alert-danger" role="alert" ng-if="error">{{error}}</div>
 <div class="form-groups">
-    <form>
+    <form name="loginForm">
         <div class="input-form">
-            <input type="text" placeholder="Email or mobile no" ng-model="retailer.username">
+            <input type="text" placeholder="Email or mobile no" ng-model="retailer.username" required>
             <p class="ip-holder"></p>
         </div>
         <div class="input-form">
-            <input type="password" placeholder="password" ng-model="retailer.password">
+            <input type="password" placeholder="password" ng-model="retailer.password" required>
             <p class="ip-holder"></p>
         </div>
         <div class="btn-container text-center">
-            <button class="btn-aye btn-green" ng-click="login(retailer)">Login</button>
+            <button class="btn-aye btn-green" ng-disabled="myForm.$invalid" ng-click="login(retailer)">Login</button>
             <p><a class="link" href="">Forgot Password?</a></p>
         </div>
     </form>

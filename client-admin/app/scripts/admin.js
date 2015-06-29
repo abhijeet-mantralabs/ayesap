@@ -8,7 +8,11 @@ angular
 	.controller('AdminCtrl', function ($scope, retailerAdmin) {
 		console.log('inadmin');
 		$scope.retailerRegister = {};
-			$scope.showDetails = function(retailerDetails){
+			$scope.showDetails = function(retailerDetails, selectedIndex){
+			$scope.enterDetails = true;
+			$scope.selectedRetailer =  selectedIndex;
+			// console.log(this.className);
+			// console.log($(this).parent().hasClass('retailer'));
 			$('a[href="#add-retailer"]').tab('show');
 			$scope.retailerRegister.name = retailerDetails.name;
 			$scope.retailerRegister.email = retailerDetails.email;
@@ -24,6 +28,7 @@ angular
 			$scope.retailerRegister.pincode = retailerDetails.pincode;
 		}
 
+
 		retailerAdmin.fetchRetailers().then(function(response){
 			$scope.retailers = response.details.retailerList;
 			console.log(response);
@@ -31,9 +36,9 @@ angular
 			$scope.error = err.message;
 		});
 
+		// $scope.enterDetails = false;	
 		$scope.registerRetailer = function(retailerDetails){
-			$scope.error='';
-			console.log(retailerDetails);
+			$scope.error='';			
 			retailerAdmin.registerRetailer(retailerDetails)
 			.then(function(response){
 				console.log(response);
@@ -41,10 +46,6 @@ angular
 				$scope.error = err.message;
 			});
 		}
-
-		// $scope.retailer.country = "India";
-		// $scope.retailer.state = "Karnataka";
-		// $scope.retailer.city = "Bangalore";
 	})
 	.service('retailerAdmin', ['$resource','$http','$q', function($resource, $http,$q){
     	

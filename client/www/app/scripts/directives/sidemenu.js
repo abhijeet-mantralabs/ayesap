@@ -1,6 +1,6 @@
-define(['modules/AyesapModule'], function (AyesapModule) {
+define(['modules/AyesapModule', 'controllers/AccessCtrl', 'services/retailer'], function (AyesapModule) {
 
-AyesapModule.directive('sidemenu', function(){
+AyesapModule.directive('sidemenu', function (Retailer, $location){
 	return {
 		restrict : 'E',
 		templateUrl : 'app/templates/directive-templates/side-menu.html',
@@ -12,26 +12,24 @@ AyesapModule.directive('sidemenu', function(){
 			}
 					$(document).mouseup(function (e)
 					{
-						console.log('inside mouse');
-					    // var container = $("side-menu");
-					    // console.log(e.target.className);
-					    if(e.target.className !== "side-menu")
-					    {
-					      $(".side-menu").removeClass('show-menu');
+				    	if($(e.target).hasClass('side-menu') || $(e.target).parents().hasClass('side-menu')){
+					    	console.log('do nothing');
+					    } else {
+					    	 $(".side-menu").removeClass('show-menu');
 					    }
-
-					    // if (!container.is(e.target) // if the target of the click isn't the container...
-					    //     && container.has(e.target).length === 0) // ... nor a descendant of the container
-					    // {
-					    // 	console.log('inside mouseup')
-					    // 	console.log(container);
-					    //     container.removeClass('show-menu');
-					    // }
 					});
 			scope.showMenu = function(){
-				// scope.addClass="show-menu";
 				$('.side-menu').addClass('show-menu');
 			}	
+			scope.logout = function (){
+				console.log('inside logout');
+				Retailer.logout()
+				.then(function(response){
+					$location.path('/')
+				}).catch (function(err){
+					console.log(err);
+				})
+			}
 		}
 	}
 })

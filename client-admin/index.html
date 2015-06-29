@@ -40,8 +40,8 @@
         </div>
         <div class="nav-container" ng-show="true">
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#retailer-list" aria-controls="retailer-list" role="tab" data-toggle="tab">retailer-list</a></li>
-                <li role="presentation"><a href="#add-retailer" aria-controls="add-retailer" role="tab" data-toggle="tab">add-retailer</a></li>
+                <li role="presentation" class="active"><a href="#retailer-list" aria-controls="retailer-list" role="tab" data-toggle="tab">List of Retailers</a></li>
+                <li role="presentation" ng-show="enterDetails"><a href="#add-retailer" aria-controls="add-retailer" role="tab" data-toggle="tab">add-retailer</a></li>
             </ul>
 
           <!-- Tab panes -->
@@ -59,7 +59,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="retailer" ng-click="showDetails(retailer)" ng-repeat="retailer in retailers">
+                            <tr class="retailer" ng-click="showDetails(retailer, $index)" ng-repeat="retailer in retailers" ng-class="{'add-bg' : selectedRetailer == $index}">
                                 <!-- <th scope="row">{{$index+1}}</th> -->
                                 <th scope="row">{{retailer.retailerId}}</th>
                                 <td>{{retailer.name}}</td>
@@ -215,8 +215,7 @@
                             </div>
                         </div>
                     </form>
-                    <div class="alert alert-danger" role="alert">{{error}}</div>
-                    <div class="clearfix">{{error}}</div>
+                    <div class="alert alert-danger" role="alert" ng-if="error">{{error}}</div>
                 </div>
             </div>
         </div>

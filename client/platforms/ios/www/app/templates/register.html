@@ -19,4 +19,6 @@
             <button class="btn-aye btn-green" ng-click="reqForRegister(retailer)">Register</button>
         </div>
     </form>
+    <div class="alert alert-success" role="alert" ng-if="message">Your request has been registered successfully.We will reach you soon !!</div>
+    <div class="alert alert-danger" role="alert" ng-if="error">{{error}}</div>
 </div>

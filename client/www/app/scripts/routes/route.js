@@ -1,7 +1,7 @@
 
 
  /*jshint unused: vars */
-define(['angular', 'modules/AyesapModule','controllers/AccessCtrl']/*deps*/, function (angular, AyesapModule)/*invoke*/ {
+define(['angular', 'modules/AyesapModule','controllers/AccessCtrl', 'services/retailer']/*deps*/, function (angular, AyesapModule)/*invoke*/ {
     // resolve= {
       // "getUserAccountService": function( $q, $timeout, $location){
       //   var userAccount = $q.defer();
@@ -22,6 +22,18 @@ define(['angular', 'modules/AyesapModule','controllers/AccessCtrl']/*deps*/, fun
    *
    * Main module of the application.
    */
+
+   var resolve = {
+      auth: function ($location, Retailer) {
+        return Retailer.isLoggedIn()
+        .then(function(status){
+        })
+        .catch(function(err){
+          $location.path('/');
+        });
+      }
+    };
+
   return AyesapModule.config(function ($routeProvider) {
       $routeProvider
         .when('/', {
@@ -30,31 +42,37 @@ define(['angular', 'modules/AyesapModule','controllers/AccessCtrl']/*deps*/, fun
         })
         .when('/signup', {
           templateUrl: 'app/templates/register.html',
-          controller: 'SignUpCtrl'
+          controller: 'SignUpCtrl',
         })
         .when('/home', {
           templateUrl: 'app/templates/home.html',
-          controller: 'HomeCtrl'
+          controller: 'HomeCtrl',
+          resolve : resolve
         })
         .when('/pickup', {
           templateUrl: 'app/templates/pickup.html',
-          controller: 'PickupCtrl'
+          controller: 'PickupCtrl',
+          resolve : resolve
         })
         .when('/pickupDetails', {
           templateUrl: 'app/templates/pickup-details.html',
-          controller: 'PickupDetailsCtrl'
+          controller: 'PickupDetailsCtrl',
+          resolve : resolve
         })
         .when('/delivered', {
           templateUrl: 'app/templates/delivered.html',
-          controller: 'deliveryCtrl'
+          controller: 'deliveryCtrl',
+          resolve : resolve
         })
         .when('/customerDetails', {
           templateUrl: 'app/templates/customer-details.html',
-          controller: 'customerDetailsCtrl'
+          controller: 'customerDetailsCtrl',
+          resolve : resolve
         })
         .when('/orderDetails', {
           templateUrl: 'app/templates/order-details.html',
-          controller: 'orderDetailsCtrl'
+          controller: 'orderDetailsCtrl',
+          resolve : resolve
         })
         .otherwise({
           redirectTo: '/'
