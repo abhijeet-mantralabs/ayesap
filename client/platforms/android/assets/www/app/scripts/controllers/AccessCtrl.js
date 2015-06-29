@@ -26,29 +26,29 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
       console.log('SignInCtrl');
       $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
 
-    function validateEmail(email) 
+    var validateEmail = function(email) 
     {
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
-    }         
-
+    } 
+    var validateMobile = function (mobile) 
+    {
+        var re = /^((0091)|(\+91)|0?)[789]{1}\d{9}$/;
+        return re.test(mobile);
+    } 
     $scope.login = function(retailer){
+        $scope.error = '';
         var credentials = { };
-        // if(retailer.username.includes('.com')){
-        //     credentials.email = retailer.username;
-        //     credentials.password = retailer.password;
-        // } else {
-        //     credentials.mobile = retailer.username;
-        //     credentials.password = retailer.password;
-        // }
-        if(validateEmail(retailer.username)){
+        if(validateEmail(retailer.username)) {
             credentials.email = retailer.username;
             credentials.password = retailer.password;
-        } else {
+        } else if (validateMobile(retailer.username)) {
             credentials.mobile = retailer.username;
             credentials.password = retailer.password;
+        } else {
+            $scope.error = 'Please Enter valid email or mobile number';
         }
-        if(credentials){
+        if((credentials.email || credentials.mobile)&& credentials.password){
             console.log('credentials',credentials);
             Retailer.login(credentials)
             .then(function(response){

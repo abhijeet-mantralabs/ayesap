@@ -5,15 +5,15 @@
 <div class="form-groups">
     <form name="loginForm">
         <div class="input-form">
-            <input type="text" placeholder="Email or mobile no" ng-model="retailer.username" required>
+            <input type="text" placeholder="Email or mobile no" ng-model="retailer.username">
             <p class="ip-holder"></p>
         </div>
         <div class="input-form">
-            <input type="password" placeholder="password" ng-model="retailer.password" required>
+            <input type="password" placeholder="password" ng-model="retailer.password">
             <p class="ip-holder"></p>
         </div>
         <div class="btn-container text-center">
-            <button class="btn-aye btn-green" ng-disabled="myForm.$invalid" ng-click="login(retailer)">Login</button>
+            <button class="btn-aye btn-green" ng-click="login(retailer)">Login</button>
             <p><a class="link" href="">Forgot Password?</a></p>
         </div>
     </form>
