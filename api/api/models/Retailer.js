@@ -96,18 +96,23 @@ module.exports = {
             if(err){
                 cb(err);
             }else if(retailer){
+                if(retailer.registrationStatus == "approved"){
+                    cb({status: 400 , message: "user registration status is already approved" }, null);
+                }else{
                     opts.plainPass = generateSalt(6);
-                saltAndHash(opts.plainPass ,function(hash) {
-                    opts.password = hash;
-                    opts.registrationStatus = "approved";
-                    Retailer.update({retailerId: opts.retailerId, mobile: opts.mobile}, opts ,  function (err, retailerUpdated) {
-                        if (!err){
-                            cb(null, retailerUpdated[0]);
-                        }else{
-                            cb(err);
-                        }
-                    });
-                })
+                    saltAndHash(opts.plainPass ,function(hash) {
+                        opts.password = hash;
+                        opts.registrationStatus = "approved";
+                        Retailer.update({retailerId: opts.retailerId, mobile: opts.mobile}, opts ,  function (err, retailerUpdated) {
+                            if (!err){
+                                cb(null, retailerUpdated[0]);
+                            }else{
+                                cb(err);
+                            }
+                        });
+                    })
+                }
+
             }else if(!retailer){
                 cb({status: 400 , message: "No user found with matching retailerID and mobile no." }, null);
             }
