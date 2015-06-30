@@ -12,8 +12,13 @@ angular
 	])
 	.controller('AdminCtrl', function ($scope, retailerAdmin, $interval) {
 		console.log('inadmin');
+		
+
 		$scope.retailerRegister = {};
 			$scope.showDetails = function(retailerDetails, selectedIndex){
+			$scope.error = null;
+			$scope.password = null;
+			
 			$scope.enterDetails = true;
 			$scope.selectedRetailer =  selectedIndex;
 			// console.log(this.className);
