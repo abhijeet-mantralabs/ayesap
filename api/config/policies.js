@@ -27,7 +27,16 @@ module.exports.policies = {
   ***************************************************************************/
 
   // '*': true,
-
+//  UserController: {
+//      '*': false,
+//      'login': [],
+//      'logout': ['sessionAuth'],
+//      'reqForRegister': [],
+//      'isLoggedIn': [],
+//      'list':['isAuthorizedToManageStaffUsers', 'sessionAuth'],
+//      'editrole': ['isAuthorizedToManageStaffUsers', 'sessionAuth'],
+//      'account': ['isAuthorizedToManageOwnAccount', 'sessionAuth'],
+//  }
   /***************************************************************************
   *                                                                          *
   * Here's an example of mapping some policies to run before a controller    *
