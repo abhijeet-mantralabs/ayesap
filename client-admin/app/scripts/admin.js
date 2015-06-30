@@ -18,7 +18,7 @@ angular
 			$scope.showDetails = function(retailerDetails, selectedIndex){
 			$scope.error = null;
 			$scope.password = null;
-			
+
 			$scope.enterDetails = true;
 			$scope.selectedRetailer =  selectedIndex;
 			// console.log(this.className);
@@ -77,7 +77,9 @@ angular
 				url: base_url+'retailer/listRetailers',
 				method: 'get',
 				// data:JSON.stringify(),
-				contentType: 'application/x-www-form-urlencoded'
+				headers: {
+				   'Content-Type': 'application/x-www-form-urlencoded'
+				}
 		  	})
 			.success(function(data){
 				deferred.resolve(data);
@@ -97,7 +99,9 @@ angular
 				url: base_url+'retailer/RegisterByAdmin',
 				method: 'PUT',
 				data:JSON.stringify(data),
-				contentType: 'application/x-www-form-urlencoded'
+				headers: {
+				   'Content-Type': 'application/x-www-form-urlencoded'
+				}
 		  	})
 			.success(function(response){
 				deferred.resolve(response);
