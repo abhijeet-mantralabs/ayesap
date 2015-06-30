@@ -5,6 +5,11 @@ angular
 	.module('admin', [
 	'ngResource',
 	])
+	.config(['$httpProvider', function($httpProvider) {
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    }
+	])
 	.controller('AdminCtrl', function ($scope, retailerAdmin, $interval) {
 		console.log('inadmin');
 		$scope.retailerRegister = {};
@@ -62,7 +67,13 @@ angular
 		this.fetchRetailers = function(){
 			var deferred = $q.defer();
 			
-			$http.get(base_url+'retailer/listRetailers')
+			// $http.get(base_url+'retailer/listRetailers')
+			$http({
+				url: base_url+'retailer/listRetailers',
+				method: 'get',
+				// data:JSON.stringify(),
+				contentType: 'application/x-www-form-urlencoded'
+		  	})
 			.success(function(data){
 				deferred.resolve(data);
 			})
@@ -76,7 +87,13 @@ angular
 	  	this.registerRetailer = function(data){
 			var deferred = $q.defer();
 			
-			$http.put(base_url+'retailer/RegisterByAdmin',data)
+			// $http.put(base_url+'retailer/RegisterByAdmin',data)
+			$http({
+				url: base_url+'retailer/RegisterByAdmin',
+				method: 'PUT',
+				data:JSON.stringify(data),
+				contentType: 'application/x-www-form-urlencoded'
+		  	})
 			.success(function(response){
 				deferred.resolve(response);
 			})
