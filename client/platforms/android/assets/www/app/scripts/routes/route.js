@@ -33,8 +33,9 @@ define(['angular', 'modules/AyesapModule','controllers/AccessCtrl', 'services/re
         });
       }
     };
-
-  return AyesapModule.config(function ($routeProvider) {
+  return AyesapModule.config(function ($routeProvider, $httpProvider) {
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
       $routeProvider
         .when('/', {
           templateUrl: 'app/templates/login.html',

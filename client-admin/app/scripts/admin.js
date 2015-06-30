@@ -5,10 +5,10 @@ angular
 	.module('admin', [
 	'ngResource',
 	])
-	.config(['$httpProvider', function($httpProvider) {
-        $httpProvider.defaults.useXDomain = true;
-        delete $httpProvider.defaults.headers.common['X-Requested-With'];
-    }
+	// .config(['$httpProvider', function($httpProvider) {
+ //        $httpProvider.defaults.useXDomain = true;
+ //        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+ //    }
 	])
 	.controller('AdminCtrl', function ($scope, retailerAdmin, $interval) {
 		console.log('inadmin');
@@ -66,21 +66,22 @@ angular
 	})
 	.service('retailerAdmin', ['$resource','$http','$q', function($resource, $http,$q){
     	
-    	var base_url = "http://52.25.176.56:1337/";
+    	// var base_url = "http://52.25.176.56:1337/";
+    	var base_url = "www.ayesap.com"
     	// var base_url = "http://localhost:1337/";
 
 		this.fetchRetailers = function(){
 			var deferred = $q.defer();
 			
-			// $http.get(base_url+'retailer/listRetailers')
-			$http({
-				url: base_url+'retailer/listRetailers',
-				method: 'get',
+			$http.get(base_url+'retailer/listRetailers')
+			// $http({
+				// url: base_url+'retailer/listRetailers',
+				// method: 'get',
 				// data:JSON.stringify(),
-				headers: {
-				   'Content-Type': 'application/x-www-form-urlencoded'
-				}
-		  	})
+				// headers: {
+				//    'content-type': 'application/x-www-form-urlencoded'
+				// }
+		  	// })
 			.success(function(data){
 				deferred.resolve(data);
 			})
@@ -94,15 +95,15 @@ angular
 	  	this.registerRetailer = function(data){
 			var deferred = $q.defer();
 			
-			// $http.put(base_url+'retailer/RegisterByAdmin',data)
-			$http({
-				url: base_url+'retailer/RegisterByAdmin',
-				method: 'PUT',
-				data:JSON.stringify(data),
-				headers: {
-				   'Content-Type': 'application/x-www-form-urlencoded'
-				}
-		  	})
+			$http.put(base_url+'retailer/RegisterByAdmin',data)
+			// $http({
+			// 	url: base_url+'retailer/RegisterByAdmin',
+			// 	method: 'PUT',
+			// 	data:JSON.stringify(data),
+				// headers: {
+				//    'content-type': 'application/x-www-form-urlencoded'
+				// },
+		  	// })
 			.success(function(response){
 				deferred.resolve(response);
 			})
