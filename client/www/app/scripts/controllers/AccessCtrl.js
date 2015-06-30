@@ -64,6 +64,18 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
     AyesapModule.controller('HomeCtrl', function ($scope) {
       console.log('HomeCtrl');
         $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
+      //   function initialize() {
+      //   console.log('inside canvas');
+      //   var mapCanvas = document.getElementById('map-canvas');
+      //   console.log('mapCanvas',mapCanvas);
+      //   var mapOptions = {
+      //       center: new google.maps.LatLng(44.5403, -78.5463),
+      //       zoom: 8,
+      //       mapTypeId: google.maps.MapTypeId.ROADMAP
+      //   }
+      //   var map = new google.maps.Map(mapCanvas, mapOptions)
+      // }
+      // google.maps.event.addDomListener(window, 'load', initialize);
      })
 
     AyesapModule.controller('PickupCtrl', function ($scope) {
