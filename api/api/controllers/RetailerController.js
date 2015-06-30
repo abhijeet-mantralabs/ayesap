@@ -116,7 +116,7 @@ module.exports = {
             if (err) {
                 res.status(err.status).json({error: err});
             } else {
-                res.status(200, { 'Content-Type': contentType, 'Access-Control-Allow-Origin': '*' }).json({ details:{ retailerList: retailers}} );
+                res.json({ details:{ retailerList: retailers}} );
             }
         });
     },
