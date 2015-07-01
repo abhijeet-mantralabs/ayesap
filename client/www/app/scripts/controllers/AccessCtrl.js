@@ -33,7 +33,7 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
     } 
     var validateMobile = function (mobile) 
     {
-        var re = /^((0091)|(\+91)|0?)[789]{1}\d{9}$/;
+        var re = /^\d{10}$/;
         return re.test(mobile);
     } 
     $scope.login = function(retailer){

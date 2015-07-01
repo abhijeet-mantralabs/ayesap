@@ -48,7 +48,7 @@ define(['angular', 'modules/AyesapModule','controllers/AccessCtrl', 'services/re
         .when('/home', {
           templateUrl: 'app/templates/home.html',
           controller: 'HomeCtrl',
-          // resolve : resolve
+          resolve : resolve
         })
         .when('/pickup', {
           templateUrl: 'app/templates/pickup.html',
