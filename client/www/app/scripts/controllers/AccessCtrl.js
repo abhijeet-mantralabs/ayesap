@@ -1,19 +1,18 @@
 define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], function (AyesapModule) {
 
     AyesapModule.controller('SignUpCtrl', function ($scope, Retailer) {
-        console.log('SignUpCtrl');
+        // console.log('SignUpCtrl');
         if($(window).innerHeight() < 480){
             $('.app-container').css('min-height', '480px')
         }else{
             $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
         }
         $scope.reqForRegister = function(retailer){
-            console.log('retailer',retailer);
+            // console.log('retailer',retailer);
             $scope.error='';
             $scope.message='';
             Retailer.requestForRegister(retailer)
             .then(function(response){
-                console.log(response);
                 $scope.message = response.message;
             }).catch(function(err){
                 console.log(err);
@@ -23,7 +22,7 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
     })
 
     AyesapModule.controller('SignInCtrl', function ($scope, $location, Retailer) {
-      console.log('SignInCtrl');
+      // console.log('SignInCtrl');
       $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
 
     var validateEmail = function(email) 
@@ -62,7 +61,7 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
     })
 
     AyesapModule.controller('HomeCtrl', function ($scope) {
-      console.log('HomeCtrl');
+      // console.log('HomeCtrl');
         $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
       //   function initialize() {
       //   console.log('inside canvas');
@@ -79,22 +78,22 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
      })
 
     AyesapModule.controller('PickupCtrl', function ($scope) {
-      console.log('PickupCtrl');
+      // console.log('PickupCtrl');
     })
   
     AyesapModule.controller('PickupDetailsCtrl', function ($scope) {
-        console.log('PickupDetailsCtrl');
+        // console.log('PickupDetailsCtrl');
     })
     AyesapModule.controller('deliveryCtrl', function ($scope) {
-        console.log('deliveryCtrl');
+        // console.log('deliveryCtrl');
     })
     
     AyesapModule.controller('customerDetailsCtrl', function ($scope) {
-        console.log('customerDetailsCtrl');
+        // console.log('customerDetailsCtrl');
     })
     
     AyesapModule.controller('orderDetailsCtrl', function ($scope) {
-        console.log('orderDetailsCtrl');
+        // console.log('orderDetailsCtrl');
         $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
     })
   
