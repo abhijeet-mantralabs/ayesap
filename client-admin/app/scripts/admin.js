@@ -67,7 +67,7 @@ angular
 	.service('retailerAdmin', ['$resource','$http','$q', function($resource, $http,$q){
     	
     	// var base_url = "http://52.25.176.56:1337/";
-    	var base_url = "www.ayesap.com/";
+    	var base_url = "www.ayesap.com/api/";
     	// var base_url = "http://localhost:1337/";
 
 		this.fetchRetailers = function(){
