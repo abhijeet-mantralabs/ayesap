@@ -9,7 +9,7 @@ angular
  //        $httpProvider.defaults.useXDomain = true;
  //        delete $httpProvider.defaults.headers.common['X-Requested-With'];
  //    }
-	])
+	// ])
 	.controller('AdminCtrl', function ($scope, retailerAdmin, $interval) {
 		console.log('inadmin');
 		
