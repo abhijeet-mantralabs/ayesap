@@ -3,7 +3,7 @@
 
 angular
 	.module('admin', [
-	'ngResource',
+	'ngResource'
 	])
 	// .config(['$httpProvider', function($httpProvider) {
  //        $httpProvider.defaults.useXDomain = true;
