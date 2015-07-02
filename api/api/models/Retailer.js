@@ -79,6 +79,7 @@ module.exports = {
             if(err){
                 cb(err);
             }else if(!user){
+                opts.registrationStatus = "pending";
                 Retailer.create(opts, function(err, user){
                     if(err){
                          cb(err);
