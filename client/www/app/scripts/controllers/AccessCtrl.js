@@ -60,21 +60,42 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
       }
     })
 
-    AyesapModule.controller('HomeCtrl', function ($scope) {
-      // console.log('HomeCtrl');
+     AyesapModule.controller('HomeCtrl', function ($scope) {
+      console.log('HomeCtrl');
+
         $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
-      //   function initialize() {
-      //   console.log('inside canvas');
-      //   var mapCanvas = document.getElementById('map-canvas');
-      //   console.log('mapCanvas',mapCanvas);
-      //   var mapOptions = {
-      //       center: new google.maps.LatLng(44.5403, -78.5463),
-      //       zoom: 8,
-      //       mapTypeId: google.maps.MapTypeId.ROADMAP
-      //   }
-      //   var map = new google.maps.Map(mapCanvas, mapOptions)
-      // }
-      // google.maps.event.addDomListener(window, 'load', initialize);
+
+        var myLatLng = new google.maps.LatLng(13.021808799999999, 77.6495135);
+        // if(myLatLng){
+            var mapOptions = {
+                zoom: 14,
+                center: myLatLng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                backgroundColor : '#000'
+            }
+        // }
+
+        $scope.map = {};
+        $scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);    
+
+            
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            title:"Bangalore"
+        });
+        // To add the marker to the map, call setMap();
+        marker.setMap($scope.map);
+        console.log($scope.map.getCenter());
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                // markOutLocation(position.coords.latitude, position.coords.longitude);
+                console.log(position);
+                // var myLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            })
+        }
+
+
      })
 
     AyesapModule.controller('PickupCtrl', function ($scope) {
