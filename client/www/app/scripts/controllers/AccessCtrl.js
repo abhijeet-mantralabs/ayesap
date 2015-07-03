@@ -71,7 +71,7 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
                 zoom: 14,
                 center: myLatLng,
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
-                backgroundColor : '#000'
+                // backgroundColor : '#000'
             }
         // }
 

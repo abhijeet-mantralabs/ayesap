@@ -2,20 +2,20 @@ define(['modules/AyesapModule'] , function (AyesapModule) {
 	AyesapModule
   	.service('Retailer', function($resource, $http,$location,$q){
 
-  		this.isLoggedIn = function(){
-      	var deferred = $q.defer();
+  // 		this.isLoggedIn = function(){
+  //     	var deferred = $q.defer();
       
-		$http.post(base_url+'retailer/isLoggedIn')
-			.success(function(status){
-				deferred.resolve();
-			})
-			.error(function(err){
-				console.log('logged out status', err.message);
-				deferred.reject(err);
-			});
+		// $http.post(base_url+'retailer/isLoggedIn')
+		// 	.success(function(status){
+		// 		deferred.resolve();
+		// 	})
+		// 	.error(function(err){
+		// 		console.log('logged out status', err.message);
+		// 		deferred.reject(err);
+		// 	});
 		  
-		  return deferred.promise;
-		};
+		//   return deferred.promise;
+		// };
 
   		this.requestForRegister = function(retailerData){
 	  		var deferred = $q.defer();
