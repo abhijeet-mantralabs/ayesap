@@ -25,7 +25,10 @@
     "grunt-contrib-coffee": "~0.10.1",
     "request":"*",
     "request-promise":"*",
-    "crypto":"*"
+    "crypto":"*",
+    "nodemailer": "*",
+    "nodemailer-express-handlebars": "*",
+    "nodemailer-sendgrid-transport": "*"
   },
   "scripts": {
     "start": "node app.js",
