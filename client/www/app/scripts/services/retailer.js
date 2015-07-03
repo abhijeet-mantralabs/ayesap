@@ -3,7 +3,7 @@ define(['modules/AyesapModule'] , function (AyesapModule) {
   	.service('Retailer', function($resource, $http,$location,$q){
 
   		this.isLoggedIn = function(){
-      var deferred = $q.defer();
+      	var deferred = $q.defer();
       
 		$http.post(base_url+'retailer/isLoggedIn')
 			.success(function(status){
