@@ -61,16 +61,20 @@ module.exports = {
         },
         registrationStatus:{
             type: 'string',
-            enum: ['pending', 'approved', 'denied','notRegistered'],
+            enum: ['pending', 'approved', 'declined','deactivated'],
             defaultsTo: 'notRegistered'
         },
-        location:{
-            latitude: {
-                type: 'string'
-            },
-            longitude: {
-                type: 'string'
-            }
+        latitude: {
+            type: 'string'
+        },
+        longitude: {
+            type: 'string'
+        },
+        accountManager:{
+            type: 'string'
+        },
+        zone:{
+            type: 'string'
         }
     },
     requestSignUp:function(opts,cb){
@@ -80,11 +84,30 @@ module.exports = {
                 cb(err);
             }else if(!user){
                 opts.registrationStatus = "pending";
-                Retailer.create(opts, function(err, user){
+//                opts.retailerId
+                Retailer.find().max('retailerId').exec(function(err,retailer){
                     if(err){
-                         cb(err);
+                        console.log("max error ---- ---->> ", err)
+                        cb(err);
                     }else{
-                         cb(null,user);
+                        console.log("max retailer: ------ >> ", retailer);
+                        if(retailer.length == 0){
+                            id = "" +   retailer.length+1;
+                        }else{
+//                            retailerId = "" + (parseInt(retailers[retailers.length-1].retailerId) + 1);
+                            id = ""  +  (parseInt(retailer[0].retailerId) + 1)
+                        }
+                        var pad = "0000";
+                        var retailerId =  pad.substring(0, pad.length - id.length) + id;
+                        console.log("generated Id ->>>>",  retailerId)
+                        opts.retailerId = retailerId
+                        Retailer.create(opts, function(err, user){
+                            if(err){
+                                 cb(err);
+                            }else{
+                                 cb(null,user);
+                            }
+                        });
                     }
                 });
             }else if(user){
@@ -154,22 +177,59 @@ module.exports = {
         });
     },
 
-    userDetail: function (uid, callback) {
-        Retailer.find({userId: uid}).exec(function (err, data) {
-            if (!err) {
-                if (data.length == 0) {
+    updateRetailer: function(opts, cb){
+        Retailer.findOne({retailerId:opts.retailerId, mobile:opts.mobile}).exec(function(err, retailer){
+            if(err){
+                cb(err);
+            }else if(retailer){
+                Retailer.update({retailerId: opts.retailerId, mobile: opts.mobile}, opts ,  function (err, retailerUpdated) {
+                    if (!err){
+                        cb(null, retailerUpdated[0]);
+                    }else{
+                        cb(err);
+                    }
+                });
+            }else if(!retailer){
+                cb({status: 400 , message: "No user found with matching retailerID and mobile no." }, null);
+            }
+        });
+    },
 
-                    callback(null, {errorType: "User Details", errorMessage: "No User with this ID"});
-
-                } else {
-
-                    callback(null, data);
-                }
-            } else {
-                return callback(err, {"status": "failed"});
+    declineRetailer: function(opts, cb){
+        Retailer.findOne({retailerId:opts.retailerId, mobile:opts.mobile}).exec(function(err, retailer){
+            if(err){
+                cb(err);
+            }else if(retailer){
+                Retailer.update({retailerId: opts.retailerId, mobile: opts.mobile}, opts ,  function (err, retailerUpdated) {
+                    if (!err){
+                        cb(null, retailerUpdated[0]);
+                    }else{
+                        cb(err);
+                    }
+                });
+            }else if(!retailer){
+                cb({status: 400 , message: "No user found with matching retailerID and mobile no." }, null);
             }
         });
     }
+
+
+//    userDetail: function (uid, callback) {
+//        Retailer.find({userId: uid}).exec(function (err, data) {
+//            if (!err) {
+//                if (data.length == 0) {
+//
+//                    callback(null, {errorType: "User Details", errorMessage: "No User with this ID"});
+//
+//                } else {
+//
+//                    callback(null, data);
+//                }
+//            } else {
+//                return callback(err, {"status": "failed"});
+//            }
+//        });
+//    }
 };
 
 var generateSalt = function(passLength){

@@ -53,6 +53,8 @@ module.exports.routes = {
   'POST /retailer/login': 'RetailerController.login',
   'POST /retailer/isLoggedIn': 'RetailerController.isLoggedIn',
   'POST /retailer/logOut': 'RetailerController.logout',
+  'PUT /retailer/updateDetails' : 'RetailerController.updateDetails',
+    'PUT /retailer/declineRetailer' : 'RetailerController.declineUser',
 
   'POST /resources/nearBy': 'ResourceController.fetchNearResources'
 };
