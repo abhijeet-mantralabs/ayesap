@@ -21,7 +21,7 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
         }
     })
 
-    AyesapModule.controller('SignInCtrl', function ($scope, $location, Retailer) {
+    AyesapModule.controller('SignInCtrl', function ($scope, $location, Retailer, $rootScope) {
       // console.log('SignInCtrl');
       $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
 
@@ -53,46 +53,24 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
                 console.log(response);
                 $scope.user = response.details.user;
                 $scope.fullAddress = $scope.user.address + ' ' + $scope.user.street + ' ' +  $scope.user.area + ' ' + $scope.user.city + ' ' + $scope.user.state + ' ' + $scope.user.pincode + ' ' + $scope.user.country;
-                $location.path('/home/').search({param: $scope.fullAddress});
-                // console.log('/home/' + $scope.fullAddress);
-                // $location.redirect('/home/' + $scope.fullAddress);
+                // $location.path('/home/').search({param: $scope.fullAddress});
+                $location.path('/home')
+                $rootScope.fullAddress = $scope.fullAddress;
             }).catch(function(err){
                 $scope.error = err.message;
             });
         }
       }
     })
-// {
-//   "message": "Retailer logged in successfully",
-//   "details": {
-//     "user": {
-//       "name": "abhi1",
-//       "email": "abhi1@gmail.com",
-//       "mobile": 1234567891,
-//       "retailerId": "0001",
-//       "registrationStatus": "approved",
-//       "address": "45/6ablock",
-//       "street": "5thmain",
-//       "area": "btmlayout",
-//       "city": "bangalore",
-//       "state": "karnataka",
-//       "country": "india",
-//       "pincode": 560043,
-//       "retailerType": "homeneed",
-//       "plainPass": "IXRbBZ",
-//       "id": "558d6f2255c3d41206a0654a"
-//     }
-//   }
-// }
-     AyesapModule.controller('HomeCtrl', function ($scope, Retailer, $timeout, $location, $routeParams) {
+
+     AyesapModule.controller('HomeCtrl', function ($scope, Retailer, $timeout, $location, $routeParams, $rootScope) {
       console.log('HomeCtrl');
 
         $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
         
         // var address = "Sai Gallerium, No. 955, 5AC, Near Hormavu Underpass HRBR Layout 1st Block, Bank Avenue Colony, Bengaluru, Karnataka 560043";
-        // var address = $routeParams.fullAddress;
-        console.log($location.search())
-        var address = $location.search().param;
+        var address = $rootScope.fullAddress;
+        // var address = $location.search().param;
         console.log(address);
         if(address){
             geocoder = new google.maps.Geocoder();
@@ -160,6 +138,7 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
                     eta.push(distanceArray[i].duration.value);
                 }
                 $scope.leastEta = Math.round((Math.min.apply(null, eta))/60);
+                $rootScope.leastEta = $scope.leastEta;
             }).catch(function(err){
                 $scope.error = err.message;
             })
@@ -185,9 +164,11 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
         // console.log('customerDetailsCtrl');
     })
     
-    AyesapModule.controller('orderDetailsCtrl', function ($scope) {
-        // console.log('orderDetailsCtrl');
+    AyesapModule.controller('orderDetailsCtrl', function ($scope, $rootScope) {
+        console.log('orderDetailsCtrl');
         $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
+        $scope.leastEta = $rootScope.leastEta;
+        console.log('$scope.leastEta',$scope.leastEta);
     })
   
 }) 

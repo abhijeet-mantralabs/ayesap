@@ -258,7 +258,7 @@
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-5" ng-if="retailerRegister.registrationStatus != 'approved'">
                                 <button type="submit" class="btn btn-primary" ng-click="registerRetailer(retailerRegister)">Confirm and Generate Password</button>
-                                <button type="submit" class="btn btn-warning" ng-click="declineRetailer(retailerRegister.retailerId,retailerRegister.mobile)" style="margin-left:15px;">Decline</button>
+                                <button ng-if="retailerRegister.registrationStatus != 'declined'" type="submit" class="btn btn-warning" ng-click="declineRetailer(retailerRegister.retailerId,retailerRegister.mobile)" style="margin-left:15px;">Decline</button>
                             </div>
                             <div class="col-sm-offset-2 col-sm-5" ng-if="retailerRegister.registrationStatus == 'approved'">
                                 <button type="submit" class="btn btn-primary" ng-click="editRetailer(retailerRegister)">Save Changes</button>
@@ -269,8 +269,8 @@
                         <p>Retailer successfully registered</p>
                         Generated Password : {{password}}
                     </div>
-                    <div ng-if="editMessage" class="alert alert-success col-sm-5 col-sm-offset-2">
-                        <p>{{editMessage}}</p>
+                    <div ng-if="message" class="alert alert-success col-sm-5 col-sm-offset-2">
+                        <p>{{message}}</p>
                     </div>
                     <div class="alert alert-danger col-sm-5 col-sm-offset-2" role="alert" ng-if="error">{{error}}</div>
 

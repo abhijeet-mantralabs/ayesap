@@ -87,13 +87,13 @@ angular
 
 		$scope.editRetailer = function(retailerDetails){
 			$scope.error='';	
-			$scope.editMessage = '';		
+			$scope.message = '';		
 			retailerAdmin.updateRetailer(retailerDetails)
 			.then(function(response){
 				console.log('after editing',response);
+				$scope.message = response.message;
+				console.log($scope.message);
 				fetchRetailerList();
-				$scope.editMessage = response.message;
-				console.log($scope.editMessage);
 			}).catch(function(err){
 				$scope.error = err.message;
 			});
@@ -101,14 +101,16 @@ angular
 
 		$scope.declineRetailer = function(retailerId,mobile){
 			$scope.error='';
+			$scope.message = '';
 			var data = {
 				retailerId : retailerId,
 				mobile : mobile
 			}			
 			retailerAdmin.declineRetailer(data)
 			.then(function(response){
-				console.log(response.details.user);
+				console.log('decline response',response);
 				fetchRetailerList();
+				$scope.message = response.message;
 			}).catch(function(err){
 				$scope.error = err.message;
 			});
