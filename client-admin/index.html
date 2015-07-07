@@ -47,8 +47,8 @@
           <!-- Tab panes -->
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active retailer-detail" id="retailer-list">
+                    <button class="btn btn-success" ng-click="refreshList()">refresh</button>
                     <table class="table">
-                        <caption>List of Retailers.</caption>
                         <thead>
                             <tr>
                                 <!-- <th>#</th> -->
@@ -105,6 +105,14 @@
                             <label for="accountManager" class="col-sm-2 control-label">Account Manager</label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="accountManager" placeholder="accountManager" ng-model="retailerRegister.accountManager">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="zone" class="col-sm-2 control-label">Zone:</label>
+                            <div class="col-sm-5">
+                                <select name="zonelist" id="zone" class="form-control" ng-model = "retailerRegister.zone">
+                                    <option value="Bangalore South" ng-selected="retailerRegister.zone">Bangalore South</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
