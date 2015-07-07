@@ -72,24 +72,25 @@ define(['modules/AyesapModule'] , function (AyesapModule) {
 			return deferred.promise;
 		}
 
-		this.getLocation = function(address){
-			var deferred = $q.defer();
-			$http({
-			    url: 'https://maps.googleapis.com/maps/api/geocode/json?', 
-			    method: "GET",
-			    params: {
-			    	address: address,
-    			}
-		 	})
-			.success(function(response){
-				deferred.resolve(response);
-			})
-			.error(function(err){
-				deferred.reject(err);
-			});
+		// for server side geocoding
+		// this.getLocation = function(address){
+		// 	var deferred = $q.defer();
+		// 	$http({
+		// 	    url: 'https://maps.googleapis.com/maps/api/geocode/json?', 
+		// 	    method: "GET",
+		// 	    params: {
+		// 	    	address: address,
+  //   			}
+		//  	})
+		// 	.success(function(response){
+		// 		deferred.resolve(response);
+		// 	})
+		// 	.error(function(err){
+		// 		deferred.reject(err);
+		// 	});
 
-			return deferred.promise;
-		}
+		// 	return deferred.promise;
+		// }
 
 		this.getdistanceMatrix = function(location){
 			var deferred = $q.defer();
