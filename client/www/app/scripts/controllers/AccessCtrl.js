@@ -50,19 +50,50 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
         if((credentials.email || credentials.mobile)&& credentials.password){
             Retailer.login(credentials)
             .then(function(response){
-                $location.path('/home');
+                console.log(response);
+                $scope.user = response.details.user;
+                $scope.fullAddress = $scope.user.address + ' ' + $scope.user.street + ' ' +  $scope.user.area + ' ' + $scope.user.city + ' ' + $scope.user.state + ' ' + $scope.user.pincode + ' ' + $scope.user.country;
+                $location.path('/home/').search({param: $scope.fullAddress});
+                // console.log('/home/' + $scope.fullAddress);
+                // $location.redirect('/home/' + $scope.fullAddress);
             }).catch(function(err){
                 $scope.error = err.message;
             });
         }
       }
     })
-
-     AyesapModule.controller('HomeCtrl', function ($scope, Retailer, $timeout) {
+// {
+//   "message": "Retailer logged in successfully",
+//   "details": {
+//     "user": {
+//       "name": "abhi1",
+//       "email": "abhi1@gmail.com",
+//       "mobile": 1234567891,
+//       "retailerId": "0001",
+//       "registrationStatus": "approved",
+//       "address": "45/6ablock",
+//       "street": "5thmain",
+//       "area": "btmlayout",
+//       "city": "bangalore",
+//       "state": "karnataka",
+//       "country": "india",
+//       "pincode": 560043,
+//       "retailerType": "homeneed",
+//       "plainPass": "IXRbBZ",
+//       "id": "558d6f2255c3d41206a0654a"
+//     }
+//   }
+// }
+     AyesapModule.controller('HomeCtrl', function ($scope, Retailer, $timeout, $location, $routeParams) {
       console.log('HomeCtrl');
 
         $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
-        var address = "Sai Gallerium, No. 955, 5AC, Near Hormavu Underpass HRBR Layout 1st Block, Bank Avenue Colony, Bengaluru, Karnataka 560043";
+        
+        // var address = "Sai Gallerium, No. 955, 5AC, Near Hormavu Underpass HRBR Layout 1st Block, Bank Avenue Colony, Bengaluru, Karnataka 560043";
+        // var address = $routeParams.fullAddress;
+        console.log($location.search())
+        var address = $location.search().param;
+        console.log(address);
         if(address){
             geocoder = new google.maps.Geocoder();
             geocoder.geocode({ 'address': address }, function(results, status) {
