@@ -1,26 +1,39 @@
-var nodemailer = require('nodemailer');
-var sgTransport = require('nodemailer-sendgrid-transport');
-var hbs = require('nodemailer-express-handlebars');
+//var nodemailer = require('nodemailer');
+//var sgTransport = require('nodemailer-sendgrid-transport');
+//var hbs = require('nodemailer-express-handlebars');
+//
+//var transporter = nodemailer.createTransport({
+//    service: 'Gmail',
+//    auth: {
+//        user: "ayesap.test@gmail.com",
+//        pass: "ayesap123"
+//    }
+//});
+//
+//// NB! No need to recreate the transporter object. You can use
+//// the same transporter object for all e-mails
+//
+//exports.sendMailForPass = function(data, cb){
+//    // setup e-mail data with unicode symbols
+//    var mailOptions = {
+////        from: 'Fred Foo ✔ <foo@blurdybloop.com>', // sender address
+//        to: data.email, // list of receivers
+//        subject: 'Ayesap Authentication Details', // Subject line
+//        template: data.template || 'signup',
+//        context: data
+//    };
+//
+//    transporter.sendMail(mailOptions, function(err, res){
+//        if (err) {
+//            console.log(err)
+//        }else{
+//            console.log(res);
+//        }
+//    });
+//}
 
-var transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-        user: "ayesap.test@gmail.com",
-        pass: "ayesap123"
-    }
-});
 
-// NB! No need to recreate the transporter object. You can use
-// the same transporter object for all e-mails
 
-//// setup e-mail data with unicode symbols
-//var mailOptions = {
-//    from: 'Fred Foo ✔ <foo@blurdybloop.com>', // sender address
-//    to: 'bar@blurdybloop.com, baz@blurdybloop.com', // list of receivers
-//    subject: 'Hello ✔', // Subject line
-//    text: 'Hello world ✔', // plaintext body
-//    html: '<b>Hello world ✔</b>' // html body
-//};
 //
 //
 //

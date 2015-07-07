@@ -52,5 +52,7 @@ module.exports.routes = {
   'GET /retailer/listRetailers': 'RetailerController.getRetailerList',
   'POST /retailer/login': 'RetailerController.login',
   'POST /retailer/isLoggedIn': 'RetailerController.isLoggedIn',
-  'POST /retailer/logOut': 'RetailerController.logout'
+  'POST /retailer/logOut': 'RetailerController.logout',
+
+  'POST /resources/nearBy': 'ResourceController.fetchNearResources'
 };
