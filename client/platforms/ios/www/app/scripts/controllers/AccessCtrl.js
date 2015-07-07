@@ -71,17 +71,19 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
                 zoom: 14,
                 center: myLatLng,
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
-                backgroundColor : '#000'
+                // backgroundColor : '#000'
             }
         // }
 
         $scope.map = {};
         $scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);    
 
-            
+        // var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';    
         var marker = new google.maps.Marker({
             position: myLatLng,
-            title:"Bangalore"
+            title:"Bangalore",
+            // icon: iconBase + 'schools_maps.png'
+            icon : 'app/img/bike.png'
         });
         // To add the marker to the map, call setMap();
         marker.setMap($scope.map);

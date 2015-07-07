@@ -200,10 +200,18 @@ header {
   width: 100%;
   padding: 20px;
 }
+.home-content {
+  position: relative;
+}
 .time-to-db {
   padding: 10px 0;
-  background-color: rgba(0, 0, 0, 0.1);
-  color: #000000;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+  z-index: 1;
 }
 .time-to-db p {
   margin: 0;

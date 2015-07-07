@@ -47,8 +47,61 @@ define(['modules/AyesapModule'] , function (AyesapModule) {
 
 		this.logout = function(){
 	  		var deferred = $q.defer();
-			console.log('inside logout service');
 			$http.post(base_url+'retailer/logout')
+			.success(function(response){
+				deferred.resolve(response);
+			})
+			.error(function(err){
+				deferred.reject(err);
+			});
+
+			return deferred.promise;
+		}
+
+		this.sendLocation = function(){
+
+			var deferred = $q.defer();
+			$http.post(base_url+'retailer/resources/nearBy')
+			.success(function(response){
+				deferred.resolve(response);
+			})
+			.error(function(err){
+				deferred.reject(err);
+			});
+
+			return deferred.promise;
+		}
+
+		// for server side geocoding
+		// this.getLocation = function(address){
+		// 	var deferred = $q.defer();
+		// 	$http({
+		// 	    url: 'https://maps.googleapis.com/maps/api/geocode/json?', 
+		// 	    method: "GET",
+		// 	    params: {
+		// 	    	address: address,
+  //   			}
+		//  	})
+		// 	.success(function(response){
+		// 		deferred.resolve(response);
+		// 	})
+		// 	.error(function(err){
+		// 		deferred.reject(err);
+		// 	});
+
+		// 	return deferred.promise;
+		// }
+
+		this.getdistanceMatrix = function(location){
+			var deferred = $q.defer();
+			$http({
+			    url: 'https://maps.googleapis.com/maps/api/distancematrix/json?', 
+			    method: "GET",
+			    params: {
+			    	origins: location.origins,
+	    			destinations : location.destinations
+    			}
+		 	})
 			.success(function(response){
 				deferred.resolve(response);
 			})
