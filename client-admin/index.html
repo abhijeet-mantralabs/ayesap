@@ -248,11 +248,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-5">
-                                <button ng-if="retailerRegister.registrationStatus != 'approved'" type="submit" class="btn btn-success" ng-click="registerRetailer(retailerRegister)">Confirm and Generate Password {{retailerRegister.registrationStatus}}</button>
-                                <button ng-if="retailerRegister.registrationStatus == 'approved'" type="submit" class="btn btn-success" ng-click="editRetailer(retailerRegister)">Save The Changes</button>
+                            <div class="col-sm-offset-2 col-sm-5" ng-if="retailerRegister.registrationStatus != 'approved'">
+                                <button type="submit" class="btn btn-primary" ng-click="registerRetailer(retailerRegister)">Confirm and Generate Password</button>
+                                <button type="submit" class="btn btn-warning" ng-click="declineRetailer(retailerRegister.retailerId,retailerRegister.mobile)" style="margin-left:15px;">Decline</button>
                             </div>
-
+                            <div class="col-sm-offset-2 col-sm-5" ng-if="retailerRegister.registrationStatus == 'approved'">
+                                <button type="submit" class="btn btn-primary" ng-click="editRetailer(retailerRegister)">Save Changes</button>
+                            </div>
                         </div>
                     </form>
                     <div ng-if="password" class="alert alert-success col-sm-5 col-sm-offset-2">

@@ -82,6 +82,32 @@ angular
 				$scope.error = err.message;
 			});
 		}
+
+		$scope.editRetailer = function(retailerDetails){
+			$scope.error='';			
+			retailerAdmin.updateRetailer(retailerDetails)
+			.then(function(response){
+				console.log(response.details.user);
+				fetchRetailerList();
+			}).catch(function(err){
+				$scope.error = err.message;
+			});
+		}
+
+		$scope.declineRetailer = function(retailerId,mobile){
+			$scope.error='';
+			var data = {
+				retailerId : retailerId,
+				mobile : mobile
+			}			
+			retailerAdmin.declineRetailer(data)
+			.then(function(response){
+				console.log(response.details.user);
+				fetchRetailerList();
+			}).catch(function(err){
+				$scope.error = err.message;
+			});
+		}
 	})
 	.service('retailerAdmin', ['$resource','$http','$q', function($resource, $http,$q){
 
@@ -119,6 +145,34 @@ angular
 				//    'content-type': 'application/x-www-form-urlencoded'
 				// },
 		  	// })
+			.success(function(response){
+				deferred.resolve(response);
+			})
+			.error(function(err){
+				deferred.reject(err);
+			});
+			
+			return deferred.promise;
+	  	}
+
+	  	this.updateRetailer = function(data){
+			var deferred = $q.defer();
+			
+			$http.put(base_url+'retailer/updateDetails',data)
+			.success(function(response){
+				deferred.resolve(response);
+			})
+			.error(function(err){
+				deferred.reject(err);
+			});
+			
+			return deferred.promise;
+	  	}
+
+	  	this.declineRetailer = function(data){
+			var deferred = $q.defer();
+			
+			$http.put(base_url+'retailer/declineRetailer',data)
 			.success(function(response){
 				deferred.resolve(response);
 			})
