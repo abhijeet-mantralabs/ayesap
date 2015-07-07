@@ -35,7 +35,8 @@ angular
                     area : retailerDetails.area,
                     street : retailerDetails.street,
                     address : retailerDetails.address,
-                    pincode : retailerDetails.pincode
+                    pincode : retailerDetails.pincode,
+                    registrationStatus:retailerDetails.registrationStatus
             }
 		}
         var fetchRetailerList = function(){
@@ -76,6 +77,7 @@ angular
 			.then(function(response){
 				console.log(response.details.user);
 				$scope.password = response.details.user.plainPass;
+				fetchRetailerList();
 			}).catch(function(err){
 				$scope.error = err.message;
 			});

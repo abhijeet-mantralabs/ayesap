@@ -90,17 +90,41 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-2 control-label">Email:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{retailerRegister.email}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="name" class="col-sm-2 control-label">Name:</label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="name" placeholder="name" ng-model="retailerRegister.name">
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="accountManager" class="col-sm-2 control-label">Account Manager</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="accountManager" placeholder="accountManager" ng-model="retailerRegister.accountManager">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="latitude" class="col-sm-2 control-label">Latitude</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="latitude" placeholder="latitude" ng-model="retailerRegister.latitude">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="longitude" class="col-sm-2 control-label">Longitude</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="longitude" placeholder="longitude" ng-model="retailerRegister.longitude">
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
                             <label for="email" class="col-sm-2 control-label">Email:</label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="email" placeholder="email" ng-model="retailerRegister.email">
                             </div>
-                        </div>
+                        </div> -->
                         <!-- <div class="form-group">
                             <label class="col-sm-2 control-label">Name:</label>
                             <div class="col-sm-5">
@@ -130,10 +154,34 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="country" class="col-sm-2 control-label">Country:</label>
+                            <label for="address" class="col-sm-2 control-label">address</label>
                             <div class="col-sm-5">
-                                <select name="clist" id="country" class="form-control" ng-model = "retailerRegister.country">
-                                    <option value="India" ng-selected="retailerRegister.country">India</option>
+                                <input type="text" class="form-control" id="address" placeholder="address" ng-model="retailerRegister.address">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="street" class="col-sm-2 control-label">Street</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="street" placeholder="street" ng-model="retailerRegister.street">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="area" class="col-sm-2 control-label">Area</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="area" placeholder="area" ng-model="retailerRegister.area">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="landmark" class="col-sm-2 control-label">Land Mark</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="landmark" placeholder="landmark" ng-model="retailerRegister.landmark">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="city" class="col-sm-2 control-label">City:</label>
+                            <div class="col-sm-5">
+                                <select name="citylist" id="city" class="form-control" ng-model = "retailerRegister.city">
+                                    <option value="India" ng-selected="retailerRegister.city">Bangalore</option>
                                 </select>
                             </div>
                         </div>
@@ -179,38 +227,20 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="country" class="col-sm-2 control-label">Country:</label>
+                            <div class="col-sm-5">
+                                <select name="clist" id="country" class="form-control" ng-model = "retailerRegister.country">
+                                    <option value="India" ng-selected="retailerRegister.country">India</option>
+                                </select>
+                            </div>
+                        </div>
                         <!-- <div class="form-group">
                             <label for="city" class="col-sm-2 control-label">City</label>
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="city" placeholder="city" ng-model="retailerRegister.city">
                             </div>
-                        </div> -->
-                        <div class="form-group">
-                            <label for="city" class="col-sm-2 control-label">City:</label>
-                            <div class="col-sm-5">
-                                <select name="citylist" id="city" class="form-control" ng-model = "retailerRegister.city">
-                                    <option value="India" ng-selected="retailerRegister.city">Bangalore</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="area" class="col-sm-2 control-label">Area</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" id="area" placeholder="area" ng-model="retailerRegister.area">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="street" class="col-sm-2 control-label">Street</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" id="street" placeholder="street" ng-model="retailerRegister.street">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="address" class="col-sm-2 control-label">address</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" id="address" placeholder="address" ng-model="retailerRegister.address">
-                            </div>
-                        </div>
+                        </div> -->                       
                         <div class="form-group">
                             <label for="pincode" class="col-sm-2 control-label">Pincode</label>
                             <div class="col-sm-5">
@@ -219,8 +249,10 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-5">
-                                <button type="submit" class="btn btn-success" ng-click="registerRetailer(retailerRegister)">Confirm and Generate Password</button>
+                                <button ng-if="retailerRegister.registrationStatus != 'approved'" type="submit" class="btn btn-success" ng-click="registerRetailer(retailerRegister)">Confirm and Generate Password {{retailerRegister.registrationStatus}}</button>
+                                <button ng-if="retailerRegister.registrationStatus == 'approved'" type="submit" class="btn btn-success" ng-click="editRetailer(retailerRegister)">Save The Changes</button>
                             </div>
+
                         </div>
                     </form>
                     <div ng-if="password" class="alert alert-success col-sm-5 col-sm-offset-2">

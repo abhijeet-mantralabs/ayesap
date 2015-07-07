@@ -120,7 +120,7 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
             origins : '13.021808799999999, 77.6495135',
             destinations : '12.971598700000000000, 77.594562699999980000|13.020705, 77.647896|13.000688, 77.674658'
         }
-        if(location){
+        var getdistanceMatrix = function(location){
             Retailer.getdistanceMatrix(location)
             .then(function(response){
                 var eta = [];
@@ -132,6 +132,9 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
             }).catch(function(err){
                 $scope.error = err.message;
             })
+        }
+        if(location){
+            getdistanceMatrix(location);
         }
 
     })
