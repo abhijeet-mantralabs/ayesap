@@ -47,7 +47,7 @@
           <!-- Tab panes -->
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active retailer-detail" id="retailer-list">
-                    <button class="btn btn-success" ng-click="refreshList()">refresh</button>
+                    <button class="btn btn-success pull-right" ng-click="refreshList()">Refresh List</button>
                     <table class="table">
                         <thead>
                             <tr>
@@ -268,6 +268,9 @@
                     <div ng-if="password" class="alert alert-success col-sm-5 col-sm-offset-2">
                         <p>Retailer successfully registered</p>
                         Generated Password : {{password}}
+                    </div>
+                    <div ng-if="editMessage" class="alert alert-success col-sm-5 col-sm-offset-2">
+                        <p>{{editMessage}}</p>
                     </div>
                     <div class="alert alert-danger col-sm-5 col-sm-offset-2" role="alert" ng-if="error">{{error}}</div>
 

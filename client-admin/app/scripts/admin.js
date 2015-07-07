@@ -55,7 +55,9 @@ angular
             }, 300000);
         };
         poll();
-
+        $scope.refreshList = function(){
+        	fetchRetailerList();
+        }
 //		retailerAdmin.fetchRetailers().then(function(response){
 //			$scope.retailers = response.details.retailerList;
 //			console.log(response);
@@ -84,11 +86,14 @@ angular
 		}
 
 		$scope.editRetailer = function(retailerDetails){
-			$scope.error='';			
+			$scope.error='';	
+			$scope.editMessage = '';		
 			retailerAdmin.updateRetailer(retailerDetails)
 			.then(function(response){
-				console.log(response.details.user);
+				console.log('after editing',response);
 				fetchRetailerList();
+				$scope.editMessage = response.message;
+				console.log($scope.editMessage);
 			}).catch(function(err){
 				$scope.error = err.message;
 			});
