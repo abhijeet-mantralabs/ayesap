@@ -179,11 +179,18 @@ header{
     }
 }
 //home page
+.home-content{
+    position: relative;
+}
 .time-to-db{
     padding: 10px 0;
-    background-color: rgba(0,0,0,0.1);
-    // color: @white;
-    color: @black;
+    background-color: rgba(0,0,0,0.8);
+    color: @white;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    right: 0;
+    z-index: 1;
     p{
         .min{
             font-size: 22px;
