@@ -1,21 +1,23 @@
 define(['modules/AyesapModule'] , function (AyesapModule) {
 	AyesapModule
-  	.service('Retailer', function($resource, $http,$location,$q){
+  	.service('Retailer', function ($resource, $http, $location, $q, $rootScope){
 
-  // 		this.isLoggedIn = function(){
-  //     	var deferred = $q.defer();
-      
-		// $http.post(base_url+'retailer/isLoggedIn')
-		// 	.success(function(status){
-		// 		deferred.resolve();
-		// 	})
-		// 	.error(function(err){
-		// 		console.log('logged out status', err.message);
-		// 		deferred.reject(err);
-		// 	});
+  		this.isLoggedIn = function(){
+
+      	var deferred = $q.defer();
+		$http.post(base_url+'retailer/isLoggedIn')
+			.success(function(response){
+				// response.details.user = response.details.user;
+                $rootScope.fullAddress = response.details.user.address + ' ' + response.details.user.street + ' ' +  response.details.user.area + ' ' + response.details.user.city + ' ' + response.details.user.state + ' ' + response.details.user.pincode + ' ' + response.details.user.country;
+				deferred.resolve();
+			})
+			.error(function(err){
+				console.log('logged out status', err.message);
+				deferred.reject(err);
+			});
 		  
-		//   return deferred.promise;
-		// };
+		  return deferred.promise;
+		};
 
   		this.requestForRegister = function(retailerData){
 	  		var deferred = $q.defer();

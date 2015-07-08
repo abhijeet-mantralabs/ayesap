@@ -36,13 +36,26 @@ angular
                     street : retailerDetails.street,
                     address : retailerDetails.address,
                     pincode : retailerDetails.pincode,
-                    registrationStatus:retailerDetails.registrationStatus
+                    registrationStatus:retailerDetails.registrationStatus,
+                    latitude : retailerDetails.latitude,
+                    longitude : retailerDetails.longitude,
+                    accountManager : retailerDetails.accountManager,
+                    zone : retailerDetails.zone
             }
 		}
         var fetchRetailerList = function(){
             retailerAdmin.fetchRetailers().then(function(response){
-                $scope.retailers = response.details.retailerList;
+                // $scope.retailers = response.details.retailerList;
                 console.log(response);
+                var sortingOrder = ['pending', 'approved', 'declined','deactivated']
+	            $scope.retailers = [];
+	            for(var s in sortingOrder){
+	               	response.details.retailerList.forEach(function(retailer){
+		               	if(retailer.registrationStatus == sortingOrder[s]){
+		                  	$scope.retailers.push(retailer)
+		                }
+              		})
+	            }
             }).catch(function(err){
                 $scope.error = err.message;
             })
@@ -58,6 +71,11 @@ angular
         $scope.refreshList = function(){
         	fetchRetailerList();
         }
+
+        //sorting
+
+        
+
 //		retailerAdmin.fetchRetailers().then(function(response){
 //			$scope.retailers = response.details.retailerList;
 //			console.log(response);

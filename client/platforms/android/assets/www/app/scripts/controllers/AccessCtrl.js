@@ -21,7 +21,7 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
         }
     })
 
-    AyesapModule.controller('SignInCtrl', function ($scope, $location, Retailer) {
+    AyesapModule.controller('SignInCtrl', function ($scope, $location, Retailer, $rootScope) {
       // console.log('SignInCtrl');
       $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
 
@@ -50,7 +50,12 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
         if((credentials.email || credentials.mobile)&& credentials.password){
             Retailer.login(credentials)
             .then(function(response){
-                $location.path('/home');
+                console.log(response);
+                $scope.user = response.details.user;
+                $scope.fullAddress = $scope.user.address + ' ' + $scope.user.street + ' ' +  $scope.user.area + ' ' + $scope.user.city + ' ' + $scope.user.state + ' ' + $scope.user.pincode + ' ' + $scope.user.country;
+                // $location.path('/home/').search({param: $scope.fullAddress});
+                $location.path('/home')
+                $rootScope.fullAddress = $scope.fullAddress;
             }).catch(function(err){
                 $scope.error = err.message;
             });
@@ -58,11 +63,15 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
       }
     })
 
-     AyesapModule.controller('HomeCtrl', function ($scope, Retailer, $timeout) {
+     AyesapModule.controller('HomeCtrl', function ($scope, Retailer, $timeout, $location, $routeParams, $rootScope) {
       console.log('HomeCtrl');
 
         $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
-        var address = "Sai Gallerium, No. 955, 5AC, Near Hormavu Underpass HRBR Layout 1st Block, Bank Avenue Colony, Bengaluru, Karnataka 560043";
+        
+        // var address = "Sai Gallerium, No. 955, 5AC, Near Hormavu Underpass HRBR Layout 1st Block, Bank Avenue Colony, Bengaluru, Karnataka 560043";
+        var address = $rootScope.fullAddress;
+        // var address = $location.search().param;
+        console.log(address);
         if(address){
             geocoder = new google.maps.Geocoder();
             geocoder.geocode({ 'address': address }, function(results, status) {
@@ -129,6 +138,7 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
                     eta.push(distanceArray[i].duration.value);
                 }
                 $scope.leastEta = Math.round((Math.min.apply(null, eta))/60);
+                $rootScope.leastEta = $scope.leastEta;
             }).catch(function(err){
                 $scope.error = err.message;
             })
@@ -154,9 +164,11 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
         // console.log('customerDetailsCtrl');
     })
     
-    AyesapModule.controller('orderDetailsCtrl', function ($scope) {
-        // console.log('orderDetailsCtrl');
+    AyesapModule.controller('orderDetailsCtrl', function ($scope, $rootScope) {
+        console.log('orderDetailsCtrl');
         $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
+        $scope.leastEta = $rootScope.leastEta;
+        console.log('$scope.leastEta',$scope.leastEta);
     })
   
 }) 

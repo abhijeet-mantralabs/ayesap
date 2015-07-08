@@ -51,11 +51,12 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
             Retailer.login(credentials)
             .then(function(response){
                 console.log(response);
-                $scope.user = response.details.user;
-                $scope.fullAddress = $scope.user.address + ' ' + $scope.user.street + ' ' +  $scope.user.area + ' ' + $scope.user.city + ' ' + $scope.user.state + ' ' + $scope.user.pincode + ' ' + $scope.user.country;
+                // $scope.user = response.details.user;
+                // $scope.fullAddress = $scope.user.address + ' ' + $scope.user.street + ' ' +  $scope.user.area + ' ' + $scope.user.city + ' ' + $scope.user.state + ' ' + $scope.user.pincode + ' ' + $scope.user.country;
                 // $location.path('/home/').search({param: $scope.fullAddress});
                 $location.path('/home')
-                $rootScope.fullAddress = $scope.fullAddress;
+                // $rootScope.fullAddress = $scope.fullAddress;
+                // console.log('after login',$rootScope.fullAddress);
             }).catch(function(err){
                 $scope.error = err.message;
             });
@@ -67,6 +68,8 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
       console.log('HomeCtrl');
 
         $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
+        $('#map-canvas').css('min-height',$(window).innerHeight()-92 + 'px');
+        console.log($('#map-canvas').height());
         
         // var address = "Sai Gallerium, No. 955, 5AC, Near Hormavu Underpass HRBR Layout 1st Block, Bank Avenue Colony, Bengaluru, Karnataka 560043";
         var address = $rootScope.fullAddress;

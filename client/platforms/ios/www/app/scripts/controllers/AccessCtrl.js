@@ -21,7 +21,7 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
         }
     })
 
-    AyesapModule.controller('SignInCtrl', function ($scope, $location, Retailer) {
+    AyesapModule.controller('SignInCtrl', function ($scope, $location, Retailer, $rootScope) {
       // console.log('SignInCtrl');
       $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
 
@@ -48,11 +48,14 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
             $scope.error = 'Please Enter valid email or mobile number';
         }
         if((credentials.email || credentials.mobile)&& credentials.password){
-            console.log('credentials',credentials);
             Retailer.login(credentials)
             .then(function(response){
                 console.log(response);
-                $location.path('/home');
+                $scope.user = response.details.user;
+                $scope.fullAddress = $scope.user.address + ' ' + $scope.user.street + ' ' +  $scope.user.area + ' ' + $scope.user.city + ' ' + $scope.user.state + ' ' + $scope.user.pincode + ' ' + $scope.user.country;
+                // $location.path('/home/').search({param: $scope.fullAddress});
+                $location.path('/home')
+                $rootScope.fullAddress = $scope.fullAddress;
             }).catch(function(err){
                 $scope.error = err.message;
             });
@@ -60,45 +63,91 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
       }
     })
 
-     AyesapModule.controller('HomeCtrl', function ($scope) {
+     AyesapModule.controller('HomeCtrl', function ($scope, Retailer, $timeout, $location, $routeParams, $rootScope) {
       console.log('HomeCtrl');
 
         $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
-
-        var myLatLng = new google.maps.LatLng(13.021808799999999, 77.6495135);
-        // if(myLatLng){
-            var mapOptions = {
-                zoom: 14,
-                center: myLatLng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                // backgroundColor : '#000'
+        
+        // var address = "Sai Gallerium, No. 955, 5AC, Near Hormavu Underpass HRBR Layout 1st Block, Bank Avenue Colony, Bengaluru, Karnataka 560043";
+        var address = $rootScope.fullAddress;
+        // var address = $location.search().param;
+        console.log(address);
+        if(address){
+            geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'address': address }, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                console.log('results',results);
+                $scope.myLatLng = new google.maps.LatLng((results[0].geometry.location.A),(results[0].geometry.location.F));
+                    var mapOptions = {
+                        zoom: 12,
+                        center: $scope.myLatLng,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                        // backgroundColor : '#000'
+                    }
+                    $scope.map = {};
+                    $scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions); 
+                    var marker = new google.maps.Marker({
+                        position: $scope.myLatLng,
+                        title:"Bangalore",
+                    });
+                    // To add the marker to the map, call setMap();
+                    marker.setMap($scope.map);
+              }
+            });
+        }
+            
+        var markers = [
+            [13.020705,77.647896],
+            [12.971598700000000000,77.594562699999980000]
+        ];
+          
+        $timeout(function() {
+            console.log('markers',markers);
+            for( i = 0; i < markers.length; i++ ) {
+                var position = new google.maps.LatLng(markers[i][0], markers[i][1]);
+                // bounds.extend(position);
+                console.log(position);
+                marker = new google.maps.Marker({
+                    position: position,
+                    map: $scope.map,
+                    // title: markers[i][0]
+                    icon : 'app/img/bike.png'
+                });
             }
+        }, 3000);
+
+        // finding current location
+        // if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition(function (position) {
+        //         // markOutLocation(position.coords.latitude, position.coords.longitude);
+        //         console.log(position);
+        //         // var myLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        //     })
         // }
 
-        $scope.map = {};
-        $scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);    
-
-        // var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';    
-        var marker = new google.maps.Marker({
-            position: myLatLng,
-            title:"Bangalore",
-            // icon: iconBase + 'schools_maps.png'
-            icon : 'app/img/bike.png'
-        });
-        // To add the marker to the map, call setMap();
-        marker.setMap($scope.map);
-        console.log($scope.map.getCenter());
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                // markOutLocation(position.coords.latitude, position.coords.longitude);
-                console.log(position);
-                // var myLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        var location = {
+            origins : '13.021808799999999, 77.6495135',
+            destinations : '12.971598700000000000, 77.594562699999980000|13.020705, 77.647896|13.000688, 77.674658'
+        }
+        var getdistanceMatrix = function(location){
+            Retailer.getdistanceMatrix(location)
+            .then(function(response){
+                var eta = [];
+                var distanceArray = response.rows[0].elements;
+                for ( i = 0; i < distanceArray.length; i++ ) {
+                    eta.push(distanceArray[i].duration.value);
+                }
+                $scope.leastEta = Math.round((Math.min.apply(null, eta))/60);
+                $rootScope.leastEta = $scope.leastEta;
+            }).catch(function(err){
+                $scope.error = err.message;
             })
         }
+        if(location){
+            getdistanceMatrix(location);
+        }
 
-
-     })
+    })
 
     AyesapModule.controller('PickupCtrl', function ($scope) {
       // console.log('PickupCtrl');
@@ -115,9 +164,11 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
         // console.log('customerDetailsCtrl');
     })
     
-    AyesapModule.controller('orderDetailsCtrl', function ($scope) {
-        // console.log('orderDetailsCtrl');
+    AyesapModule.controller('orderDetailsCtrl', function ($scope, $rootScope) {
+        console.log('orderDetailsCtrl');
         $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
+        $scope.leastEta = $rootScope.leastEta;
+        console.log('$scope.leastEta',$scope.leastEta);
     })
   
 }) 
