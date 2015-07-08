@@ -4,39 +4,42 @@
 define(['angular', 'modules/AyesapModule','controllers/AccessCtrl', 'services/retailer']/*deps*/, function (angular, AyesapModule)/*invoke*/ {
     
 
-    resolve = {
-        sessionCheck : function($q, $location, $http){
-        var deferred = $q.defer();
+    // resolve = {
+    //     sessionCheck : function($q, $location, $http){
+    //     var deferred = $q.defer();
       
-        $http.post(base_url+'retailer/isLoggedIn')
-            .success(function(res){
-                deferred.resolve({
-                    accountDetails: function() {
-                        return res ; 
-                    }
-                });
-            })
-            .error(function(err){
-                deferred.reject();
-                $location.path('/');
-            });
+    //     $http.post(base_url+'retailer/isLoggedIn')
+    //         .success(function(res){
+    //             $scope.user = response.details.user;
+    //             $rootscope.fullAddress = $scope.user.address + ' ' + $scope.user.street + ' ' +  $scope.user.area + ' ' + $scope.user.city + ' ' + $scope.user.state + ' ' + $scope.user.pincode + ' ' + $scope.user.country;
+    //             deferred.resolve({
+    //                 accountDetails: function() {
+    //                     return res ; 
+    //                     console.log('isloggedin',res);
+    //                 }
+    //             });
+    //         })
+    //         .error(function(err){
+    //             deferred.reject();
+    //             $location.path('/');
+    //         });
           
-            return deferred.promise;
-        }
-    };
+    //         return deferred.promise;
+    //     }
+    // };
     
     return AyesapModule.config(function ($routeProvider, $httpProvider) {
 
-        // resolve = {
-        //     auth: function ($location, Retailer) {
-        //         return Retailer.isLoggedIn()
-        //         .then(function(status){
-        //         })
-        //         .catch(function(err){
-        //             $location.path('/');
-        //         });
-        //     }
-        // } 
+        resolve = {
+            auth: function ($location, Retailer) {
+                return Retailer.isLoggedIn()
+                .then(function(status){
+                })
+                .catch(function(err){
+                    $location.path('/');
+                });
+            }
+        } 
 
     $routeProvider
         .when('/', {
