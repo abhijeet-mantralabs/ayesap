@@ -5,6 +5,7 @@
 @white : #fff;
 @black : #000;
 @fade : #353538;
+@text-color : #505050;
 
 
 //helper classes and general styles
@@ -34,7 +35,7 @@ input{
 	}
 }
 .section-head-white{
-	color: @black;
+	color: @text-color;
 	h3{
 		padding-bottom: 5px;
 		border-bottom: 1px solid @dark-grey;
@@ -43,6 +44,7 @@ input{
 		font-family: 'panamalight';
 	}
 }
+
 // add from jquery
 
 .active-tab{
@@ -52,8 +54,14 @@ input{
 body{
 	font-size: 18px;
 	font-family: 'latolight';
+	color : @text-color;
 }
 header{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 99;
 	padding: 1px;
 	background-color: @blue;
 	color: @white;
@@ -149,6 +157,10 @@ header{
 	border: 1px solid @white;
 	color: white;
 	background-color: @dark-grey;
+	margin-right: 50px;
+	&:hover{
+		background-color: darken(@dark-grey, 10%)
+	}
 }
 .submit-btn-blue{
 	padding: 5px 30px;
@@ -156,10 +168,15 @@ header{
 	border: none;
 	color: white;
 	background-color: @blue;
+	margin-top: 30px;
+	&:hover{
+		background-color: darken(@blue, 10%)
+	}
 }
 #get-started{
 	color: @white;
 	background-color: @dark-grey;
+	padding: 10px 0 25px 0;
 	.input-formgroup{
 		width: 600px;
 		margin: 30px auto;
@@ -186,12 +203,19 @@ header{
 
 }
 #become-rider{
-	color: @white;
+	// color: @white;
+	padding: 20px 0 30px 0;
+	.section-head-white{
+		margin-bottom: 10px;
+	}
 	.rider-form{
+		.rider-img{
+			margin-right: 50px;
+		}
 		.rider-form-content{
 			input{
 				display: block;
-				border: 1px solid #000;
+				border: 1px solid #a4a4a4;
 				width: 400px;
 				padding: 10px;
 				margin-bottom: 20px;
@@ -202,6 +226,10 @@ header{
 #contact-us{
 	color: @white;
 	background-color: @dark-grey;
+	padding: 20px 0 30px 0;
+	.section-head-grey{
+		margin-bottom: 15px;
+	}
 	.contact-us-content{
 		width: 600px;
 		margin: 0 auto;
