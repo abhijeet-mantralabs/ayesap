@@ -25,7 +25,7 @@ AyesapModule.directive('sidemenu', function (Retailer, $location){
 				console.log('inside logout');
 				Retailer.logout()
 				.then(function(response){
-					$location.path('/')
+					$location.path('/login')
 				}).catch (function(err){
 					console.log(err);
 				})
