@@ -34,3 +34,6 @@ window.aboutScroll = function(ele,el)
   
   $('html, body').animate({scrollTop:$(section).offset().top},1000);
 }
+$('.carousel').carousel({
+  interval: 2000000
+})

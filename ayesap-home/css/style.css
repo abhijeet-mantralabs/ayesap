@@ -1,0 +1,152 @@
+ul {
+  margin: 0;
+}
+li {
+  list-style-type: none;
+}
+.align-middle {
+  display: inline-block;
+  vertical-align: middle;
+}
+.section-head h3 {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ffffff;
+  display: inline-block;
+}
+.active-tab {
+  border-bottom: 2px solid #ffffff !important;
+}
+body {
+  font-size: 18px;
+}
+header {
+  padding: 1px;
+  background-color: #0054a6;
+  color: #ffffff;
+}
+header .nav-item {
+  margin-right: 10px;
+  padding: 20px 10px;
+  border-bottom: 2px solid #0054a6;
+  cursor: pointer;
+}
+#home .slider-content {
+  height: 506px;
+  overflow: hidden;
+}
+#home .item {
+  background-color: #353538 !important;
+  opacity: 0.8 !important;
+  height: 506px;
+  position: relative;
+}
+#home .item .carousel-caption {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+#home .item .carousel-caption span {
+  position: relative;
+  top: 220px;
+  font-size: 28px;
+}
+.slide-1,
+.slide-2,
+.slide-3,
+.slide-4 {
+  background-image: url('../img/delivery-man.jpg');
+  background-repeat: none;
+  background-size: 100% 100%;
+}
+.we-deliver {
+  color: #ffffff;
+  background-color: #404040;
+}
+#how-it-works .screenshot {
+  position: relative;
+  margin: 0 15px;
+}
+#how-it-works .screenshot .screenshot-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(18, 18, 18, 0.8);
+  display: none;
+}
+#how-it-works .screenshot .screenshot-cover p {
+  color: white;
+  margin-top: 250px;
+}
+.submit-btn {
+  padding: 5px 30px;
+  border: 1px solid #ffffff;
+  color: white;
+  background-color: #404040;
+}
+.submit-btn-blue {
+  padding: 5px 30px;
+  border: none;
+  color: white;
+  background-color: #0054a6;
+}
+#get-started {
+  background-color: #404040;
+}
+#get-started .input-formgroup {
+  width: 600px;
+  margin: 30px auto;
+}
+#get-started .input-formgroup .input-icon {
+  width: 100px;
+  text-align: right;
+  padding-right: 20px;
+}
+#get-started .input-formgroup .input-form {
+  width: 400px;
+}
+#get-started .input-formgroup .input-form input {
+  box-shadow: none;
+  background-color: #404040;
+  border: none;
+  border-bottom: 1px solid #fff;
+  width: 100%;
+  padding: 0 0 7px 5px;
+}
+#get-started .margin-fix {
+  margin-right: 8px;
+}
+#become-rider .rider-form .rider-form-content input {
+  display: block;
+  border: 1px solid #000;
+  width: 400px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+#contact-us {
+  background-color: #404040;
+}
+#contact-us .contact-us-content {
+  width: 600px;
+  margin: 0 auto;
+}
+#contact-us .cu-details {
+  margin-bottom: 15px;
+}
+#contact-us .cu-images {
+  display: inline-block;
+  vertical-align: top;
+  width: 50px;
+  text-align: right;
+}
+#contact-us .cu-images img {
+  padding-right: 20px;
+}
+#contact-us .cu-content {
+  display: inline-block;
+  vertical-align: top;
+}

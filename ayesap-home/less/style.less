@@ -1,0 +1,175 @@
+@blue : #0054a6;
+@dark-grey : #404040;
+@white : #fff;
+@black : #000;
+@fade : #353538;
+
+//helper classes and general styles
+ul{
+	margin: 0;
+}
+li{
+	list-style-type: none;
+}
+.align-middle{
+	display: inline-block;
+	vertical-align: middle;
+}
+.section-head{
+	h3{
+		padding-bottom: 5px;
+		border-bottom: 1px solid @white;
+		display: inline-block; 
+	}
+}
+// add from jquery
+
+.active-tab{
+	border-bottom: 2px solid @white !important;
+}
+
+body{
+	font-size: 18px;
+}
+header{
+	padding: 1px;
+	background-color: @blue;
+	color: @white;
+	.nav-item{
+		margin-right: 10px;
+		padding: 20px 10px;
+		border-bottom: 2px solid @blue;
+		cursor:pointer;
+	}
+}
+#home{
+	.slider-content{
+		height: 506px;
+		overflow: hidden;
+	}
+	.item{
+		// background-color: rgb( 18, 18, 18 );
+		background-color: @fade !important;
+		opacity: 0.8 !important;
+		height: 506px;
+		position: relative;
+		.carousel-caption{
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			margin: auto;
+			span{
+				position: relative;
+				top: 220px;
+				font-size: 28px;
+			
+			}
+		}
+	}
+}
+.slide-1, .slide-2 ,.slide-3, .slide-4{
+	background-image: url('../img/delivery-man.jpg');
+	background-repeat: none;
+	background-size: 100% 100%;
+}
+.we-deliver{
+	color: @white;
+	background-color: @dark-grey;
+}
+#how-it-works{
+	.screenshot{
+		position: relative;
+		margin: 0 15px;
+		.screenshot-cover{
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: rgba( 18, 18, 18, .8);
+			display: none;
+			p{
+				color: white;
+				margin-top: 250px;
+			}
+		}
+	}
+}
+.submit-btn{
+	padding: 5px 30px;
+	border: 1px solid @white;
+	color: white;
+	background-color: @dark-grey;
+}
+.submit-btn-blue{
+	padding: 5px 30px;
+	// border: 1px solid @white;
+	border: none;
+	color: white;
+	background-color: @blue;
+}
+#get-started{
+	background-color: @dark-grey;
+	.input-formgroup{
+		width: 600px;
+		margin: 30px auto;
+		.input-icon{
+			width: 100px;
+			text-align: right;
+			padding-right: 20px;
+		}
+		.input-form{
+			width: 400px;
+			input{
+				box-shadow: none;
+				background-color: #404040;
+				border: none;
+				border-bottom: 1px solid #fff;
+				width: 100%;
+				padding: 0 0 7px 5px;
+			}
+		}
+	}
+	.margin-fix{
+		margin-right: 8px;
+	}
+
+}
+#become-rider{
+	.rider-form{
+		.rider-form-content{
+			input{
+				display: block;
+				border: 1px solid #000;
+				width: 400px;
+				padding: 10px;
+				margin-bottom: 20px;
+			}
+		}
+	}
+}
+#contact-us{
+	background-color: @dark-grey;
+	.contact-us-content{
+		width: 600px;
+		margin: 0 auto;
+	}
+	.cu-details{
+		margin-bottom: 15px;
+	}
+	.cu-images{
+		display: inline-block;
+		vertical-align: top;
+		width: 50px;
+		text-align: right;
+		img{
+			padding-right: 20px;
+		}
+	}
+	.cu-content{
+		display: inline-block;
+		vertical-align: top;
+	}
+}

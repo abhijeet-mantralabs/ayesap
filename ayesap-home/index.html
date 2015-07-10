@@ -8,8 +8,9 @@
     <title>Ayesap</title>
 
     <!-- Bootstrap -->
-    <link href="css/styles.css" rel="stylesheet">
+    
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -19,56 +20,63 @@
     <![endif]-->
   </head>
   <body>
-    <header>
+    <header class="text-center">
         <div class="wrapper">
-            <div class="logo">
-                <img src="" alt="">
+            <div class="logo align-middle">
+                <span>AyeSAP</span>
             </div>
-            <ul> 
-                <li class="nav-item">
+            <ul class="align-middle"> 
+                <li class="nav-item align-middle active-tab">
                     Home
                 </li>
-                <li class="nav-item">
+                <li class="nav-item align-middle">
                     How it Works
                 </li>
-                <li class="nav-item">
+                <li class="nav-item align-middle">
                     Start shipping
                 </li>
-                <li class="nav-item">
+                <li class="nav-item align-middle">
                     Become a rider
                 </li>
-                <li class="nav-item">
+                <li class="nav-item align-middle">
                     Contact us
                 </li>
             </ul>
         </div>
     </header>
     <section id="home">
-        <div class="slider-content">
+        <div class="slider-content clearfix">
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
               <!-- Indicators -->
-              <ol class="carousel-indicators">
+              <!-- <ol class="carousel-indicators">
                 <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                 <li data-target="#carousel-example-generic" data-slide-to="1"></li>
                 <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-              </ol>
+              </ol> -->
 
               <!-- Wrapper for slides -->
-              <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                  <img src="" alt="...">
+            <div class="carousel-inner" role="listbox">
+                <div class="item active slide-1">
                   <div class="carousel-caption">
-                    ...
+                    <span>Transforming India’s Last mile</span>
                   </div>
                 </div>
-                <div class="item">
-                  <img src="" alt="...">
+                <div class="item slide-2">
                   <div class="carousel-caption">
-                    ...
+                    <span>Fleet of highly trained delivery agents.</span>
                   </div>
                 </div>
-                ...
-              </div>
+                <div class="item active slide-1">
+                  <div class="carousel-caption">
+                    <span>On demand pickup and delivery with real time updates.</span>
+                  </div>
+                </div>
+                <div class="item active slide-1">
+                  <div class="carousel-caption">
+                    <span>Pay as per use : free registration</span>
+                  </div>
+                </div>
+            </div>
 
               <!-- Controls -->
               <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
@@ -81,150 +89,165 @@
               </a>
             </div>
         </div>
-        <div class="we-deliver">
-            <h3>WE DELIVER</h3>
-            <div class="wd-images">
+        <div class="we-deliver text-center">
+            <div class="section-head text-center">
+               <h3>WE DELIVER</h3> 
+            </div>
+            <div class="wd-images align-middle">
                 <div class="wd-image">
-                    <img src="" alt="">
+                    <img src="img/Grocery.png" alt="">
                     <p class="img-caption">Grocery</p>
                 </div>
             </div>
-            <div class="wd-images">
+            <div class="wd-images align-middle">
                 <div class="wd-image">
-                    <img src="" alt="">
+                    <img src="img/food.png" alt="">
                     <p class="img-caption">Food</p>
                 </div>
             </div>
-            <div class="wd-images">
+            <div class="wd-images align-middle">
                 <div class="wd-image">
-                    <img src="" alt="">
+                    <img src="img/medicine.png" alt="">
                     <p class="img-caption">Medicine</p>
                 </div>
             </div>
-            <div class="wd-images">
+            <div class="wd-images align-middle">
                 <div class="wd-image">
-                    <img src="" alt="">
+                    <img src="img/laundry.png" alt="">
                     <p class="img-caption">Laundry/Other</p>
                 </div>
             </div>
         </div>
     </section>
-    <section id="how-it-works">
-        <div class="screenshot">
-            <img src="" alt="">
+    <section id="how-it-works" class="text-center">
+        <div class="section-head text-center">
+               <h3>HOW IT WORKS?</h3> 
+        </div>
+        <div class="screenshot align-middle">
+            <img src="img/how-it-works-1.png" alt="">
             <div class="screenshot-cover">
-                <p></p>  
+                <p>Delivery Agent</p>  
             </div>
         </div>
-        <div class="screenshot">
-            <img src="" alt="">
+        <div class="screenshot align-middle">
+            <img src="img/how-it-works-2.png" alt="">
             <div class="screenshot-cover">
                 <p>Picked up by Delivery Agent</p>    
             </div>
         </div>
-        <div class="screenshot">
-            <img src="" alt="">
+        <div class="screenshot align-middle">
+            <img src="img/how-it-works-3.png" alt="">
             <div class="screenshot-cover">
                 <p>Real time tracking of orders</p>
             </div>
         </div>
     </section>
-    <section id="get-started">
-        <div class="gs-heading">
+    <section id="get-started" class="text-center">
+        <div class="gs-heading section-head text-center">
             <h3>GET STARTED</h3>
             <p>SHARE YOUR DETAILS FOR A FREE TRIAL</p>
         </div>
         <form action="">
             <div class="input-formgroup">
-                <div class="input-icon">
-                    <img src="" alt="">
+                <div class="input-icon align-middle">
+                    <img src="img/contact.png" alt="">
                 </div>
-                <div class="input-form">
+                <div class="input-form align-middle">
                     <input type="text" placeholder="Name">
                 </div>
             </div>
             <div class="input-formgroup">
-                <div class="input-icon">
-                    <img src="" alt="">
+                <div class="input-icon align-middle">
+                    <img src="img/number.png" alt="" class="margin-fix">
                 </div>
-                <div class="input-form">
+                <div class="input-form align-middle">
                     <input type="text" placeholder="Phone number">
                 </div>
             </div>
             <div class="input-formgroup">
-                <div class="input-icon">
-                    <img src="" alt="">
+                <div class="input-icon align-middle">
+                    <img src="img/city.png" alt="" class="margin-fix">
                 </div>
-                <div class="input-form">
+                <div class="input-form align-middle">
                     <input type="text" placeholder="City">
                 </div>
             </div>
             <div class="input-formgroup">
-                <div class="input-icon">
-                    <img src="" alt="">
+                <div class="input-icon align-middle">
+                    <img src="img/comment.png" alt="">
                 </div>
-                <div class="input-form">
+                <div class="input-form align-middle">
                     <input type="text" placeholder="Comments">
                 </div>
             </div>
             <div class="input-formgroup">
-                <div class="input-icon">
+                <div class="input-icon align-middle">
                     <img src="" alt="">
                 </div>
-                <div class="input-form">
+                <div class="input-form align-middle">
                     <input type="text" placeholder="Name">
                 </div>
             </div>
-            <button type="submit">Submit</button>
+            <div class="input-formgroup text-right">
+                <button type="submit" class="submit-btn">Submit</button>
+            </div>
         </form>
     </section>
     <secton id="become-rider">
-        <div class="gs-heading">
+        <div class="gs-heading section-head text-center">
             <h3>BECOME A RIDER</h3>
             <p>PART TIME/FULL TIME OPPORTUNITY FOR DELIVERY AGENTS</p>
         </div>
-        <div class="rider-form">
-            <div class="rider-img">
-                
+        <div class="rider-form text-center">
+            <div class="rider-img align-middle">
+                <img src="img/t-shirt.png" alt="">
             </div>
-            <div class="rider-form-content">
+            <div class="rider-form-content align-middle">
                 <form action="">
                     <input type="text" placeholder="Name">
                     <input type="text" placeholder="Phone number">
                     <input type="text" placeholder="City">
-                    <button type="submit">Submit</button>
+                    <div class="text-right">
+                        <button type="submit" class="submit-btn-blue">Submit</button>
+                    </div>
                 </form>
             </div>
         </div>
     </secton>
     <section id="contact-us">
-        <h3>CONTACT US</h3>
+        <div class="section-head text-center">
+            <h3>CONTACT US</h3>
+        </div>
         <div class="contact-us-content">
-            <div class="row">
-                <div class="col-xs-2">
-                    <img src="" alt="">
+            <div class="cu-details">
+                <div class="cu-images">
+                    <img src="img/city.png" alt="">
                 </div>
-                <div class="col-xs-5">
-                    <p>1252/g,22nd</p>
-                    <p>Main road,HSR Layout,</p>
-                    <p>Sector 1.</p>
-                    <p>Landmark:Cambridgescholl</p> 
+                <div class="cu-content">
+                    <p>1252/g,22nd,Main road,HSR Layout,Sector 1.</p>
+                    <p>Bangalore - 560102,Landmark:Cambridgescholl</p> 
                 </div>
-                <div class="col-xs-5">
-                    <p>
-                        <img src="" alt="">
-                        <span>info@ayesap.gmail.com</span>
-                    </p>
-                    <p>
-                        <img src="" alt="">
-                        <span>9916545651</span>
-                    </p>
+            </div>
+            <div class="cu-details">
+                <div class="cu-images">
+                    <img src="img/email.png" alt="">
+                </div>
+                <div class="cu-content">
+                    <p>info@ayesap.gmail.com</p>
+                </div>
+            </div>
+            <div class="cu-details">
+                <div class="cu-images">
+                    <img src="img/phone.png" alt="">
+                </div>
+                <div class="cu-content">
+                    <p>9916545651</p>
                 </div>
             </div>
         </div>
     </section>
-    <section id="map">
-        
+    <section id="map" class="text-center">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.8666498463617!2d77.64712179999998!3d12.9162911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae148464ac449b%3A0x4beeec771d4fe22e!2s1252%2C+22nd+Main+Rd%2C+Vanganahalli%2C+Sector+1%2C+HSR+Layout%2C+Bengaluru%2C+Karnataka+560102!5e0!3m2!1sen!2sin!4v1436532514863" width="1200" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
     </section>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
