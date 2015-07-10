@@ -1,23 +1,69 @@
+@font-face {
+  font-family: 'panamalight';
+  src: url('../fonts/panama-light-webfont.eot');
+  src: url('../fonts/panama-light-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/panama-light-webfont.woff2') format('woff2'), url('../fonts/panama-light-webfont.woff') format('woff'), url('../fonts/panama-light-webfont.ttf') format('truetype'), url('../fonts/panama-light-webfont.svg#panamalight') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'latobold';
+  src: url('../fonts/lato-bold-webfont.eot');
+  src: url('../fonts/lato-bold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/lato-bold-webfont.woff2') format('woff2'), url('../fonts/lato-bold-webfont.woff') format('woff'), url('../fonts/lato-bold-webfont.ttf') format('truetype'), url('../fonts/lato-bold-webfont.svg#latobold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'latolight';
+  src: url('../fonts/lato-light-webfont.eot');
+  src: url('../fonts/lato-light-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/lato-light-webfont.woff2') format('woff2'), url('../fonts/lato-light-webfont.woff') format('woff'), url('../fonts/lato-light-webfont.ttf') format('truetype'), url('../fonts/lato-light-webfont.svg#latolight') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Courier-Normal';
+  src: url('../fonts/Courier-Normal.eot?#iefix') format('embedded-opentype'), url('../fonts/Courier-Normal.woff') format('woff'), url('../fonts/Courier-Normal.ttf') format('truetype'), url('../fonts/Courier-Normal.svg#Courier-Normal') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
 ul {
   margin: 0;
 }
 li {
   list-style-type: none;
 }
+input:focus {
+  outline: none;
+}
 .align-middle {
   display: inline-block;
   vertical-align: middle;
 }
-.section-head h3 {
+.section-head-grey {
+  color: #ffffff;
+}
+.section-head-grey h3 {
   padding-bottom: 5px;
   border-bottom: 1px solid #ffffff;
   display: inline-block;
+  font-size: 24px;
+  font-family: 'panamalight';
+}
+.section-head-white {
+  color: #000000;
+}
+.section-head-white h3 {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #404040;
+  display: inline-block;
+  font-size: 24px;
+  font-family: 'panamalight';
 }
 .active-tab {
   border-bottom: 2px solid #ffffff !important;
 }
 body {
   font-size: 18px;
+  font-family: 'latolight';
 }
 header {
   padding: 1px;
@@ -29,6 +75,11 @@ header .nav-item {
   padding: 20px 10px;
   border-bottom: 2px solid #0054a6;
   cursor: pointer;
+  font-family: 'latobold';
+}
+header .logo span {
+  font-family: 'Courier-Normal';
+  font-size: 34px;
 }
 #home .slider-content {
   height: 506px;
@@ -64,10 +115,28 @@ header .nav-item {
 .we-deliver {
   color: #ffffff;
   background-color: #404040;
+  padding: 15px 0 35px 0;
+}
+.we-deliver .section-head-grey {
+  margin-bottom: 20px;
+}
+.we-deliver .wd-images {
+  margin-right: 20px;
+}
+.we-deliver .wd-images .wd-image p {
+  margin-top: 20px;
+}
+#how-it-works {
+  font-family: 'latolight';
+  padding-bottom: 50px;
+}
+#how-it-works .section-head-white {
+  margin: 15px 0 25px 0;
 }
 #how-it-works .screenshot {
   position: relative;
   margin: 0 15px;
+  cursor: pointer;
 }
 #how-it-works .screenshot .screenshot-cover {
   position: absolute;
@@ -76,7 +145,7 @@ header .nav-item {
   right: 0;
   bottom: 0;
   background-color: rgba(18, 18, 18, 0.8);
-  display: none;
+  cursor: pointer;
 }
 #how-it-works .screenshot .screenshot-cover p {
   color: white;
@@ -95,6 +164,7 @@ header .nav-item {
   background-color: #0054a6;
 }
 #get-started {
+  color: #ffffff;
   background-color: #404040;
 }
 #get-started .input-formgroup {
@@ -120,6 +190,9 @@ header .nav-item {
 #get-started .margin-fix {
   margin-right: 8px;
 }
+#become-rider {
+  color: #ffffff;
+}
 #become-rider .rider-form .rider-form-content input {
   display: block;
   border: 1px solid #000;
@@ -128,6 +201,7 @@ header .nav-item {
   margin-bottom: 20px;
 }
 #contact-us {
+  color: #ffffff;
   background-color: #404040;
 }
 #contact-us .contact-us-content {
