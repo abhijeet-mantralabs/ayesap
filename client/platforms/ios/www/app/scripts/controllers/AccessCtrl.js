@@ -50,13 +50,7 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
         if((credentials.email || credentials.mobile)&& credentials.password){
             Retailer.login(credentials)
             .then(function(response){
-                console.log(response);
-                // $scope.user = response.details.user;
-                // $scope.fullAddress = $scope.user.address + ' ' + $scope.user.street + ' ' +  $scope.user.area + ' ' + $scope.user.city + ' ' + $scope.user.state + ' ' + $scope.user.pincode + ' ' + $scope.user.country;
-                // $location.path('/home/').search({param: $scope.fullAddress});
                 $location.path('/home')
-                // $rootScope.fullAddress = $scope.fullAddress;
-                // console.log('after login',$rootScope.fullAddress);
             }).catch(function(err){
                 $scope.error = err.message;
             });
@@ -68,13 +62,11 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
       console.log('HomeCtrl');
 
         $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
-        // $('#map-canvas').css('min-height',$(window).innerHeight()-92 + 'px');
-        // console.log($('#map-canvas').height());
+        $('#map-canvas').css('min-height',$(window).innerHeight()-90 + 'px');
+        console.log($(window).height());
+        console.log($('#map-canvas').height());
         
-        // var address = "Sai Gallerium, No. 955, 5AC, Near Hormavu Underpass HRBR Layout 1st Block, Bank Avenue Colony, Bengaluru, Karnataka 560043";
         var address = $rootScope.fullAddress;
-        // var address = $location.search().param;
-        console.log(address);
         if(address){
             geocoder = new google.maps.Geocoder();
             geocoder.geocode({ 'address': address }, function(results, status) {
@@ -105,11 +97,10 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
         ];
           
         $timeout(function() {
-            console.log('markers',markers);
             for( i = 0; i < markers.length; i++ ) {
                 var position = new google.maps.LatLng(markers[i][0], markers[i][1]);
                 // bounds.extend(position);
-                console.log(position);
+                // console.log(position);
                 marker = new google.maps.Marker({
                     position: position,
                     map: $scope.map,

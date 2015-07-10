@@ -176,7 +176,9 @@ header {
   left: 0 !important;
 }
 .side-menu {
-  transition: left 500ms;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
   padding: 20px 5px;
   position: absolute;
   top: 0;

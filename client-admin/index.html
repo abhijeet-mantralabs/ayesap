@@ -42,6 +42,7 @@
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#retailer-list" aria-controls="retailer-list" role="tab" data-toggle="tab">List of Retailers</a></li>
                 <li role="presentation" ng-show="enterDetails"><a href="#add-retailer" aria-controls="add-retailer" role="tab" data-toggle="tab">add-retailer</a></li>
+                <li role="presentation"><a href="#resource-list" aria-controls="resource-list" role="tab" data-toggle="tab">List of Resources</a></li>
             </ul>
 
           <!-- Tab panes -->
@@ -274,6 +275,25 @@
                     </div>
                     <div class="alert alert-danger col-sm-5 col-sm-offset-2" role="alert" ng-if="error">{{error}}</div>
 
+                </div>
+                <div role="tabpanel" class="tab-pane retailer-detail" id="resource-list">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone Number</th>
+                                <th>City</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="retailer">
+                                <!-- <th scope="row">{{$index+1}}</th> -->
+                                <th scope="row">{{resource.name}}</th>
+                                <td>{{resource.mobile}}</td>
+                                <td>{{resource.city}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
