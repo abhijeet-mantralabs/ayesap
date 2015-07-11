@@ -42,7 +42,7 @@ angular
                     accountManager : retailerDetails.accountManager,
                     zone : retailerDetails.zone,
                     city : retailerDetails.city,
-                    comments : retailerDetails.city
+                    comments : retailerDetails.comments
             }
 		}
         var fetchRetailerList = function(){
