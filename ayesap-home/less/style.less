@@ -57,6 +57,10 @@ body{
 	color : @text-color;
 }
 header{
+	.wrapper{
+		width: 80%;
+		margin: 0 auto;
+	}
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -73,6 +77,10 @@ header{
 		font-family: 'latobold';
 	}
 	.logo{
+		margin-top: 7px;
+		img{
+			height: 60px;
+		}
 		span{
 			font-family: 'Courier-Normal';
 			font-size: 34px;
@@ -80,11 +88,30 @@ header{
 	}
 }
 #home{
+	margin-top: 67px;
+	background-image: url('../img/slider.jpg');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
 	.slider-content{
 		height: 506px;
 		overflow: hidden;
+		position: relative;
+		.slider-overlay{
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: @fade !important;
+			opacity: 0.8 !important;
+			color: @white;
+			.slider-overlay-content{
+				margin-top: 160px;
+			}	
+		}
 	}
-	.item{
+
+	.carousel-inner{
 		// background-color: rgb( 18, 18, 18 );
 		background-color: @fade !important;
 		opacity: 0.8 !important;
@@ -99,17 +126,12 @@ header{
 			margin: auto;
 			span{
 				position: relative;
-				top: 220px;
+				top: 214px;
 				font-size: 28px;
 			
 			}
 		}
 	}
-}
-.slide-1, .slide-2 ,.slide-3, .slide-4{
-	background-image: url('../img/delivery-man.jpg');
-	background-repeat: none;
-	background-size: 100% 100%;
 }
 .we-deliver{
 	color: @white;
@@ -119,8 +141,11 @@ header{
 		margin-bottom: 20px;
 	}
 	.wd-images{
-		margin-right: 20px;
+		margin-right: 35px;
 		.wd-image{
+			img{
+				width: 150px;
+			}
 			p{
 				margin-top: 20px;
 			}
@@ -137,6 +162,10 @@ header{
 		position: relative;
 		margin: 0 15px;
 		cursor: pointer;
+		img{
+			width: 302px;
+			height: 425px;
+		}
 		.screenshot-cover{
 			position: absolute;
 			top: 0;
@@ -147,7 +176,8 @@ header{
 			cursor: pointer;
 			p{
 				color: white;
-				margin-top: 250px;
+				margin-top: 200px;
+  				padding: 0 30px;
 			}
 		}
 	}
@@ -249,5 +279,14 @@ header{
 	.cu-content{
 		display: inline-block;
 		vertical-align: top;
+		width: 400px;
+		text-align: left;
+		padding-left: 30px;
+	}
+}
+#map{
+	iframe{
+		width: 100%;
+		height: 300px;
 	}
 }
