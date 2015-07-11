@@ -41,7 +41,8 @@ angular
                     longitude : retailerDetails.longitude,
                     accountManager : retailerDetails.accountManager,
                     zone : retailerDetails.zone,
-                    city : retailerDetails.city
+                    city : retailerDetails.city,
+                    comments : retailerDetails.city
             }
 		}
         var fetchRetailerList = function(){
