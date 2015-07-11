@@ -88,7 +88,10 @@ header .nav-item {
   font-family: 'latobold';
 }
 header .logo {
-  margin-top: 10px;
+  margin-top: 7px;
+}
+header .logo img {
+  height: 60px;
 }
 header .logo span {
   font-family: 'Courier-Normal';
@@ -103,6 +106,20 @@ header .logo span {
 #home .slider-content {
   height: 506px;
   overflow: hidden;
+  position: relative;
+}
+#home .slider-content .slider-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #353538 !important;
+  opacity: 0.8 !important;
+  color: #ffffff;
+}
+#home .slider-content .slider-overlay .slider-overlay-content {
+  margin-top: 160px;
 }
 #home .carousel-inner {
   background-color: #353538 !important;
@@ -132,7 +149,10 @@ header .logo span {
   margin-bottom: 20px;
 }
 .we-deliver .wd-images {
-  margin-right: 20px;
+  margin-right: 35px;
+}
+.we-deliver .wd-images .wd-image img {
+  width: 150px;
 }
 .we-deliver .wd-images .wd-image p {
   margin-top: 20px;

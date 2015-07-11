@@ -23,7 +23,7 @@
     <header class="text-center">
         <div class="wrapper clearfix">
             <div class="logo align-middle pull-left">
-                <span>AyeSAP</span>
+                <img src="img/retailer-logo.png" alt="">
             </div>
             <ul class="align-middle pull-right"> 
                 <li class="nav-item align-middle active-tab" id="nav-home" onclick="aboutScroll('home',this)">
@@ -46,7 +46,15 @@
     </header>
     <section id="home">
         <div class="slider-content clearfix">
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <div class="slider-overlay text-center">
+                <div class="slider-overlay-content">
+                    <h3>Transforming India’s Last mile</h3>
+                    <h3>Fleet of highly trained delivery agents</h3>
+                    <h3>On demand pickup and delivery with real time updates</h3>
+                    <h3>Pay as per use :  free registration</h3>
+                </div>
+            </div>
+            <!-- <div id="carousel-example-generic" class="carousel slide" data-ride="carousel"> -->
               <!-- Indicators -->
               <!-- <ol class="carousel-indicators">
                 <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -55,7 +63,7 @@
               </ol> -->
 
               <!-- Wrapper for slides -->
-            <div class="carousel-inner" role="listbox">
+            <!-- <div class="carousel-inner" role="listbox">
                 <div class="item active">
                   <div class="carousel-caption">
                     <span>Transforming India’s Last mile</span>
@@ -76,10 +84,10 @@
                     <span>Pay as per use : free registration</span>
                   </div>
                 </div>
-            </div>
+            </div> -->
 
               <!-- Controls -->
-              <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+              <!-- <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
               </a>
@@ -87,7 +95,8 @@
                 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
               </a>
-            </div>
+            </div> -->
+
         </div>
         <div class="we-deliver text-center">
             <div class="section-head-grey text-center">
@@ -126,7 +135,7 @@
         <div class="screenshot align-middle">
             <img src="img/how-it-works-1.png" alt="">
             <div class="screenshot-cover">
-                <p>Delivery Agent</p>  
+                <p>Schedule pickup using mobile app or API</p>  
             </div>
         </div>
         <div class="screenshot align-middle">
@@ -153,7 +162,7 @@
                     <img src="img/contact.png" alt="">
                 </div>
                 <div class="input-form align-middle">
-                    <input type="text" placeholder="Name">
+                    <input type="text" placeholder="Name" id="name">
                 </div>
             </div>
             <div class="input-formgroup">
@@ -161,7 +170,7 @@
                     <img src="img/number.png" alt="" class="margin-fix">
                 </div>
                 <div class="input-form align-middle">
-                    <input type="text" placeholder="Phone number">
+                    <input type="text" placeholder="Phone number" id="phone-number">
                 </div>
             </div>
             <div class="input-formgroup">
@@ -169,7 +178,7 @@
                     <img src="img/city.png" alt="" class="margin-fix">
                 </div>
                 <div class="input-form align-middle">
-                    <input type="text" placeholder="City">
+                    <input type="text" placeholder="City" id="city">
                 </div>
             </div>
             <div class="input-formgroup">
@@ -177,7 +186,7 @@
                     <img src="img/comment.png" alt="">
                 </div>
                 <div class="input-form align-middle">
-                    <input type="text" placeholder="Comments">
+                    <input type="text" placeholder="Comments" id="comment">
                 </div>
             </div>
             <div class="input-formgroup">
@@ -186,7 +195,7 @@
                 </div>
             </div>
             <div class="input-formgroup text-right">
-                <button type="submit" class="submit-btn" onclick="submitretailerForm()">Submit</button>
+                <button type="submit" class="submit-btn" id="retailer-form-submit">Submit</button>
             </div>
         </form>
     </section>
@@ -221,8 +230,8 @@
                     <img src="img/city.png" alt="">
                 </div>
                 <div class="cu-content">
-                    <p>1252/g,22nd,Main road,HSR Layout,Sector 1.</p>
-                    <p>Bangalore - 560102,Landmark:Cambridgescholl</p> 
+                    <p>1252/G,22nd Main road,HSR Layout,Sector 1.</p>
+                    <p>Bangalore - 560102,Landmark: Cambridge School</p> 
                 </div>
             </div>
             <div class="cu-details text-center">
@@ -230,7 +239,7 @@
                     <img src="img/email.png" alt="">
                 </div>
                 <div class="cu-content">
-                    <p>info@ayesap.gmail.com</p>
+                    <p>info.ayesap@gmail.com</p>
                 </div>
             </div>
             <div class="cu-details text-center">

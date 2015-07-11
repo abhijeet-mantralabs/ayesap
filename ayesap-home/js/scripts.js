@@ -43,11 +43,7 @@ window.aboutScroll = function(ele,el)
       var howitworks = $('#how-it-works').offset().top-$('header').height()-5;
       var getstarted =  $('#get-started').offset().top-$('header').height()-5;
       var becomerider = $('#become-rider').offset().top-$('header').height()-5;
-      var contactus = $('#contact-us').offset().top-$('header').height()-5;
-      // var offsetOurteam =   $('.ourteam').height()  + $('.ourteam').offset().top  - $('.aboutushdr-fixed').height() - $('.heightfixed-block').height();//-$('.mob-navlist').height();
- 
-      // var offsetCorevalues =   $('.corevalues').height()  + $('.corevalues').offset().top  - $('.aboutushdr-fixed').height() - $('.heightfixed-block').height();//-$('.mob-navlist').height();
-      // var offsetContactus = $('.contactus-block').height()  + $('.contactus-block').offset().top  - $('.aboutushdr-fixed').height() - $('.heightfixed-block').height();//-$('.mob-navlist').height();   
+      var contactus = $('#contact-us').offset().top-$('header').height()-5;  
 
       if ($(window).scrollTop() <= howitworks){
         $('.nav-item').removeClass('active-tab');
@@ -68,47 +64,17 @@ window.aboutScroll = function(ele,el)
       else if ($(window).scrollTop() >= becomerider){
         $('.nav-item').removeClass('active-tab');
         $('#nav-contact-us').addClass('active-tab');
-      }
-      // else if ($(window).scrollTop() <= getstarted && ($(window).scrollTop() >= howitworks)){
-      //   $('.nav-item').removeClass('active-tab');
-      //   $('#nav-start-shipping').addClass('active-tab');
-      // }
-      // else{
-      //     $('#about-us').removeClass('tabhighlight');
-      // }
-
-      // if ( ($(window).scrollTop() <= offsetBusinessservices) && ($(window).scrollTop() >= offsetAboutus) ){
-      //     $('#business-services').addClass('tabhighlight');
-      // }
-      // else{
-      //     $('#business-services').removeClass('tabhighlight');
-      // }
-
-      //  if ( ($(window).scrollTop() <= offsetOurteam) && ($(window).scrollTop() >= offsetBusinessservices) ){
-      //     $('#our-team').addClass('tabhighlight');
-      // }
-      // else{
-      //     $('#our-team').removeClass('tabhighlight');
-      // }
-
-      //  if ( ($(window).scrollTop() <= offsetCorevalues) && ($(window).scrollTop() >= offsetOurteam ) ){
-      //     $('#corevalues').addClass('tabhighlight');
-      // }
-      // else{
-      //     $('#corevalues').removeClass('tabhighlight');
-      // }
-
-      //  if ( ($(window).scrollTop() <= offsetContactus) && ($(window).scrollTop() >= offsetCorevalues ) ){
-      //     $('#contact-us').addClass('tabhighlight');
-      // }
-      // else{
-      //     $('#contact-us').removeClass('tabhighlight');
-      // }    
+      }  
   });
-
-
 
 $(".screenshot").hover(function () {
   console.log();
   $(this).children('.screenshot-cover').slideToggle();
 });
+
+var formData = {
+    name:$('#name').val(),
+    mobile: $('#phone-number').val(),
+    city:$('#city').val(),
+    comment:$('#comment').val()
+}

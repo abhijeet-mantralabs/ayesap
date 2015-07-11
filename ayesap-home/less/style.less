@@ -77,7 +77,10 @@ header{
 		font-family: 'latobold';
 	}
 	.logo{
-		margin-top: 10px;
+		margin-top: 7px;
+		img{
+			height: 60px;
+		}
 		span{
 			font-family: 'Courier-Normal';
 			font-size: 34px;
@@ -92,7 +95,22 @@ header{
 	.slider-content{
 		height: 506px;
 		overflow: hidden;
+		position: relative;
+		.slider-overlay{
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: @fade !important;
+			opacity: 0.8 !important;
+			color: @white;
+			.slider-overlay-content{
+				margin-top: 160px;
+			}	
+		}
 	}
+
 	.carousel-inner{
 		// background-color: rgb( 18, 18, 18 );
 		background-color: @fade !important;
@@ -123,8 +141,11 @@ header{
 		margin-bottom: 20px;
 	}
 	.wd-images{
-		margin-right: 20px;
+		margin-right: 35px;
 		.wd-image{
+			img{
+				width: 150px;
+			}
 			p{
 				margin-top: 20px;
 			}
