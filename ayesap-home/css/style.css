@@ -235,6 +235,12 @@ header .logo span {
 #get-started .margin-fix {
   margin-right: 8px;
 }
+#get-started #add-retailer-btn #result-retailer {
+  display: inline-block;
+  float: left;
+  text-align: right;
+  width: 400px;
+}
 #become-rider {
   padding: 20px 0 30px 0;
 }
@@ -244,12 +250,20 @@ header .logo span {
 #become-rider .rider-form .rider-img {
   margin-right: 50px;
 }
+#become-rider .rider-form .rider-form-content {
+  position: relative;
+}
 #become-rider .rider-form .rider-form-content input {
   display: block;
   border: 1px solid #a4a4a4;
   width: 400px;
   padding: 10px;
   margin-bottom: 20px;
+}
+#become-rider .rider-form .rider-form-content #result-rider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 #contact-us {
   color: #ffffff;

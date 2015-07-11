@@ -230,6 +230,14 @@ header{
 	.margin-fix{
 		margin-right: 8px;
 	}
+	#add-retailer-btn{
+		#result-retailer{
+			display: inline-block;
+	  		float: left;
+	  		text-align: right;
+	  		width: 400px;
+		}
+	}
 
 }
 #become-rider{
@@ -243,12 +251,18 @@ header{
 			margin-right: 50px;
 		}
 		.rider-form-content{
+			position: relative;
 			input{
 				display: block;
 				border: 1px solid #a4a4a4;
 				width: 400px;
 				padding: 10px;
 				margin-bottom: 20px;
+			}
+			#result-rider{
+				position: absolute;
+				bottom: 0;
+				left: 0;
 			}
 		}
 	}
