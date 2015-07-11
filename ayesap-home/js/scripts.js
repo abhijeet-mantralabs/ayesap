@@ -71,49 +71,113 @@ $(".screenshot").hover(function () {
     $(this).children('.screenshot-cover').slideToggle();
 });
 
-window.contactRetailer = function(){
+// Attach a submit handler to the form for retailer
+$( "#retailer-form" ).submit(function( event ) {
+
+    // Stop form from submitting normally
+    event.preventDefault();
+    // Get some values from elements on the page:
+    //    var $form = $( this ),
+    //        term = $form.find( "input[name='s']" ).val(),
+    //        url = $form.attr( "action" );
+
+    var formData = {
+        "name":$('#name').val(),
+        "mobile": $('#phone-number').val(),
+        "city":$('#city').val(),
+        "comment":$('#comment').val()
+    }
+    console.log(formData);
+    // Send the data using post
     //var base_url = "http://ayesap.zolome.com/api/";
     //var base_url = "http://localhost:1337/";
     var base_url = "http://www.ayesap.com/api/";
-    console.log('in');
-    var formData = {
-        name:$('#name').val(),
-        mobile: $('#phone-number').val(),
-        city:$('#city').val(),
-        comment:$('#comment').val()
-    }
-    $.ajax({
-        url: base_url+'retailer/requestForRegister', formData ,
-        type: 'post',
-        dataType: 'json',
-        data:formData,
-        success: function(data) {
-            // alert('success');
-            console.log(data);
-        }
+    var posting = $.post( base_url+'retailer/requestForRegister', formData)
+
+    posting.done(function( data ) {
+        console.log(data)
+// Put the results in a div
+//        var content = $( data ).find( "#content" );
+//        $( "#result" ).empty().append( content );
     });
-}
-window.becomeRider = function(){
+
+});
+// Attach a submit handler to the form for retailer
+$( "#rider-form" ).submit(function( event ) {
+
+    // Stop form from submitting normally
+    event.preventDefault();
+    // Get some values from elements on the page:
+    //    var $form = $( this ),
+    //        term = $form.find( "input[name='s']" ).val(),
+    //        url = $form.attr( "action" );
+
+    var formData = {
+        "name":$('#rider-name').val(),
+        "mobile": $('#rider-phone').val(),
+        "city":$('#rider-city').val()
+    }
+    console.log(formData);
+    // Send the data using post
     //var base_url = "http://ayesap.zolome.com/api/";
     //var base_url = "http://localhost:1337/";
     var base_url = "http://www.ayesap.com/api/";
-    console.log('in');
-    var formData = {
-        name:$('#rider-name').val(),
-        mobile: $('#rider-phone').val(),
-        city:$('#rider-city').val(),
-    }
-    $.ajax({
-        url: base_url+'resources/reqForResRegister', formData,
-        type: 'post',
-        dataType: 'json',
-        data:formData,
-        success: function(data) {
-            // alert(data.message);
-            console.log(data);
-        }
+    var posting = $.post( base_url+'resources/reqForResRegister', formData)
+
+    posting.done(function( data ) {
+        console.log(data)
+// Put the results in a div
+//        var content = $( data ).find( "#content" );
+//        $( "#result" ).empty().append( content );
     });
-}
+
+});
+
+//window.contactRetailer = function(){
+//    //var base_url = "http://ayesap.zolome.com/api/";
+//    //var base_url = "http://localhost:1337/";
+//    var base_url = "http://www.ayesap.com/api/";
+//    console.log('in');
+//    var formData = {
+//        "name":$('#name').val(),
+//        "mobile": $('#phone-number').val(),
+//        "city":$('#city').val(),
+//        "comment":$('#comment').val()
+//    }
+//    $.ajax({
+//        url: base_url+'retailer/requestForRegister',
+//        type: 'post',
+//        dataType: 'json',
+//        data:formData,
+//        success: function(data) {
+//            // alert('success');
+//            console.log(data);
+//        }
+//    });
+//}
+//
+//
+//window.becomeRider = function(){
+//    //var base_url = "http://ayesap.zolome.com/api/";
+//    //var base_url = "http://localhost:1337/";
+//    var base_url = "http://www.ayesap.com/api/";
+//    console.log('in');
+//    var formData = {
+//        "name":$('#rider-name').val(),
+//        "mobile": $('#rider-phone').val(),
+//        "city":$('#rider-city').val()
+//    }
+//    $.ajax({
+//        url: base_url+'resources/reqForResRegister',
+//        type: 'post',
+//        dataType: 'json',
+//        data:formData,
+//        success: function(data) {
+//            // alert(data.message);
+//            console.log(data);
+//        }
+//    });
+//}
 function initialize() {
     var myLatLng = new google.maps.LatLng(12.916600, 77.647165);
     var mapCanvas = document.getElementById('map');
