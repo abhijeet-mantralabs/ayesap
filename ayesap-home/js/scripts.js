@@ -85,7 +85,7 @@ $( "#retailer-form" ).submit(function( event ) {
         "name":$('#name').val(),
         "mobile": $('#phone-number').val(),
         "city":$('#city').val(),
-        "comment":$('#comment').val()
+        "comments":$('#comment').val()
     }
     console.log(formData);
     // Send the data using post
