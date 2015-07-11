@@ -78,6 +78,9 @@ module.exports = {
         },
         zone:{
             type: 'string'
+        },
+        comments:{
+            type: 'string'
         }
     },
     requestSignUp:function(opts,cb){

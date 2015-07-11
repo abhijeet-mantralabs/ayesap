@@ -56,5 +56,7 @@ module.exports.routes = {
   'PUT /retailer/updateDetails' : 'RetailerController.updateDetails',
     'PUT /retailer/declineRetailer' : 'RetailerController.declineUser',
 
-  'POST /resources/nearBy': 'ResourceController.fetchNearResources'
+    'POST /resources/reqForResRegister': 'ResourceController.reqForResRegister',
+    'POST /resources/nearBy': 'ResourceController.fetchNearResources',
+    'GET /resources/listResources': 'ResourceController.getResourceList'
 };
