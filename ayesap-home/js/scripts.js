@@ -72,7 +72,7 @@ $(".screenshot").hover(function () {
 });
 
 window.contactRetailer = function(){
-    var base_url = "http://ayesap.zolome.com/api/";
+    var base_url = "http://www.ayesap.com/api/";
     console.log('in');
     var formData = {
         name:$('#name').val(),
@@ -87,11 +87,12 @@ window.contactRetailer = function(){
         data:formData,
         success: function(data) {
             // alert('success');
+            console.log(data);
         }
     });
 }
 window.becomeRider = function(){
-    var base_url = "http://ayesap.zolome.com/api/";
+    var base_url = "http://www.ayesap.com/api/";
     console.log('in');
     var formData = {
         name:$('#rider-name').val(),
@@ -104,8 +105,26 @@ window.becomeRider = function(){
         dataType: 'json',
         data:formData,
         success: function(data) {
-            // alert('success');
+            // alert(data.message);
+            console.log(data);
         }
     });
 }
+function initialize() {
+    var myLatLng = new google.maps.LatLng(12.916600, 77.647165);
+    var mapCanvas = document.getElementById('map');
+    var mapOptions = {
+      center: myLatLng,
+      zoom: 16,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    var marker = new google.maps.Marker({
+    position: myLatLng,
+    title:"Ayesap",
+    });
+    var map = new google.maps.Map(mapCanvas, mapOptions);
+    marker.setMap(map);
+}
+initialize();
+
 
