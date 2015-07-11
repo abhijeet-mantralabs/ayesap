@@ -73,7 +73,7 @@ $(".screenshot").hover(function () {
 
 // Attach a submit handler to the form for retailer
 $( "#retailer-form" ).submit(function( event ) {
-
+    $("#result-retailer").empty();
     // Stop form from submitting normally
     event.preventDefault();
     // Get some values from elements on the page:
@@ -96,15 +96,19 @@ $( "#retailer-form" ).submit(function( event ) {
 
     posting.done(function( data ) {
         console.log(data)
+        $('#name').val('');
+        $('#phone-number').val('');
+        $('#city').val('');
+        $('#comment').val('');
 // Put the results in a div
-//        var content = $( data ).find( "#content" );
-//        $( "#result" ).empty().append( content );
+       $("#result-retailer").text(data.message);
+       setTimeout('$("#result-retailer").hide()',1500);
     });
 
 });
 // Attach a submit handler to the form for retailer
 $( "#rider-form" ).submit(function( event ) {
-
+    $( "#result-rider" ).empty();
     // Stop form from submitting normally
     event.preventDefault();
     // Get some values from elements on the page:
@@ -126,9 +130,12 @@ $( "#rider-form" ).submit(function( event ) {
 
     posting.done(function( data ) {
         console.log(data)
+        $('#rider-name').val('');
+        $('#rider-phone').val('');
+        $('#rider-city').val('');
 // Put the results in a div
-//        var content = $( data ).find( "#content" );
-//        $( "#result" ).empty().append( content );
+        $("#result-rider").text(data.message);
+        setTimeout('$("#result-rider").empty()',1500);
     });
 
 });

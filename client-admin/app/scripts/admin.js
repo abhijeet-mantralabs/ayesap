@@ -40,7 +40,8 @@ angular
                     latitude : retailerDetails.latitude,
                     longitude : retailerDetails.longitude,
                     accountManager : retailerDetails.accountManager,
-                    zone : retailerDetails.zone
+                    zone : retailerDetails.zone,
+                    city : retailerDetails.city
             }
 		}
         var fetchRetailerList = function(){
@@ -71,6 +72,17 @@ angular
         $scope.refreshList = function(){
         	fetchRetailerList();
         }
+
+        var fetchRsourceList = function(){
+            retailerAdmin.fetchRsources().then(function(response){
+                $scope.resources = response.details.resourceList;
+                console.log(response);
+                
+            }).catch(function(err){
+                $scope.error = err.message;
+            })
+        }
+        fetchRsourceList();
 
         //sorting
 
@@ -198,6 +210,20 @@ angular
 			var deferred = $q.defer();
 			
 			$http.put(base_url+'retailer/declineRetailer',data)
+			.success(function(response){
+				deferred.resolve(response);
+			})
+			.error(function(err){
+				deferred.reject(err);
+			});
+			
+			return deferred.promise;
+	  	}
+
+	  	this.fetchRsources = function(data){
+			var deferred = $q.defer();
+			
+			$http.get(base_url+'resources/listResources ',data)
 			.success(function(response){
 				deferred.resolve(response);
 			})

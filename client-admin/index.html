@@ -161,13 +161,19 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="city" class="col-sm-2 control-label">City</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="city" placeholder="city" ng-model="retailerRegister.city">
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
                             <label for="city" class="col-sm-2 control-label">City:</label>
                             <div class="col-sm-5">
                                 <select name="citylist" id="city" class="form-control" ng-model = "retailerRegister.city">
                                     <option value="India" ng-selected="retailerRegister.city">Bangalore</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label for="state" class="col-sm-2 control-label">State</label>
                             <div class="col-sm-5">
@@ -286,7 +292,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="retailer">
+                            <tr class="retailer" ng-repeat="resource in resources">
                                 <!-- <th scope="row">{{$index+1}}</th> -->
                                 <th scope="row">{{resource.name}}</th>
                                 <td>{{resource.mobile}}</td>
