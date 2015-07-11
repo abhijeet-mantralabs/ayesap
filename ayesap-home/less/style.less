@@ -80,11 +80,15 @@ header{
 	}
 }
 #home{
+	margin-top: 67px;
+	background-image: url('../img/slider.jpg');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
 	.slider-content{
 		height: 506px;
 		overflow: hidden;
 	}
-	.item{
+	.carousel-inner{
 		// background-color: rgb( 18, 18, 18 );
 		background-color: @fade !important;
 		opacity: 0.8 !important;
@@ -99,17 +103,12 @@ header{
 			margin: auto;
 			span{
 				position: relative;
-				top: 220px;
+				top: 214px;
 				font-size: 28px;
 			
 			}
 		}
 	}
-}
-.slide-1, .slide-2 ,.slide-3, .slide-4{
-	background-image: url('../img/delivery-man.jpg');
-	background-repeat: none;
-	background-size: 100% 100%;
 }
 .we-deliver{
 	color: @white;
@@ -137,6 +136,10 @@ header{
 		position: relative;
 		margin: 0 15px;
 		cursor: pointer;
+		img{
+			width: 302px;
+			height: 425px;
+		}
 		.screenshot-cover{
 			position: absolute;
 			top: 0;

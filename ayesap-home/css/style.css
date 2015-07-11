@@ -87,17 +87,23 @@ header .logo span {
   font-family: 'Courier-Normal';
   font-size: 34px;
 }
+#home {
+  margin-top: 67px;
+  background-image: url('../img/slider.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
 #home .slider-content {
   height: 506px;
   overflow: hidden;
 }
-#home .item {
+#home .carousel-inner {
   background-color: #353538 !important;
   opacity: 0.8 !important;
   height: 506px;
   position: relative;
 }
-#home .item .carousel-caption {
+#home .carousel-inner .carousel-caption {
   position: absolute;
   top: 0;
   right: 0;
@@ -105,18 +111,10 @@ header .logo span {
   left: 0;
   margin: auto;
 }
-#home .item .carousel-caption span {
+#home .carousel-inner .carousel-caption span {
   position: relative;
-  top: 220px;
+  top: 214px;
   font-size: 28px;
-}
-.slide-1,
-.slide-2,
-.slide-3,
-.slide-4 {
-  background-image: url('../img/delivery-man.jpg');
-  background-repeat: none;
-  background-size: 100% 100%;
 }
 .we-deliver {
   color: #ffffff;
@@ -143,6 +141,10 @@ header .logo span {
   position: relative;
   margin: 0 15px;
   cursor: pointer;
+}
+#how-it-works .screenshot img {
+  width: 302px;
+  height: 425px;
 }
 #how-it-works .screenshot .screenshot-cover {
   position: absolute;
