@@ -195,7 +195,7 @@
                 </div>
             </div>
             <div class="input-formgroup text-right">
-                <button type="submit" class="submit-btn" id="retailer-form-submit">Submit</button>
+                <button type="submit" class="submit-btn" id="retailer-form-submit" onclick="contactRetailer()">Submit</button>
             </div>
         </form>
     </section>
@@ -210,11 +210,11 @@
             </div>
             <div class="rider-form-content align-middle">
                 <form action="" id="rider-form">
-                    <input type="text" placeholder="Name">
-                    <input type="text" placeholder="Phone number">
-                    <input type="text" placeholder="City">
+                    <input type="text" placeholder="Name" id="rider-name">
+                    <input type="text" placeholder="Phone number" id="rider-phone">
+                    <input type="text" placeholder="City" id="rider-city">
                     <div class="text-right">
-                        <button type="submit" class="submit-btn-blue">Submit</button>
+                        <button type="submit" class="submit-btn-blue" onclick="becomeRider()">Submit</button>
                     </div>
                 </form>
             </div>
