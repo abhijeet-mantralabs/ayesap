@@ -72,6 +72,8 @@ $(".screenshot").hover(function () {
 });
 
 window.contactRetailer = function(){
+    //var base_url = "http://ayesap.zolome.com/api/";
+    //var base_url = "http://localhost:1337/";
     var base_url = "http://www.ayesap.com/api/";
     console.log('in');
     var formData = {
@@ -81,7 +83,7 @@ window.contactRetailer = function(){
         comment:$('#comment').val()
     }
     $.ajax({
-        url: base_url+'retailer/requestForRegister', formData,
+        url: base_url+'retailer/requestForRegister', formData ,
         type: 'post',
         dataType: 'json',
         data:formData,
@@ -92,6 +94,8 @@ window.contactRetailer = function(){
     });
 }
 window.becomeRider = function(){
+    //var base_url = "http://ayesap.zolome.com/api/";
+    //var base_url = "http://localhost:1337/";
     var base_url = "http://www.ayesap.com/api/";
     console.log('in');
     var formData = {
