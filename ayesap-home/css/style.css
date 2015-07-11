@@ -184,7 +184,8 @@ header .logo span {
 }
 #how-it-works .screenshot .screenshot-cover p {
   color: white;
-  margin-top: 250px;
+  margin-top: 200px;
+  padding: 0 30px;
 }
 .submit-btn {
   padding: 5px 30px;
