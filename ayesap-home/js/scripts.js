@@ -87,7 +87,7 @@ $( "#retailer-form" ).submit(function( event ) {
         "city":$('#city').val(),
         "comments":$('#comment').val()
     }
-    console.log(formData);
+//    console.log(formData);
     // Send the data using post
     //var base_url = "http://ayesap.zolome.com/api/";
     //var base_url = "http://localhost:1337/";
@@ -95,14 +95,15 @@ $( "#retailer-form" ).submit(function( event ) {
     var posting = $.post( base_url+'retailer/requestForRegister', formData)
 
     posting.done(function( data ) {
-        console.log(data)
+//        console.log(data)
         $('#name').val('');
         $('#phone-number').val('');
         $('#city').val('');
         $('#comment').val('');
 // Put the results in a div
        $("#result-retailer").text(data.message);
-       setTimeout('$("#result-retailer").hide()',1500);
+        $("#result-retailer").show();
+        setTimeout('$("#result-retailer").hide()',1500);
     });
 
 });
@@ -121,7 +122,7 @@ $( "#rider-form" ).submit(function( event ) {
         "mobile": $('#rider-phone').val(),
         "city":$('#rider-city').val()
     }
-    console.log(formData);
+//    console.log(formData);
     // Send the data using post
     //var base_url = "http://ayesap.zolome.com/api/";
     //var base_url = "http://localhost:1337/";
@@ -135,6 +136,7 @@ $( "#rider-form" ).submit(function( event ) {
         $('#rider-city').val('');
 // Put the results in a div
         $("#result-rider").text(data.message);
+        $("#result-rider").show();
         setTimeout('$("#result-rider").empty()',1500);
     });
 
