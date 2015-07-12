@@ -61,6 +61,9 @@ header{
 		width: 80%;
 		margin: 0 auto;
 	}
+	.nav-div{
+		float: right;
+	}
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -78,6 +81,7 @@ header{
 	}
 	.logo{
 		margin-top: 7px;
+		float: left;
 		img{
 			height: 60px;
 		}
@@ -181,6 +185,13 @@ header{
 			}
 		}
 	}
+	.screenshot-mobile{
+		display: none;
+		.screenshot-title{
+			width: 100%;
+			margin-top: 10px;
+		}
+	}
 }
 .submit-btn{
 	padding: 5px 30px;
@@ -236,6 +247,7 @@ header{
 	  		float: left;
 	  		text-align: right;
 	  		width: 400px;
+	  		margin-top: 7px;
 		}
 	}
 
@@ -307,3 +319,4 @@ header{
 		height: 300px;
 	// }
 }
+@import "mediaq.less";

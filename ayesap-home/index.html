@@ -22,26 +22,29 @@
   <body>
     <header class="text-center">
         <div class="wrapper clearfix">
-            <div class="logo align-middle pull-left">
+            <div class="logo align-middle">
                 <img src="img/retailer-logo.png" alt="">
+                <!-- <span>AyeSAP</span> -->
             </div>
-            <ul class="align-middle pull-right"> 
-                <li class="nav-item align-middle active-tab" id="nav-home" onclick="aboutScroll('home',this)">
-                    Home
-                </li>
-                <li class="nav-item align-middle" id="nav-how-it-works" onclick="aboutScroll('how-it-works',this)">
-                    How it Works
-                </li>
-                <li class="nav-item align-middle" id="nav-start-shipping" onclick="aboutScroll('start-shipping',this)">
-                    Start shipping
-                </li>
-                <li class="nav-item align-middle" id="nav-become-rider" onclick="aboutScroll('become-rider',this)">
-                    Become a rider
-                </li>
-                <li class="nav-item align-middle" id="nav-contact-us" onclick="aboutScroll('contact-us',this)">
-                    Contact us
-                </li>
-            </ul>
+            <div class="nav-div">
+                <ul class="align-middle nav-bar"> 
+                    <li class="nav-item align-middle active-tab" id="nav-home" onclick="aboutScroll('home',this)">
+                        Home
+                    </li>
+                    <li class="nav-item align-middle" id="nav-how-it-works" onclick="aboutScroll('how-it-works',this)">
+                        How it Works
+                    </li>
+                    <li class="nav-item align-middle" id="nav-start-shipping" onclick="aboutScroll('start-shipping',this)">
+                        Start shipping
+                    </li>
+                    <li class="nav-item align-middle" id="nav-become-rider" onclick="aboutScroll('become-rider',this)">
+                        Become a rider
+                    </li>
+                    <li class="nav-item align-middle" id="nav-contact-us" onclick="aboutScroll('contact-us',this)">
+                        Contact us
+                    </li>
+                </ul>
+            </div>
         </div>
     </header>
     <section id="home">
@@ -150,6 +153,25 @@
                 <p>Real time tracking of orders</p>
             </div>
         </div>
+        <!-- // for mobile -->
+        <div class="screenshot-mobile align-middle">
+            <img src="img/how-it-works-1.png" alt="">
+            <div class="screenshot-title">
+                <p>Schedule pickup using mobile app or API</p>
+            </div>
+        </div>
+        <div class="screenshot-mobile align-middle">
+            <img src="img/how-it-works-2.png" alt="">
+            <div class="screenshot-title">
+                <p>Picked up by Delivery Agent</p>
+            </div>
+        </div>
+        <div class="screenshot-mobile align-middle">
+            <img src="img/how-it-works-3.png" alt="">
+            <div class="screenshot-title">
+                <p>Real time tracking of orders</p>
+            </div>
+        </div>
     </section>
     <section id="get-started" class="text-center">
         <div class="gs-heading section-head-grey text-center">
@@ -189,11 +211,11 @@
                     <input type="text" placeholder="Comments" id="comment">
                 </div>
             </div>
-            <div class="input-formgroup">
+            <!-- <div class="input-formgroup">
                 <div class="input-icon align-middle">
                     <img src="" alt="">
                 </div>
-            </div>
+            </div> -->
             <div class="input-formgroup text-right" id="add-retailer-btn">
                 <button type="submit" class="submit-btn" id="retailer-form-submit">Submit</button>
                 <div id="result-retailer" class="text-center"></div>

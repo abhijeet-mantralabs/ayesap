@@ -80,6 +80,9 @@ header .wrapper {
   width: 80%;
   margin: 0 auto;
 }
+header .nav-div {
+  float: right;
+}
 header .nav-item {
   margin-right: 10px;
   padding: 20px 10px;
@@ -89,6 +92,7 @@ header .nav-item {
 }
 header .logo {
   margin-top: 7px;
+  float: left;
 }
 header .logo img {
   height: 60px;
@@ -187,6 +191,13 @@ header .logo span {
   margin-top: 200px;
   padding: 0 30px;
 }
+#how-it-works .screenshot-mobile {
+  display: none;
+}
+#how-it-works .screenshot-mobile .screenshot-title {
+  width: 100%;
+  margin-top: 10px;
+}
 .submit-btn {
   padding: 5px 30px;
   border: 1px solid #ffffff;
@@ -240,6 +251,7 @@ header .logo span {
   float: left;
   text-align: right;
   width: 400px;
+  margin-top: 7px;
 }
 #become-rider {
   padding: 20px 0 30px 0;
@@ -302,4 +314,214 @@ header .logo span {
 #map {
   width: 100%;
   height: 300px;
+}
+@media (max-width: 1170px) {
+  header .wrapper {
+    width: 90%;
+  }
+}
+@media (max-width: 1024px) {
+  header .nav-bar {
+    padding-left: 0;
+  }
+  header .nav-item {
+    margin-right: 5px;
+    padding: 20px 5px;
+  }
+  header .logo img {
+    height: 50px;
+  }
+  header .logo span {
+    font-size: 34px;
+  }
+  #how-it-works .screenshot {
+    display: none;
+  }
+  #how-it-works .screenshot-mobile {
+    display: inline-block;
+    margin: 0 15px;
+  }
+  #how-it-works .screenshot-mobile img {
+    width: 210px;
+  }
+  #how-it-works .screenshot-mobile .screenshot-title {
+    width: 200px;
+  }
+}
+@media (max-width: 960px) {
+  header .wrapper {
+    width: 100%;
+  }
+}
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+  body h3 {
+    font-size: 20px;
+  }
+  header .wrapper {
+    overflow: scroll;
+  }
+  header .nav-div .nav-bar {
+    width: 550px;
+  }
+  header .nav-item {
+    padding: 10px 5px;
+  }
+  header .logo img {
+    height: 40px;
+  }
+  header .logo span {
+    font-size: 34px;
+  }
+  #get-started .input-formgroup {
+    width: 100%;
+  }
+  #get-started .input-formgroup .input-icon {
+    width: 60px;
+  }
+  #get-started .input-formgroup .input-form {
+    width: 380px;
+  }
+  #get-started .input-formgroup .input-form input {
+    width: 100%;
+  }
+  #get-started #add-retailer-btn #result-retailer {
+    width: 290px;
+  }
+  #contact-us .contact-us-content {
+    width: 440px;
+  }
+  #contact-us .cu-content {
+    width: 80%;
+  }
+}
+@media (max-width: 640px) {
+  header .nav-div {
+    width: 100%;
+    display: block;
+    float: none;
+    overflow: scroll;
+  }
+  header .nav-div .nav-bar {
+    width: 550px;
+  }
+  header .nav-item {
+    padding: 10px 5px;
+  }
+  header .logo {
+    display: block;
+  }
+}
+@media (max-width: 480px) {
+  .section-head-grey h3 {
+    font-size: 20px;
+  }
+  .section-head-white h3 {
+    font-size: 20px;
+  }
+  body h3 {
+    font-size: 20px;
+  }
+  .we-deliver .wd-images .wd-image img {
+    width: 130px;
+  }
+  #get-started .input-formgroup .input-icon img {
+    height: 25px;
+  }
+  #get-started .input-formgroup .input-form {
+    width: 75%;
+  }
+  #get-started .submit-btn {
+    margin-right: 15px;
+  }
+  #get-started #add-retailer-btn #result-retailer {
+    width: 215px;
+  }
+  #how-it-works .screenshot {
+    display: none;
+  }
+  #how-it-works .screenshot-mobile {
+    display: block;
+    margin: 10px 15px;
+  }
+  #how-it-works .screenshot-mobile img {
+    width: 250px;
+  }
+  #how-it-works .screenshot-mobile .screenshot-title {
+    margin: 10px auto;
+    width: 250px;
+  }
+  #become-rider {
+    padding: 20px 0 30px 0;
+  }
+  #become-rider .section-head-white {
+    margin-bottom: 10px;
+  }
+  #become-rider .rider-form .rider-img {
+    display: block;
+    margin: 15px auto;
+  }
+  #become-rider .rider-form .rider-img img {
+    width: 130px;
+  }
+  #become-rider .rider-form .rider-form-content {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
+  }
+  #become-rider .rider-form .rider-form-content input {
+    display: block;
+    border: 1px solid #a4a4a4;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  #become-rider .rider-form .rider-form-content #result-rider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  #contact-us .contact-us-content {
+    width: 80%;
+  }
+  #contact-us .cu-content {
+    width: 80%;
+    padding-left: 20px;
+  }
+}
+@media (max-width: 360px) {
+  #get-started .input-formgroup .input-icon img {
+    height: 25px;
+  }
+  #get-started .input-formgroup .input-form {
+    width: 75%;
+  }
+  #get-started .submit-btn {
+    margin-right: 15px;
+  }
+  #get-started #add-retailer-btn #result-retailer {
+    width: 185px;
+  }
+  .we-deliver .wd-images {
+    margin-right: 20px;
+  }
+  .we-deliver .wd-images .wd-image img {
+    width: 110px;
+  }
+  #contact-us .contact-us-content {
+    width: 100%;
+  }
+  #contact-us .cu-images {
+    width: 40px;
+  }
+  #contact-us .cu-images img {
+    padding-right: 10px;
+  }
+  #contact-us .cu-content {
+    width: 80%;
+    padding-left: 10px;
+  }
 }
