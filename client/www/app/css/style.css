@@ -170,9 +170,21 @@ header {
   background-color: #00345b;
   height: 40px;
 }
+header .logo-homepage {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 2px 0;
+  width: 75%;
+  text-align: right;
+  margin-right: 15px;
+}
+header .logo-homepage img {
+  height: 20px;
+}
 .menu-icon {
   padding: 10px 10px 10px 20px;
   display: inline-block;
+  vertical-align: middle;
 }
 .show-menu {
   left: 0 !important;
