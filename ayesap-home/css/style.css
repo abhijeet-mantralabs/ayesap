@@ -360,6 +360,9 @@ header .logo span {
   body h3 {
     font-size: 20px;
   }
+  header {
+    padding: 10px 0;
+  }
   header .wrapper {
     overflow: scroll;
   }
@@ -398,6 +401,9 @@ header .logo span {
   }
 }
 @media (max-width: 640px) {
+  header {
+    padding: 1px;
+  }
   header .nav-div {
     width: 100%;
     display: block;
