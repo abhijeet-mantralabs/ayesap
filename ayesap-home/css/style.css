@@ -111,6 +111,27 @@ header .logo span {
   background: #fff;
   margin-bottom: 4px;
 }
+.menu-icon span {
+  position: relative;
+  transition: 300ms ease-in-out;
+}
+.menu-bar-mob .open span:nth-child(1) {
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  top: 7px;
+}
+.menu-bar-mob .open span:nth-child(2) {
+  background-color: transparent;
+}
+.menu-bar-mob .open span:nth-child(3) {
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  top: -7px;
+}
 .mobile-menu {
   display: none;
 }
