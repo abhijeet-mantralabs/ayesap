@@ -174,9 +174,9 @@ header .logo-homepage {
   display: inline-block;
   vertical-align: middle;
   margin: 0 0 2px 0;
-  width: 75%;
-  text-align: right;
-  margin-right: 15px;
+  width: 58%;
+  text-align: center;
+  margin-left: 30px;
 }
 header .logo-homepage img {
   height: 20px;
