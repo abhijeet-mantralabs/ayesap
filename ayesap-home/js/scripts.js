@@ -37,7 +37,8 @@ window.aboutScroll = function(ele,el)
   
     $('html, body').animate({scrollTop:$(section).offset().top-pos},1000);
 }
-$('.menu-icon').click(function() {
+$('.menu-icon').click(function(e) {
+    e.stopPropagation();
     if($(this).hasClass('open')){
         $(this).removeClass('open');
         $('.nav-bar-mob').slideToggle();
@@ -45,16 +46,24 @@ $('.menu-icon').click(function() {
        $(this).addClass('open'); 
        $('.nav-bar-mob').slideToggle();
     }
-    
+      
+});
+$('html').click(function() {
+    console.log("here")
+//Hide the menus if visible
+    if($('.menu-icon').hasClass('open')){
+        $('.menu-icon').removeClass('open');
+        $('.nav-bar-mob').slideToggle();
+    }
 });
 
 $(window).scroll(function (event){
-   
-    var home = $('#home').height()-$('header').height();
-    var howitworks = $('#how-it-works').offset().top-$('header').height()-5;
-    var getstarted =  $('#get-started').offset().top-$('header').height()-5;
-    var becomerider = $('#become-rider').offset().top-$('header').height()-5;
-    var contactus = $('#contact-us').offset().top-$('header').height()-5; 
+   console.log($('.nav-container').height()-5);
+    var home = $('#home').height()-$('.nav-container').height();
+    var howitworks = $('#how-it-works').offset().top-$('.nav-container').height()-5;
+    var getstarted =  $('#get-started').offset().top-$('.nav-container').height()-5;
+    var becomerider = $('#become-rider').offset().top-$('.nav-container').height()-5;
+    var contactus = $('#contact-us').offset().top-$('.nav-container').height()-5; 
 
     if($(window).scrollTop() + $(window).height() == $(document).height()) {
         $('.nav-item').removeClass('active-tab');

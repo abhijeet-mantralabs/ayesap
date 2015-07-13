@@ -94,11 +94,11 @@ header .nav-item {
   font-family: 'latobold';
 }
 header .logo {
-  margin-top: 7px;
+  margin-top: 15px;
   float: left;
 }
 header .logo img {
-  height: 60px;
+  height: 40px;
 }
 header .logo span {
   font-family: 'Courier-Normal';
@@ -134,6 +134,7 @@ header .logo span {
 }
 .mobile-menu {
   display: none;
+  position: relative;
 }
 .mobile-menu .menu-bar-mob .menu-icon {
   float: left;
@@ -150,6 +151,11 @@ header .logo span {
   margin-left: 60px;
 }
 .mobile-menu .nav-bar-mob {
+  background-color: #0054a6;
+  position: absolute;
+  top: 51px;
+  left: 0;
+  right: 0;
   text-align: left;
   display: none;
   padding-bottom: 10px;
@@ -457,8 +463,11 @@ header .logo span {
   header .nav-item {
     padding: 10px 5px;
   }
+  header .logo {
+    margin: 10px 0 0 10px;
+  }
   header .logo img {
-    height: 40px;
+    height: 28px;
   }
   header .logo span {
     font-size: 34px;
@@ -509,6 +518,10 @@ header .logo span {
   }
   header .logo {
     display: block;
+    margin: 10px 0 0 10px;
+  }
+  header .logo img {
+    height: 25px;
   }
   #home .slider-content {
     background-size: 100% 100%;

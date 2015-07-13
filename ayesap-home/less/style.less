@@ -60,13 +60,6 @@ body{
 	color : @text-color;
 }
 header{
-	.wrapper{
-		width: 80%;
-		margin: 0 auto;
-	}
-	.nav-div{
-		float: right;
-	}
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -75,6 +68,13 @@ header{
 	padding: 1px;
 	background-color: @blue;
 	color: @white;
+	.wrapper{
+		width: 80%;
+		margin: 0 auto;
+	}
+	.nav-div{
+		float: right;
+	}
 	.nav-item{
 		margin-right: 10px;
 		padding: 20px 10px;
@@ -83,10 +83,10 @@ header{
 		font-family: 'latobold';
 	}
 	.logo{
-		margin-top: 7px;
+		margin-top: 15px;
 		float: left;
 		img{
-			height: 60px;
+			height: 40px;
 		}
 		span{
 			font-family: 'Courier-Normal';
@@ -127,6 +127,7 @@ header{
 }
 .mobile-menu{
 	display: none;
+	position: relative;
 	.menu-bar-mob{
 		.menu-icon{
 			float: left;
@@ -145,6 +146,11 @@ header{
 		}
 	}
 	.nav-bar-mob{
+		background-color: @blue;
+		position: absolute;
+		top: 51px;
+		left: 0;
+		right: 0;
 		text-align: left;
 		display: none;
 		padding-bottom: 10px;
