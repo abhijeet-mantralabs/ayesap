@@ -397,12 +397,12 @@ header .logo span {
   width: 100%;
   height: 300px;
 }
-@media (max-width: 1170px) {
+@media only screen and (max-width: 1170px) {
   header .wrapper {
     width: 90%;
   }
 }
-@media (max-width: 1024px) {
+@media only screen and (max-width: 1024px) {
   header .nav-bar {
     padding-left: 0;
   }
@@ -430,12 +430,12 @@ header .logo span {
     width: 200px;
   }
 }
-@media (max-width: 960px) {
+@media only screen and (max-width: 960px) {
   header .wrapper {
     width: 100%;
   }
 }
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
   body {
     font-size: 16px;
   }
@@ -488,7 +488,7 @@ header .logo span {
     width: 80%;
   }
 }
-@media (max-width: 640px) {
+@media only screen and (max-width: 640px) {
   header {
     padding: 1px;
   }
@@ -520,7 +520,7 @@ header .logo span {
     font-size: 18px;
   }
 }
-@media (max-width: 480px) {
+@media only screen and (max-width: 480px) {
   .section-head-grey h3 {
     font-size: 20px;
   }
@@ -538,6 +538,9 @@ header .logo span {
   }
   #home {
     margin-top: 53px;
+  }
+  #home .slider-content .slider-overlay .slider-overlay-content {
+    width: 330px;
   }
   #home .slider-content .slider-overlay .slider-overlay-content .bullet-point {
     width: 90%;
@@ -610,7 +613,16 @@ header .logo span {
     padding-left: 20px;
   }
 }
-@media (max-width: 360px) {
+@media only screen and (max-width: 360px) {
+  #home {
+    margin-top: 53px;
+  }
+  #home .slider-content .slider-overlay .slider-overlay-content {
+    width: 280px;
+  }
+  #home .slider-content .slider-overlay .slider-overlay-content .bullet-point {
+    width: 90%;
+  }
   #get-started .input-formgroup .input-icon img {
     height: 25px;
   }
