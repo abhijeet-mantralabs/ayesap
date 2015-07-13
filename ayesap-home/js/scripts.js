@@ -1,9 +1,9 @@
 // if($(window).innerHeight()>768){
-    $('.slider-content').height($(window).innerHeight()-$('header').height());
-    // console.log();
-    $(window).resize(function(event) {
-        $('.slider-content').height($(window).innerHeight()-$('header').height());
-    });
+    // $('.slider-content').height($(window).innerHeight()-$('header').height());
+    // // console.log();
+    // $(window).resize(function(event) {
+    //     $('.slider-content').height($(window).innerHeight()-$('header').height());
+    // });
 // }
 window.aboutScroll = function(ele,el)
 {   
