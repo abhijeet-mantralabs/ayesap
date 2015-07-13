@@ -150,6 +150,7 @@ header .logo span {
 .mobile-menu .nav-bar-mob {
   text-align: left;
   display: none;
+  padding-bottom: 10px;
 }
 .mobile-menu .nav-bar-mob .nav-item-mob {
   padding: 5px;
