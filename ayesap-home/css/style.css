@@ -141,11 +141,13 @@ header .logo span {
   padding: 15px;
 }
 .mobile-menu .menu-bar-mob .logo-mob {
-  float: right;
+  float: left;
   vertical-align: middle;
 }
 .mobile-menu .menu-bar-mob .logo-mob img {
-  height: 50px;
+  height: 25px;
+  margin-top: 13px;
+  margin-left: 60px;
 }
 .mobile-menu .nav-bar-mob {
   text-align: left;
