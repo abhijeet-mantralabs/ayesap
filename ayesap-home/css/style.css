@@ -61,6 +61,9 @@ input:focus {
 .active-tab {
   border-bottom: 2px solid #ffffff !important;
 }
+.active-tab-mob {
+  color: #000000;
+}
 body {
   font-size: 18px;
   font-family: 'latolight';
@@ -100,6 +103,36 @@ header .logo img {
 header .logo span {
   font-family: 'Courier-Normal';
   font-size: 34px;
+}
+.line {
+  display: block;
+  width: 30px;
+  height: 3px;
+  background: #fff;
+  margin-bottom: 4px;
+}
+.mobile-menu {
+  display: none;
+}
+.mobile-menu .menu-bar-mob .menu-icon {
+  float: left;
+  vertical-align: middle;
+  padding: 15px;
+}
+.mobile-menu .menu-bar-mob .logo-mob {
+  float: right;
+  vertical-align: middle;
+}
+.mobile-menu .menu-bar-mob .logo-mob img {
+  height: 50px;
+}
+.mobile-menu .nav-bar-mob {
+  text-align: left;
+  display: none;
+}
+.mobile-menu .nav-bar-mob .nav-item-mob {
+  padding: 5px;
+  font-size: 20px;
 }
 #home {
   margin-top: 67px;
@@ -471,6 +504,15 @@ header .logo span {
   }
   body h3 {
     font-size: 20px;
+  }
+  .wrapper {
+    display: none;
+  }
+  .mobile-menu {
+    display: block;
+  }
+  #home {
+    margin-top: 53px;
   }
   #home .slider-content .slider-overlay .slider-overlay-content .bullet-point {
     width: 90%;

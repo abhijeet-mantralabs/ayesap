@@ -50,6 +50,9 @@ input{
 .active-tab{
 	border-bottom: 2px solid @white !important;
 }
+.active-tab-mob{
+	color: @black;
+}
 
 body{
 	font-size: 18px;
@@ -91,6 +94,39 @@ header{
 		}
 	}
 }
+.line{
+    display: block;
+    width: 30px;
+    height: 3px;
+    background: #fff;
+    margin-bottom: 4px;
+}
+.mobile-menu{
+	display: none;
+	.menu-bar-mob{
+		.menu-icon{
+			float: left;
+			vertical-align: middle;
+			padding: 15px;
+		}
+		.logo-mob{
+			float: right;
+			vertical-align: middle;
+			img{
+				height: 50px;
+			}
+		}
+	}
+	.nav-bar-mob{
+		text-align: left;
+		display: none;
+		.nav-item-mob{
+			padding: 5px;
+			font-size: 20px;
+		}
+	}
+}
+
 #home{
 	margin-top: 67px;
 	background-image: url('../img/slider.jpg');

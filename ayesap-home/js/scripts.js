@@ -30,7 +30,9 @@ window.aboutScroll = function(ele,el)
   
     $('html, body').animate({scrollTop:$(section).offset().top-pos},1000);
 }
-
+$('.menu-icon').click(function() {
+    $('.nav-bar-mob').slideToggle();
+});
 
 $(window).scroll(function (event){
    
@@ -43,26 +45,38 @@ $(window).scroll(function (event){
     if($(window).scrollTop() + $(window).height() == $(document).height()) {
         $('.nav-item').removeClass('active-tab');
         $('#nav-contact-us').addClass('active-tab');
+        $('.nav-item-mob').removeClass('active-tab-mob');
+        $('#nav-contact-us-mob').addClass('active-tab-mob');
     }
     else if ($(window).scrollTop() <= howitworks){
         $('.nav-item').removeClass('active-tab');
         $('#nav-home').addClass('active-tab');
+        $('.nav-item-mob').removeClass('active-tab-mob');
+        $('#nav-home-mob').addClass('active-tab-mob');
     }
     else if ($(window).scrollTop() <= getstarted && ($(window).scrollTop() >= home)){
         $('.nav-item').removeClass('active-tab');
         $('#nav-how-it-works').addClass('active-tab');
+        $('.nav-item-mob').removeClass('active-tab-mob');
+        $('#nav-how-it-works-mob').addClass('active-tab-mob');
     }
     else if ($(window).scrollTop() <= becomerider && ($(window).scrollTop() >= getstarted)){
         $('.nav-item').removeClass('active-tab');
         $('#nav-start-shipping').addClass('active-tab');
+        $('.nav-item-mob').removeClass('active-tab-mob');
+        $('#nav-start-shipping-mob').addClass('active-tab-mob');
     }
     else if ($(window).scrollTop() <= contactus && ($(window).scrollTop() >= becomerider)){
         $('.nav-item').removeClass('active-tab');
         $('#nav-become-rider').addClass('active-tab');
+        $('.nav-item-mob').removeClass('active-tab-mob');
+        $('#nav-become-rider-mob').addClass('active-tab-mob');
     }
     else if ($(window).scrollTop() >= becomerider){
         $('.nav-item').removeClass('active-tab');
         $('#nav-contact-us').addClass('active-tab');
+        $('.nav-item-mob').removeClass('active-tab-mob');
+        $('#nav-contact-us-mob').addClass('active-tab-mob');
     }
 
 });
