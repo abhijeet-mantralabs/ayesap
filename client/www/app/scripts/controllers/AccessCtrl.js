@@ -150,6 +150,11 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
     AyesapModule.controller('PickupDetailsCtrl', function ($scope) {
         // console.log('PickupDetailsCtrl');
     })
+
+    AyesapModule.controller('forDeliveryCtrl', function ($scope, Retailer) {
+        console.log('forDeliveryCtrl');
+    })
+
     AyesapModule.controller('deliveryCtrl', function ($scope) {
         // console.log('deliveryCtrl');
     })
@@ -164,6 +169,20 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
         $scope.leastEta = $rootScope.leastEta;
         console.log('$scope.leastEta',$scope.leastEta);
     })
+
+    AyesapModule.controller('settingCtrl', function ($scope) {
+        // console.log('settingCtrl');
+        $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
+        $('.coming-soon').height($('.app-container').height()-40);
+    })
+    
+
+    AyesapModule.controller('aboutAppCtrl', function ($scope) {
+        // console.log('aboutAppCtrl');
+        $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
+        $('.coming-soon').height($('.app-container').height()-40);
+    })
+    
   
 }) 
 

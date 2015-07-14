@@ -1,6 +1,7 @@
 define(['modules/AyesapModule', 'controllers/AccessCtrl', 'services/retailer'], function (AyesapModule) {
 
 AyesapModule.directive('sidemenu', function (Retailer, $location){
+	console.log($location.path());
 	return {
 		restrict : 'E',
 		templateUrl : 'app/templates/directive-templates/side-menu.html',
@@ -12,11 +13,11 @@ AyesapModule.directive('sidemenu', function (Retailer, $location){
 			}
 					$(document).mouseup(function (e)
 					{
-				    	if($(e.target).hasClass('side-menu') || $(e.target).parents().hasClass('side-menu')){
-					    	console.log('do nothing');
-					    } else {
+				    	// if($(e.target).hasClass('side-menu') || $(e.target).parents().hasClass('side-menu')){
+					    	// console.log('do nothing');
+					    // } else {
 					    	 $(".side-menu").removeClass('show-menu');
-					    }
+					    // }
 					});
 			scope.showMenu = function(){
 				$('.side-menu').addClass('show-menu');
@@ -30,6 +31,8 @@ AyesapModule.directive('sidemenu', function (Retailer, $location){
 					console.log(err);
 				})
 			}
+
+
 		}
 	}
 })

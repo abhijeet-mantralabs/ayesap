@@ -66,6 +66,11 @@ define(['angular', 'modules/AyesapModule','controllers/AccessCtrl', 'services/re
             controller: 'PickupDetailsCtrl',
             resolve : resolve
         })
+        .when('/outFordelivery', {
+            templateUrl: 'app/templates/for-delivery.html',
+            controller: 'forDeliveryCtrl',
+            resolve : resolve
+        })
         .when('/delivered', {
             templateUrl: 'app/templates/delivered.html',
             controller: 'deliveryCtrl',
@@ -79,6 +84,16 @@ define(['angular', 'modules/AyesapModule','controllers/AccessCtrl', 'services/re
         .when('/orderDetails', {
             templateUrl: 'app/templates/order-details.html',
             controller: 'orderDetailsCtrl',
+            resolve : resolve
+        })
+        .when('/settings', {
+            templateUrl: 'app/templates/settings.html',
+            controller: 'settingCtrl',
+            resolve : resolve
+        })
+        .when('/aboutApp', {
+            templateUrl: 'app/templates/about-app.html',
+            controller: 'aboutAppCtrl',
             resolve : resolve
         })
         .otherwise({

@@ -8,6 +8,7 @@ define(['modules/AyesapModule'] , function (AyesapModule) {
 		$http.post(base_url+'retailer/isLoggedIn')
 			.success(function(response){
 				// response.details.user = response.details.user;
+				$rootScope.user = response.details.user;
                 $rootScope.fullAddress = response.details.user.address + ' ' + response.details.user.street + ' ' +  response.details.user.area + ' ' + response.details.user.city + ' ' + response.details.user.state + ' ' + response.details.user.pincode + ' ' + response.details.user.country;
 				deferred.resolve();
 			})

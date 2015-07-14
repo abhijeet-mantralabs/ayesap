@@ -94,6 +94,9 @@ a:hover {
   display: inline-block;
   vertical-align: middle;
 }
+.active-page {
+  background-color: #eee;
+}
 .app-container {
   color: #636363;
   position: relative;
@@ -428,4 +431,13 @@ header .logo-homepage img {
   color: #6cbf29;
   margin-bottom: 5px;
   font-size: 14px;
+}
+.coming-soon {
+  color: #00345b;
+  position: relative;
+  background-color: #eee;
+}
+.coming-soon h3 {
+  padding-top: 120px;
+  margin: 0;
 }

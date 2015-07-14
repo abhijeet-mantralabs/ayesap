@@ -9,12 +9,15 @@
     </div>
     	<div class="side-menu" ng-class="addClass">
         <div class="side-menu-options">
-          <a href="#/home"><div class="side-menu-items">Home</div></a>
-           <a href="#/pickup"><div class="side-menu-items">Pickup</div></a>
-           <div class="side-menu-items">Out for delivery</div>
-           <a href="#/delivered"><div class="side-menu-items">Delivered</div></a>
-           <div class="side-menu-items">Settings</div>
-           <div class="side-menu-items">About Retailer App</div>
+            
+            <div class="side-menu-items"><span class="align-middle"><img src="app/img/default-pic.png" alt="" width="50px" style="border-radius: 5px;"></span><span class="align-middle" style="margin-left:10px;">{{user.name}}</span></div>  
+            <a href="#/home"><div class="side-menu-items">Home</div></a>
+            <a href="#/pickup"><div class="side-menu-items">Pickup</div></a>
+            <a href="#/outFordelivery"><div class="side-menu-items">Out for delivery</div></a>
+            <a href="#/delivered"><div class="side-menu-items">Delivered</div></a>
+            <a href="#/settings"><div class="side-menu-items">Settings</div></a>
+            <a href="#/aboutApp"><div class="side-menu-items">About Retailer App</div></a>
+
         </div>
            <div class="text-center logout-div">
        		<button class="btn-aye btn-orange" ng-click="logout()">Logout</button>
