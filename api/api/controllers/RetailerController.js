@@ -62,6 +62,8 @@ module.exports = {
         }
     },
     login : function(req, res){
+
+        console.log(req.body);
         if(!req.body || !req.body.password || (!req.body.mobile && !req.body.email) ){
             console.log('in 400');
             res.status(400).json( {status: 400 , message: "missing credentials" });
@@ -101,6 +103,7 @@ module.exports = {
 //        if(!req.body || !req.body.retailerId ||  !req.body.mobile || !req.body.registrationStatus){
 //            res.status(400).json( {status: 400 , message: "some field(s) missing" });
 //        }else{
+            console.log("islogged in ------ >>>>")
             console.log(req.session.authenticated)
             console.log(req.session.user);
             console.log(req.body);

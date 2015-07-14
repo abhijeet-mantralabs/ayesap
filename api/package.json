@@ -28,7 +28,8 @@
     "crypto":"*",
     "nodemailer": "*",
     "nodemailer-express-handlebars": "*",
-    "nodemailer-sendgrid-transport": "*"
+    "nodemailer-sendgrid-transport": "*",
+     "connect-mongo":"*"
   },
   "scripts": {
     "start": "node app.js",

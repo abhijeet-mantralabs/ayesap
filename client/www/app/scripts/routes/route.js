@@ -36,24 +36,25 @@ define(['angular', 'modules/AyesapModule','controllers/AccessCtrl', 'services/re
                 .then(function(status){
                 })
                 .catch(function(err){
-                    $location.path('/');
+                    $location.path('/login');
                 });
             }
         } 
 
     $routeProvider
         .when('/', {
-            templateUrl: 'app/templates/login.html',
-            controller: 'SignInCtrl'
-        })
-        .when('/signup', {
-            templateUrl: 'app/templates/register.html',
-            controller: 'SignUpCtrl',
-        })
-        .when('/home', {
             templateUrl: 'app/templates/home.html',
             controller: 'HomeCtrl',
             resolve : resolve
+        })
+        .when('/signup', {
+            templateUrl: 'app/templates/register.html',
+            controller: 'SignUpCtrl'
+        })
+        .when('/login', {
+            templateUrl: 'app/templates/login.html',
+            controller: 'SignInCtrl'
+
         })
         .when('/pickup', {
             templateUrl: 'app/templates/pickup.html',
