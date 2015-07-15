@@ -66,6 +66,8 @@ a:hover {
 }
 .btn-green {
   background-color: #6cbf29;
+  padding: 0 30px;
+  height: 40px;
 }
 .btn-orange {
   background-color: #ff5527;
