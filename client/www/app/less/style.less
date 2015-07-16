@@ -67,8 +67,12 @@ a {
     display: inline-block;
     vertical-align: middle;
 }
-.active-page{
-    background-color: #eee;
+.active{
+    display: block;
+    background-color: @dark-blue !important;
+    .side-menu-items{
+        color: @white !important;
+    }
 }
 
 
@@ -191,6 +195,7 @@ header{
     z-index: 10;
     background-color: #fff;
     width: 85%;
+    box-shadow: 0px 0px 10px #a4a4a4;
     .side-menu-options{
         min-height: 250px;
     }
@@ -445,4 +450,36 @@ header{
         padding-top: 120px;
         margin: 0;
     }   
+}
+
+//setting page
+
+.settings{
+    .change-password{
+        margin: 10px;
+        padding: 10px;
+        p{
+            margin: 0;
+        }
+    }
+    .cp-content{
+        margin-top: 10px;
+        input{
+            display: block;
+            width: 90%;
+            border:none;
+            background-color: #eee;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            height: 40px;
+            padding: 0 10px;
+            font-size: 18px;
+            margin: 10px auto;
+        }
+        .cp-btn{
+            margin-top: 15px;
+        }
+    }
 }

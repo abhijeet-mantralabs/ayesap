@@ -1,0 +1,45 @@
+ <md-sidenav class="fs-subhead md-sidenav-left  md-whiteframe-z2 menu " md-component-id="left" flex>
+  <md-content class="md-padding menu main-table-side">
+
+    
+      <div flex-item class="profile-info- list bgc-light-blue-500">
+
+          <ul class="list">
+            <li class="list-row">
+                <div class="list-row__primary pt">
+                    <img src="images/lewis.png" width="50" height="50" class="img-round ml">
+                </div>
+
+                <div class="list-row__content ml++ pt+">
+                    <strong class="display-block tc-grey-50">Lewis Richards</strong>
+                    <!-- <span class="display-block fs-body-1 tc-black-2">47 yrs, O+</span> -->
+                </div>
+                <div class="list-row__secondary">
+                  <!-- <img src="images/phone-img.png" width="40" height="40" class="img-round"> -->
+                 <!-- <i class="mdi mdi-account"></i> -->
+                    <button class="btn btn--l btn--white btn--icon" lx-ripple><i class="mdi mdi-menu-down"></i></button>
+                    <!-- <a href="#/family"><i class="icon icon--s icon--flat mdi mdi-menu-down mr+ "></i></a> -->
+                </div>
+            </li>
+          </ul>
+        </div>
+    <div flex-item class="mt">
+      <ul>
+        <li  ng-repeat="item in primaryMenu" ng-click="goTo(item.url)">
+          <span class="fs-body-1 display-block"><a class="menu-item">{{ item.display }}</a></span>
+        </li>
+      </ul>
+
+      <ul class="divider">
+        <li  ng-repeat="item in secondaryMenu">
+          <span class="fs-title fs-body-1 display-block"><a class="menu-item" ng-click="goTo(item.url)">{{ item.display }}</a></span>
+        </li>
+      </ul>
+    </div>
+<!-- below added class mybutton to fix overlap issue -->
+    <button class="btn btn--m btn--blue btn--raised mybutton" lx-ripple ng-click="close()">Close</button> 
+    <a class="btn btn--m btn--blue btn--raised mybutton" lx-ripple href="#/welcome/currentUser">Logout</a>
+
+  </md-content>
+</md-sidenav>
+

@@ -60,7 +60,16 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
 
      AyesapModule.controller('HomeCtrl', function ($scope, Retailer, $timeout, $location, $routeParams, $rootScope) {
       console.log('HomeCtrl');
-
+        document.addEventListener("backbutton", function(e){ 
+            var path = $location.path();
+            if (path == '/'){
+                console.log('backbutton'); 
+                e.preventDefault();
+                navigator.app.exitApp();
+            } else {
+                navigator.app.backHistory();
+            }
+        });
         $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
         $('#map-canvas').css('min-height',$(window).innerHeight()-90 + 'px');
         console.log($(window).height());

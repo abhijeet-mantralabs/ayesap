@@ -49,7 +49,6 @@ $('.menu-icon').click(function(e) {
       
 });
 $('html').click(function() {
-    console.log("here")
 //Hide the menus if visible
     if($('.menu-icon').hasClass('open')){
         $('.menu-icon').removeClass('open');
@@ -58,7 +57,6 @@ $('html').click(function() {
 });
 
 $(window).scroll(function (event){
-   console.log($('.nav-container').height()-5);
     var home = $('#home').height()-$('.nav-container').height();
     var howitworks = $('#how-it-works').offset().top-$('.nav-container').height()-5;
     var getstarted =  $('#get-started').offset().top-$('.nav-container').height()-5;
@@ -167,7 +165,6 @@ $( "#rider-form" ).submit(function( event ) {
     var posting = $.post( base_url+'resources/reqForResRegister', formData)
 
     posting.done(function( data ) {
-        console.log(data)
         $('#rider-name').val('');
         $('#rider-phone').val('');
         $('#rider-city').val('');

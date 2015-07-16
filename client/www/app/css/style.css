@@ -96,8 +96,12 @@ a:hover {
   display: inline-block;
   vertical-align: middle;
 }
-.active-page {
-  background-color: #eee;
+.active {
+  display: block;
+  background-color: #00345b !important;
+}
+.active .side-menu-items {
+  color: #ffffff !important;
 }
 .app-container {
   color: #636363;
@@ -205,6 +209,7 @@ header .logo-homepage img {
   z-index: 10;
   background-color: #fff;
   width: 85%;
+  box-shadow: 0px 0px 10px #a4a4a4;
 }
 .side-menu .side-menu-options {
   min-height: 250px;
@@ -442,4 +447,31 @@ header .logo-homepage img {
 .coming-soon h3 {
   padding-top: 120px;
   margin: 0;
+}
+.settings .change-password {
+  margin: 10px;
+  padding: 10px;
+}
+.settings .change-password p {
+  margin: 0;
+}
+.settings .cp-content {
+  margin-top: 10px;
+}
+.settings .cp-content input {
+  display: block;
+  width: 90%;
+  border: none;
+  background-color: #eee;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  height: 40px;
+  padding: 0 10px;
+  font-size: 18px;
+  margin: 10px auto;
+}
+.settings .cp-content .cp-btn {
+  margin-top: 15px;
 }
