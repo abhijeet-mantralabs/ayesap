@@ -187,8 +187,9 @@ header .logo span {
   width: 575px;
   text-align: left;
   position: absolute;
-  top: 50px;
-  left: 40px;
+  top: 120px;
+  left: 140px;
+  left: 10%;
   height: 190px;
   font-family: 'latobold';
 }
@@ -406,6 +407,9 @@ header .logo span {
   header .wrapper {
     width: 90%;
   }
+  #home .slider-content .slider-overlay .slider-overlay-content {
+    left: 5%;
+  }
 }
 @media only screen and (max-width: 1024px) {
   header .nav-bar {
@@ -441,6 +445,7 @@ header .logo span {
     width: 100%;
   }
   #home .slider-content .slider-overlay .slider-overlay-content {
+    left: 2%;
     width: 400px;
   }
   #home .slider-content .slider-overlay .slider-overlay-content h3 {
