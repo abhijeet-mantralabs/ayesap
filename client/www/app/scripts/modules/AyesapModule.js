@@ -1,4 +1,4 @@
-define(['angular' , 'angularResource', 'angularRoute'] , function (angular,angularResource, angularRoute) {
-  return angular.module('AyesapModule' , ['ngResource', 'ngRoute']);
+define(['angular' , 'angularResource', 'angularRoute','angularMaterial'] , function (angular,angularResource, angularRoute, angularMaterial) {
+  return angular.module('AyesapModule' , ['ngResource', 'ngRoute', 'ngMaterial']);
 
 });

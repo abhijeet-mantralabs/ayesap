@@ -4,7 +4,10 @@ require.config({
 		'angular': 'vendor/angular/angular.min',
 		'angularResource': 'vendor/angular-resource/angular-resource.min',
 	    'angularRoute' :'vendor/angular-route/angular-route.min',
-        'bootstrap'    : 'vendor/bootstrap/dist/js/bootstrap.min'
+        'bootstrap'    : 'vendor/bootstrap/dist/js/bootstrap.min',
+        'angularAnimate':'vendor/angular-animate/angular-animate.min',
+        'angularAria': 'vendor/angular-aria/angular-aria.min',
+        'angularMaterial':'vendor/bootstrap/dist/js/bootstrap.min'
     },
 	shim: {
         'angular' : {'exports' : 'angular'},
@@ -21,11 +24,20 @@ require.config({
         },
         'bootstrap' : {
             deps:['jquery']
+        },
+        'angularAnimate' : {
+            deps:['angular']
+        },
+        'angularAria' : {
+            deps:['angular']
+        },
+        'angularMaterial' : {
+            deps:['angular','angularAria','angularAnimate']
         }
     }
 });
 
-require(['jquery', 'bootstrap', 'angular', 'angularRoute','angularResource', 'routes/route'] , function ($, bootstrap, angular, angularRoute, angularResource ,route) {
+require(['jquery', 'bootstrap', 'angular', 'angularRoute','angularResource', 'angularMaterial', 'routes/route'] , function ($, bootstrap, angular, angularRoute, angularResource , angularMaterial, route) {
     $(function () {
       angular.bootstrap(document , ['AyesapModule']);
     });

@@ -8,6 +8,6 @@
 		"requirejs":"2.1.10",
 		"angular-route":"",
 		"bootstrap":"*",
-		"lumx":"*"
+		"angular-material":"*"
 	}
 }
