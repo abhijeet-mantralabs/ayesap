@@ -50,7 +50,7 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
         if((credentials.email || credentials.mobile)&& credentials.password){
             Retailer.login(credentials)
             .then(function(response){
-                $location.path('/home')
+                $location.path('/');
             }).catch(function(err){
                 $scope.error = err.message;
             });

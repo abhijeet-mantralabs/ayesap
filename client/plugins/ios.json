@@ -18,6 +18,12 @@
                             "xml": false,
                             "count": 2
                         }
+                    ],
+                    "SystemConfiguration.framework": [
+                        {
+                            "xml": true,
+                            "count": 1
+                        }
                     ]
                 }
             },
@@ -34,6 +40,10 @@
                         },
                         {
                             "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"NetworkStatus\"><param name=\"ios-package\" value=\"CDVConnection\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -62,6 +72,9 @@
             "PACKAGE_NAME": "io.cordova.hellocordova"
         },
         "org.apache.cordova.geolocation": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-plugin-network-information": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },

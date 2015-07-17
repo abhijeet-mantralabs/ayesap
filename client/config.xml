@@ -24,4 +24,7 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <preference name="orientation" value="portrait" />
+    <feature name="NetworkStatus">
+      <param name="android-package" value="org.apache.cordova.NetworkManager" />
+  </feature>
 </widget>

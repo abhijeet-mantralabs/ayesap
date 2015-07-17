@@ -265,19 +265,9 @@ header .logo span {
   width: 302px;
   height: 425px;
 }
-#how-it-works .screenshot .screenshot-cover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(18, 18, 18, 0.8);
-  cursor: pointer;
-}
 #how-it-works .screenshot .screenshot-cover p {
-  color: white;
-  margin-top: 200px;
-  padding: 0 30px;
+  color: #000;
+  margin-top: 20px;
 }
 #how-it-works .screenshot-mobile {
   display: none;

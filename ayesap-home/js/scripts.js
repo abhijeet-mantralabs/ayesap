@@ -102,9 +102,9 @@ $(window).scroll(function (event){
 
 });
 
-$(".screenshot").hover(function () {
-    $(this).children('.screenshot-cover').slideToggle();
-});
+// $(".screenshot").hover(function () {
+//     $(this).children('.screenshot-cover').slideToggle();
+// });
 
 // Attach a submit handler to the form for retailer
 $( "#retailer-form" ).submit(function( event ) {

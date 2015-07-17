@@ -39,6 +39,21 @@ module.exports = [
         "clobbers": [
             "navigator.compass"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-network-information/www/network.js",
+        "id": "cordova-plugin-network-information.network",
+        "clobbers": [
+            "navigator.connection",
+            "navigator.network.connection"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-network-information/www/Connection.js",
+        "id": "cordova-plugin-network-information.Connection",
+        "clobbers": [
+            "Connection"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -47,7 +62,8 @@ module.exports.metadata =
     "cordova-plugin-whitelist": "1.0.0",
     "org.apache.cordova.device-motion": "0.2.11",
     "org.apache.cordova.device-orientation": "0.3.11",
-    "org.apache.cordova.geolocation": "0.3.12"
+    "org.apache.cordova.geolocation": "0.3.12",
+    "cordova-plugin-network-information": "1.0.2-dev"
 }
 // BOTTOM OF METADATA
 });
