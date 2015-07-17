@@ -473,5 +473,9 @@ header .logo-homepage img {
   margin: 10px auto;
 }
 .settings .cp-content .cp-btn {
-  margin-top: 15px;
+  margin-top: 35px;
+}
+.settings .cp-content .cp-btn .btn-green {
+  padding: 10px 20px;
+  font-size: 18px;
 }
