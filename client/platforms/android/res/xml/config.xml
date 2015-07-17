@@ -11,6 +11,9 @@
     <feature name="Compass">
         <param name="android-package" value="org.apache.cordova.deviceorientation.CompassListener" />
     </feature>
+    <feature name="NetworkStatus">
+        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
+    </feature>
     <allow-intent href="market:*" />
     <name>Ayesap</name>
     <description>
@@ -28,7 +31,4 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <preference name="orientation" value="portrait" />
-    <feature name="NetworkStatus">
-        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
-    </feature>
 </widget>

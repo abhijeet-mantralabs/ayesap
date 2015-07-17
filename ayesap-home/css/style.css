@@ -262,10 +262,11 @@ header .logo span {
   cursor: pointer;
 }
 #how-it-works .screenshot img {
-  width: 302px;
+  width: 300px;
   height: 425px;
 }
 #how-it-works .screenshot .screenshot-cover p {
+  font-family: 'latobold';
   color: #000;
   margin-top: 20px;
 }
