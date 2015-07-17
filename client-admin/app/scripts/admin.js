@@ -224,7 +224,7 @@ angular
 	  	this.fetchRsources = function(data){
 			var deferred = $q.defer();
 			
-			$http.get(base_url+'resources/listResources ',data)
+			$http.get(base_url+'resources/listReqResources ',data)
 			.success(function(response){
 				deferred.resolve(response);
 			})
