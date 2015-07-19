@@ -77,7 +77,7 @@ module.exports = {
             type: 'string'
         },
         zone:{
-            type: 'string'
+            type: 'integer'
         },
         comments:{
             type: 'string'

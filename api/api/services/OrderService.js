@@ -1,30 +1,34 @@
 /**
- * Created by abhijeetgupta on 14/07/15.
+ * Created by abhijeetgupta on 18/07/15.
  */
+
 
 var rp = require('request-promise');
 var partner = sails.config.globals.partnerDetails;
 var APIurl = sails.config.globals.APIurl;
 module.exports = {
-    getRidersInZone: function (zone, riderActiveStatus,  callback) {
-        zone = 7;
-        riderActiveStatus = 0;
+    createOrder: function (payload,  callback) {
+//        payload.zoneid = 7;
+        var route = 1
         var options = {
             uri : APIurl,
             method : 'POST',
             form: {
-                method: "getallresources",
+                method: "addtask",
                 email: partner.email,
                 key: partner.key,
-                zoneid: zone,
-                status: riderActiveStatus
+                zoneid: payload.zoneid,
+                route: route ,
+                payload: payload.payload
             }
         };
+        console.log("book now service options -- >>>  ", options)
+        console.log(options)
         rp(options)
             .then(function (response) {
-                console.log("got resources", response);
-                    console.log("service res--->>>", response);
-                    return callback(null, response);
+                console.log("order booked", response);
+                console.log("book order service res--->>>", response);
+                return callback(null, response);
 
             })
             .catch(function(error){

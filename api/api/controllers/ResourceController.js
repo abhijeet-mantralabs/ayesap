@@ -4,7 +4,7 @@
  * @description :: Server-side logic for managing resources
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
-
+var async = require('async');
 module.exports = {
     fetchNearResources : function(req, res){
        console.log(req.body)
@@ -38,5 +38,18 @@ module.exports = {
             }
         });
     },
+    getRiderByZone: function(req, res){
+        zone = sails.config.globals.listOfZones[0];
+
+        ResourceService.getRidersInZone(7 ,zone,function(err, response) {
+            if (err) {
+                console.log("error in controller", err)
+                res.status(err.status).json(error);
+            } else {
+                console.log("response in controller", response)
+                res.json({message: "riders fetched", details: response});
+            }
+        })
+    }
 };
 

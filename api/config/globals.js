@@ -10,6 +10,8 @@
  */
 module.exports.globals = {
 
+
+
   /****************************************************************************
   *                                                                           *
   * Expose the lodash installed in Sails core as a global variable. If this   *
@@ -60,4 +62,12 @@ module.exports.globals = {
   ****************************************************************************/
 
 	// models: true
+
+  partnerDetails: {
+    email: "abhijeet@mantralabsglobal.com",
+    key: "25b7c81e770034aeda70db74af0fb638beca992d2a535641e6313f38b9665016"
+  },
+  APIurl : "http://103.241.183.119/fvapi",
+  listOfZones: [7]
+
 };

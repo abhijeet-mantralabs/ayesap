@@ -57,6 +57,9 @@ module.exports.routes = {
     'PUT /retailer/declineRetailer' : 'RetailerController.declineUser',
 
     'POST /resources/reqForResRegister': 'ResourceController.reqForResRegister',
-    'POST /resources/nearBy': 'ResourceController.fetchNearResources',
-    'GET /resources/listResources': 'ResourceController.getResourceList'
+    'GET /resources/listReqResources': 'ResourceController.getResourceList',
+    'GET /resources/getRiderByZone': 'ResourceController.getRiderByZone',
+
+    'POST /order/bookOrder': 'OrderController.bookOrder',
+    'POST /order/knowOrderStatus': 'OrderController.getOrderStatus'
 };

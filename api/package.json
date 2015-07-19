@@ -29,7 +29,8 @@
     "nodemailer": "*",
     "nodemailer-express-handlebars": "*",
     "nodemailer-sendgrid-transport": "*",
-     "connect-mongo":"*"
+    "connect-mongo":"*",
+    "async":"*"
   },
   "scripts": {
     "start": "node app.js",
