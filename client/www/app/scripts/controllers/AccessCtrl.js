@@ -132,6 +132,8 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
             origins : '13.021808799999999, 77.6495135',
             destinations : '12.971598700000000000, 77.594562699999980000|13.020705, 77.647896|13.000688, 77.674658'
         }
+        $scope.destinationArray = location.destinations.split('|');
+        console.log('destinationArray',$scope.destinationArray);
         var getdistanceMatrix = function(location){
             Retailer.getdistanceMatrix(location)
             .then(function(response){
@@ -140,8 +142,13 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
                 for ( i = 0; i < distanceArray.length; i++ ) {
                     eta.push(distanceArray[i].duration.value);
                 }
-                $scope.leastEta = Math.round((Math.min.apply(null, eta))/60);
-                $rootScope.leastEta = $scope.leastEta;
+                // $scope.leastEta = Math.round((Math.min.apply(null, eta))/60);
+                $scope.leastValue = (Math.min.apply(null, eta));
+                console.log('index',eta.indexOf($scope.leastValue));
+                var indexOfResource = eta.indexOf($scope.leastValue);
+                $rootScope.leastEta = Math.round($scope.leastValue/60);
+                $scope.nearestResource = $scope.destinationArray[indexOfResource];
+                console.log('$scope.nearestResource',$scope.nearestResource);
             }).catch(function(err){
                 $scope.error = err.message;
             })
