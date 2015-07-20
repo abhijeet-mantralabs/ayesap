@@ -227,6 +227,21 @@ module.exports = {
         });
     },
     getOrderStatus: function(req, res){
+        sails.log(req.body)
+//        orderStatus = JSON.parse(req.body);
+        sails.log(req.body);
+        if(req.body.token == "taskstatus"){
+            OrderStatus.createOrderStatus(req.body, function(err, savedOrderStatus){
+                if(err){
+                    res.status(err.status).json(err);
+                }else{
+                    res.json({message: "request registered", details: "order status saved"} );
+                }
+            })
+        }else{
+            sails.log.debug("token is different")
+//            res.json({message: "request registered", details: "order not saved, wrong"} );
+        }
 
     }
 };

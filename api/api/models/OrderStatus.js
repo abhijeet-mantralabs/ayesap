@@ -3,44 +3,54 @@
  */
 module.exports = {
     attributes: {
-        orderId: {
+        orderid: {
             type: 'string'
         },
-        taskId:{
-            type:'string'
+        taskid:{
+            type:'string',
+            required: true
         },
-        lastStatus:{
-            type: 'integer'
+        laststatus:{
+            type: 'string'
         },
-        currentStatus:{
-            type: 'integer'
+        currentstatus:{
+            type: 'string'
         },
         updatetime:{
-            type: 'datetime'
-        },
-        orderAmount: {
-            type: 'string',
-            required: true
+            type: 'string'
         },
         CODValue:{
             type: 'string'
         },
-        resId:{
+        resid:{
             type: 'string'
         },
-        resName:{
+        resname:{
             type: 'string'
         },
         mobile:{
             type: 'integer'
         },
         lat:{
-
+            type: 'string'
         },
-        long:{
-
+        lng:{
+            type: 'string'
+        },
+        token:{
+            type: 'string'
         }
 
+    },
+    createOrderStatus: function(opts, cb){
+
+        OrderStatus.create(opts, function(err, savedOrderStatus){
+            if(err){
+                cb(err);
+            }else{
+                cb(null,savedOrderStatus);
+            }
+        });
     }
 }
 
