@@ -212,9 +212,6 @@ module.exports = {
                                     order.customerId = customer.customerId;
                                     order.orderStatusBackend = "successfully-assigned"
                                     Order.updateOrder(order, function(err, order){
-
-
-
                                         if(err) {
                                             res.status(err.status).json(err);
                                         }

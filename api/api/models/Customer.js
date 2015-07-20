@@ -62,7 +62,7 @@ module.exports = {
                 });
             }else if(customer){
 
-                    Customer.update({customerMobile:opts.customerMobile}, opts ,  function (err, customerUpdated) {
+                    Customer.update({mobile:opts.mobile}, opts ,  function (err, customerUpdated) {
                         if (!err){
                             cb(null, customerUpdated[0]);
                         }else{
