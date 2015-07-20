@@ -62,17 +62,14 @@ module.exports = {
                 });
             }else if(customer){
 
-                if(opts.address && customer.area && customer.city && customer.pinCode && customer.street){
-                    Retailer.update({customerMobile:opts.customerMobile}, opts ,  function (err, customerUpdated) {
+                    Customer.update({customerMobile:opts.customerMobile}, opts ,  function (err, customerUpdated) {
                         if (!err){
                             cb(null, customerUpdated[0]);
                         }else{
                             cb(err);
                         }
                     });
-                }else{
-                    console.log("please provide the full address");
-                }
+
             }
         });
 

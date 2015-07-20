@@ -22,8 +22,14 @@ module.exports = {
         retailerId:{
             type:'string'
         },
+        retailerMobile:{
+            type: 'integer'
+        },
         customerId:{
             type:'string'
+        },
+        customerMobile:{
+            type: 'integer'
         },
         paymentType:{
            type: 'string',
@@ -35,6 +41,9 @@ module.exports = {
         },
         CODValue:{
             type: 'integer'
+        },
+        orderStatusBackend:{
+            type: "string"
         }
 
     },

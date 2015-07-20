@@ -5,69 +5,33 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
+//res.json({message: "Retailer successfully registered", details:{ user: user}});
+
 module.exports = {
     bookOrder: function(req, res){
         console.log(req.body);
-
-
-//
-//        var frontEndPayload = {
-//            retailerDetails:{
-//                retailerId:"",
-//                name: "",
-//                retailerType:"",
-//                mobile:"",
-//                address:"",
-//                street:"",
-//                area: "",
-//                city:"",
-//                pincode:"",
-//                latitude:"",
-//                longitude: "",
-//                zone: ""
-//            },
-//            customerDetails:{
-//                name:"",
-//                mobile:"",
-//                address:{
-//                    address:"",
-//                    street:"",
-//                    area:"",
-//                    city:"",
-//                    pinCode:""
-//                }
-//            },
-//            orderAmount:"",
-//            paymentType:"",
-//            CODValue:""
-//        }
         /** for backend-->>
          * take order details, call order model to save it on db with orderId, return full order details with orderId, (will be used in add task payload)
          * take customer Details(will be used in add task payload) , call customer Model to save it on db with mongodb default id
          * make payload according to addtask service payload,
          * get taskid store against 1 order Id
         **/
-
+        var retailerDetails = req.body.retailerDetails;
+        var customerDetails = req.body.customerDetails;
         var orderDBPayload = {
             orderStatusId : [],
+            retailerId: retailerDetails.retailerId ,
+            retailerMobile : retailerDetails.mobile,
+            customerMobile: customerDetails.mobile,
             paymentType: req.body.paymentType,
             orderAmount: req.body.orderAmount,
-            CODValue: req.body.CODValue
-
+            orderStatusBackend: "notassigned"
         }
-        var customer = req.body.customerDetails;
+
         var customerDBPayload = {
-            name: customer.name,
-            address: customer.address.address,
-            street: customer.address.street,
-            area: customer.address.area,
-            city: customer.address.city,
-            pinCode: customer.address.pinCode,
-            mobile: customer.mobile
+            mobile: customerDetails.mobile
         }
 
-
-        var retailer = req.body.retailerDetails;
         Order.registerOrder(orderDBPayload, function(err, order){
             if(err) {
                 console.log("order not initially saved to db")
@@ -75,26 +39,25 @@ module.exports = {
             }
             else{
                 console.log("order initially Saved--->>", order)
-
                 var addTaskPayload = {
-                    "zoneid" : req.body.retailerDetails.zone,
-                    "payload":{
-                        "payload": {
-                            "task": {
-                                "field": [
+                    zoneid : retailerDetails.zone,
+                    payload:{
+                        payload: {
+                            task: {
+                                field: [
                                     {
-                                        "name": "Order ID",
-                                        "value": order.orderId
+                                        name: "Order ID",
+                                        value: order.orderId
                                     },
                                     {
-                                        "name": "Retailer Phone Number",
-                                        "value": req.body.retailerDetails.mobile
+                                        name: "Retailer Phone Number",
+                                        value: retailerDetails.mobile
                                     },
 
 
                                     {
                                         "name": "Customer Phone Number",
-                                        "value": req.body.customerDetails.mobile
+                                        "value": customerDetails.mobile
                                     },
                                     {
                                         "name": "Pick-up Address",
@@ -102,23 +65,23 @@ module.exports = {
                                             "address": [
                                                 {
                                                     "name": "Street",
-                                                    "value": req.body.retailerDetails.address
+                                                    "value": retailerDetails.address
                                                 },
                                                 {
                                                     "name": "Street1",
-                                                    "value": req.body.retailerDetails.street
+                                                    "value": retailerDetails.street
                                                 },
                                                 {
                                                     "name": "Area",
-                                                    "value": req.body.retailerDetails.area
+                                                    "value": retailerDetails.area
                                                 },
                                                 {
                                                     "name": "City",
-                                                    "value": req.body.retailerDetails.city
+                                                    "value": retailerDetails.city
                                                 },
                                                 {
                                                     "name": "Pincode",
-                                                    "value": req.body.retailerDetails.pincode
+                                                    "value": retailerDetails.pincode
                                                 },
                                                 {
                                                     "name": "lat",
@@ -139,21 +102,18 @@ module.exports = {
                                         "name": "Order Amount",
                                         "value": req.body.orderAmount
                                     },
-                                    {
-                                        "name": "COD Value",
-                                        "value": req.body.CODValue
-                                    },
+
                                     {
                                         "name": "Retailer ID",
-                                        "value": req.body.retailerDetails.retailerId
+                                        "value": retailerDetails.retailerId
                                     },
                                     {
                                         "name": "Retailer Name",
-                                        "value": req.body.retailerDetails.name
+                                        "value": retailerDetails.name
                                     },
                                     {
                                         "name": "Retailer Type",
-                                        "value": req.body.retailerDetails.retailerType
+                                        "value": retailerDetails.retailerType
                                     }
                                 ]
                             }
@@ -161,62 +121,108 @@ module.exports = {
                     }
 
                 }
-                if(customer.address){
+
+                if(customerDetails.address){
+                    console.log("adrress is there")
                    var customerAddressObj =  {
                         "name": "Customer Address",
                         "value": {
                         "address": [
                             {
                                 "name": "Street",
-                                "value": customer.address.address
+                                "value": customerDetails.address.address
                             },
                             {
                                 "name": "Street1",
-                                "value":  customer.address.street
+                                "value":  customerDetails.address.street
                             },
                             {
                                 "name": "Area",
-                                "value": customer.address.area
+                                "value": customerDetails.address.area
                             },
                             {
                                 "name": "City",
-                                "value":  customer.address.city
+                                "value":  customerDetails.address.city
                             },
                             {
                                 "name": "Pincode",
-                                "value": customer.address.pinCode
+                                "value": customerDetails.address.pinCode
                             }
                         ]
                     }
                    }
                    addTaskPayload.payload.payload.task.field.push(customerAddressObj);
+                    customerDBPayload.address = customerDetails.address.address;
+                    customerDBPayload.street = customerDetails.address.street,
+                    customerDBPayload.area = customerDetails.address.area,
+                    customerDBPayload.city = customerDetails.address.city,
+                    customerDBPayload.pincode = customerDetails.address.pinCode
 
                 }
-                if(customer.name){
+                if(req.body.CODValue){
+
+                    var CODValueEntry = {
+                        "name": "COD Value",
+                        "value": req.body.CODValue
+                    }
+                    addTaskPayload.payload.payload.task.field.push(CODValueEntry);
+                    orderDBPayload.CODValue = req.body.CODValue
+
+                }
+
+                if(customerDetails.name){
+                    console.log("name is there")
                     var customerNameObj = {
                         "name": "Customer Name",
-                        "value": customer.name
+                        "value": customerDetails.name
                     }
+                    customerDBPayload.name = customerDetails.name;
                     addTaskPayload.payload.payload.task.field.push(customerNameObj);
                 }
                 addTaskPayload.zoneid = 7; //  hardcoded
-
-                console.log("addTaskFinal Payload --- >>>")
-                console.log(addTaskPayload)
-                console.log(addTaskPayload.payload.payload.task.field)
-                console.log("addTaskFinal Payload  ends--- >>>")
 //                res.json({message: "order successfully booked", details:{ order: addTaskPayload.payload}});
-                OrderService.createOrder(addTaskPayload, function(err, response){
+                Customer.createCustomer(customerDBPayload, function(err, customer){
                     if(err){
-                        console.log("error in order controller book order--->>")
-                        res.status(err.status).json(err);
+                        sails.log.error("failed to save customer on db")
                     }else{
-//                        {"output":{"status":201,"data":{"taskid":["FV-9-01678"]}}}
-                        order.taskId = response.output.data.taskid[0];
-                        res.json({message: "order successfully booked", details:{ order: response}});
+                        sails.log.debug("customer saved")
 
+                        OrderService.createOrder(addTaskPayload, function(err, response){
+                            if(err){
+                                console.log("error in order controller book order--->>")
+                                res.status(err.status).json(err);
+                            }else{
+//                        {"output":{"status":201,"data":{"taskid":["FV-9-01678"]}}}
+//                         '{"output":{"status":403,"data":{"errorcode":"403105","message":"Currently no shift is running with resources"}}}'
+
+                                response = JSON.parse(response)
+                                sails.log.debug("object like output-->>>>>")
+                                sails.log.debug(response.output)
+                                if(response.output.status == 201){
+                                    order.taskId = response.output.data.taskid[0];
+                                    order.customerId = customer.customerId;
+                                    order.orderStatusBackend = "successfully-assigned"
+                                    Order.updateOrder(order, function(err, order){
+                                        if(err) {
+                                            res.status(err.status).json(err);
+                                        }
+                                        else{
+
+                                            sails.log.debug("order saved to db")
+                                            res.json({message: "order successfully booked", details:{ order: order}});
+                                        }
+                                    })
+                                }else if(response.output.status == 403){
+                                    res.status(403).json( {status: response.output.data.errorcode , message: response.output.data.message });
+                                }else if(response.output.status == 404){
+                                    res.status(404).json( {status: response.output.data.errorcode , message: response.output.data.message });
+                                }
+                            }
+                        })
                     }
                 })
+//                res.json({message: "order successfully booked", payload: addTaskPayload.payload});
+
             }
         });
     },
