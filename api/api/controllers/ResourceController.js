@@ -41,38 +41,38 @@ module.exports = {
     },
     getRiderByZone: function(req, res){
         zone = sails.config.globals.listOfZones[0];
-        async.each(sails.config.globals.listOfZones, function(zone, callback) {
-
-            // Perform operation on file here.
-
-
-            if( file.length > 32 ) {
-                console.log('This file name is too long');
-                callback('File name too long');
-            } else {
-                // Do work to process file here
-                console.log('File processed');
-                callback();
-            }
-        }, function(err){
-            // if any of the file processing produced an error, err would equal that error
-            if( err ) {
-                // One of the iterations produced an error.
-                // All processing will now stop.
-                console.log('A file failed to process');
-            } else {
-                console.log('All files have been processed successfully');
-            }
-        });
-        ResourceService.getRidersInZone(7 ,zone,function(err, response) {
-            if (err) {
-                console.log("error in controller", err)
-                res.status(err.status).json(error);
-            } else {
-                console.log("response in controller", response)
-                res.json({message: "riders fetched", details: response});
-            }
-        })
+//        async.each(sails.config.globals.listOfZones, function(zone, callback) {
+//
+//            // Perform operation on file here.
+//
+//
+//            if( file.length > 32 ) {
+//                console.log('This file name is too long');
+//                callback('File name too long');
+//            } else {
+//                // Do work to process file here
+//                console.log('File processed');
+//                callback();
+//            }
+//        }, function(err){
+//            // if any of the file processing produced an error, err would equal that error
+//            if( err ) {
+//                // One of the iterations produced an error.
+//                // All processing will now stop.
+//                console.log('A file failed to process');
+//            } else {
+//                console.log('All files have been processed successfully');
+//            }
+//        });
+//        ResourceService.getRidersInZone(7 ,zone,function(err, response) {
+//            if (err) {
+//                console.log("error in controller", err)
+//                res.status(err.status).json(error);
+//            } else {
+//                console.log("response in controller", response)
+//                res.json({message: "riders fetched", details: response});
+//            }
+//        })
     }
 };
 
