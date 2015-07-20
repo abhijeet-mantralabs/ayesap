@@ -49,7 +49,7 @@ module.exports = {
                         }
                         var pad = "0000";
                         var customerId =  pad.substring(0, pad.length - id.length) + id;
-                        console.log("generated  order Id ->>>>",  customerId)
+                        console.log("generated  customer Id ->>>>",  customerId)
                         opts.customerId = customerId;
                         Customer.create(opts, function(err, savedCustomer){
                             if(err){

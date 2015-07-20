@@ -27,7 +27,7 @@ module.exports = {
             customerMobile: customerDetails.mobile,
             paymentType: req.body.paymentType,
             orderAmount: req.body.orderAmount,
-            orderStatusBackend: "notassigned"
+            orderStatusBackend: "req-not-received"
         }
 
         var customerDBPayload = {
@@ -210,7 +210,7 @@ module.exports = {
                                 if(response.output.status == 201){
                                     order.taskId = response.output.data.taskid[0];
                                     order.customerId = customer.customerId;
-                                    order.orderStatusBackend = "successfully-assigned"
+                                    order.orderStatusBackend = "req-not-received"
                                     Order.updateOrder(order, function(err, order){
                                         if(err) {
                                             res.status(err.status).json(err);
