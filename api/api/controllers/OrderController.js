@@ -209,7 +209,7 @@ module.exports = {
                                         else{
 
                                             sails.log.debug("order saved to db")
-                                            res.json({message: "order successfully booked", details:{ order: order}});
+                                            res.json({message: "Your request has been received successfully", details:{ order: order}});
                                         }
                                     })
                                 }else if(response.output.status == 403){

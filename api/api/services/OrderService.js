@@ -21,7 +21,7 @@ module.exports = {
                 email: partner.email,
                 key: partner.key,
                 zoneid: payload.zoneid,
-                route: route ,
+                route: route,
                 payload: JSON.stringify(payload.payload)
             }
         };
