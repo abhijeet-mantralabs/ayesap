@@ -27,7 +27,7 @@ module.exports = {
             type: 'integer'
         },
         mobile:{
-            type: 'integer',
+            type: 'string',
             required: true
         }
     },
