@@ -20,11 +20,14 @@ module.exports = {
                 method: "addtask",
                 email: partner.email,
                 key: partner.key,
-                zoneid: payload.zoneid,
+//                zoneid: payload.zoneid,
                 route: route,
                 payload: JSON.stringify(payload.payload)
             }
         };
+        if(payload.zoneid){
+            form.zoneid = payload.zoneid;
+        }
 //        sails.log.debug("book now service options -- >>>  ", options);
 
         request(options, function(error, response, body){
