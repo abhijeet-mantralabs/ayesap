@@ -179,7 +179,8 @@ module.exports = {
                     customerDBPayload.name = customerDetails.name;
                     addTaskPayload.payload.payload.task.field.push(customerNameObj);
                 }
-                addTaskPayload.zoneid = 7; //  hardcoded
+//                addTaskPayload.zoneid =
+//                addTaskPayload.zoneid = 7; //  hardcoded
 //                res.json({message: "order successfully booked", details:{ order: addTaskPayload.payload}});
                 Customer.createCustomer(customerDBPayload, function(err, customer){
                     if(err){
