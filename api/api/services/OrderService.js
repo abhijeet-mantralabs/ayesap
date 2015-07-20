@@ -26,7 +26,7 @@ module.exports = {
             }
         };
         if(payload.zoneid){
-            form.zoneid = payload.zoneid;
+            options.form.zoneid = payload.zoneid;
         }
 //        sails.log.debug("book now service options -- >>>  ", options);
 
