@@ -31,6 +31,9 @@ body {
   border: none;
   box-shadow: none;
 }
+.logo {
+  padding-top: 20px;
+}
 .logo img {
   width: 70px;
   margin-right: 10px;
