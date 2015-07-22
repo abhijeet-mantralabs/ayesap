@@ -12,7 +12,7 @@ module.exports = {
 
         sails.log.debug("addTaskFinal service  Payload --- >>>")
         sails.log.debug(payload.payload)
-        var route = 1 // should be 1 at live push , should be 0 while testing
+//        var route = 1 // should be 1 at live push , should be 0 while testing
         var options = {
             uri : APIurl,
             method : 'POST',
@@ -20,8 +20,7 @@ module.exports = {
                 method: "addtask",
                 email: partner.email,
                 key: partner.key,
-//                zoneid: payload.zoneid,
-                route: route,
+                route:  sails.config.globals.taskAutoAssignOptionInUse,
                 payload: JSON.stringify(payload.payload)
             }
         };

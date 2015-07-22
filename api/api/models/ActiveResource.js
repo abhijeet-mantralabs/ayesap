@@ -1,7 +1,7 @@
-///**
-// * Created by abhijeetgupta on 17/07/15.
-// */
-////{
+/////**
+//// * Created by abhijeetgupta on 17/07/15.
+//// */
+//////{
 ////    " id ": "CAP7a",
 ////    " name ": "cp1a",
 ////    " maxcapacity ": 15,
@@ -9,9 +9,10 @@
 ////    " resource type": "General",
 ////    " mobile": "918197322665",
 ////    " lat": "12.976328",
-////    " lng": "77.634270"
-////},
+////    " lng": "77.634270",
 //
+//////},
+////
 //module.exports = {
 //
 //    attributes: {

@@ -75,6 +75,16 @@ module.exports.globals = {
       "10003" : "Failed",
       "10004" : "Rescheduled",
       "10005" : "Pending Approval"
-  }
+  },
+    riderActiveStatusInUse : 1,
+    taskAutoAssignOptionInUse: 1
 
+//  riderActiveStatus: {
+//    active: 0,   //<<-- default
+//    checkedIn: 1
+//  },
+//  taskAutoAssignOption:{
+//    autoAssign: 1,  <<----- when pushed in live to check for real time testing
+//    doNotAutoAssign: 0
+//  }
 };
