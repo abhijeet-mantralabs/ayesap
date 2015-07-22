@@ -68,6 +68,13 @@ module.exports.globals = {
     key: "25b7c81e770034aeda70db74af0fb638beca992d2a535641e6313f38b9665016"
   },
   APIurl : "http://103.241.183.119/fvapi",
-  listOfZones: [9]
+  listOfZones: [9],
+  taskStatusDesc : {
+      "10001" : "Pending",
+      "10002" : "Completed",
+      "10003" : "Failed",
+      "10004" : "Rescheduled",
+      "10005" : "Pending Approval"
+  }
 
 };

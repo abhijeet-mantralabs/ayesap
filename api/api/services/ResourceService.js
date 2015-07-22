@@ -8,7 +8,7 @@ var APIurl = sails.config.globals.APIurl;
 module.exports = {
     getRidersInZone: function (zone,  callback) {
 //        zone = 7;
-        riderActiveStatus = 0;
+        riderActiveStatus = 1;
         var options = {
             uri : APIurl,
             method : 'POST',

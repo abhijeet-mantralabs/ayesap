@@ -72,8 +72,15 @@ module.exports = {
 
             }
         });
-
-
-
+    },
+    fetchCustomerbyId: function(opts, cb){
+        Customer.find({customerId:opts.customerId}).exec(function(err, customer){
+            if(err){
+                console.log(" error in fetching order against task from db ---- ---->> ", err)
+                cb(err);
+            }else{
+                cb(null, customer);
+            }
+        });
     }
 }

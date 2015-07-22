@@ -12,7 +12,7 @@ module.exports = {
             unique: true,
             required: true
         },
-        orderStatusIds:{
+        orderStatusId:{
             type:'array'
         },
         taskId:{
@@ -44,7 +44,44 @@ module.exports = {
         },
         orderStatusBackend:{
             type: "string"
+        },
+        resId:{
+            type: "string"
+        },
+        resMobile:{
+            type: "string"
+        },
+        lastStatus:{
+            type: "string"
+        },
+        currentStatus:{
+            type: "string"
+        },
+        updateTime:{
+            type: "string"
+        },
+        resLastUpdatedLat:{
+            type: "string"
+        },
+        resLastUpdatedLong:{
+            type: "string"
+        },
+        orderStatusTrail:{
+            type: "array"
+        },
+        resName:{
+            type: "string"
+        },
+        bookNowTime:{
+            type: "string"
+        },
+        custFullAddress:{
+            type: "string"
+        },
+        custName:{
+            type: "string"
         }
+
 
     },
     registerOrder:function(opts, cb){
@@ -81,7 +118,7 @@ module.exports = {
                 console.log("no order registered with this Id")
             }else if(order){
 
-                Order.update({orderId:opts.orderId}, opts ,  function (err, orderUpdated) {
+                Order.update({orderId:opts.orderId}, opts,  function (err, orderUpdated) {
                     if (!err){
                         cb(null, orderUpdated[0]);
                     }else{
@@ -89,6 +126,26 @@ module.exports = {
                     }
                 });
 
+            }
+        });
+    },
+    fetchOrderByTaskId: function(opts, cb){
+        Order.findOne({taskId:opts.taskId}).exec(function(err, order){
+            if(err){
+                console.log(" error in fetching order against task from db ---- ---->> ", err)
+                cb(err);
+            }else{
+                cb(null, order);
+            }
+        });
+    },
+    fetchOrderByRetailerId: function(opts, cb){
+        Order.find({reatilerId:opts.retailerId}).exec(function(err, order){
+            if(err){
+                console.log(" error in fetching order against task from db ---- ---->> ", err)
+                cb(err);
+            }else{
+                cb(null, order);
             }
         });
     }

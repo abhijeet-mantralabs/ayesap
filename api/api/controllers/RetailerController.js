@@ -20,7 +20,8 @@ module.exports = {
         if(!req.body || !req.body.mobile ||  !req.body.name){
             res.status(400).json( {status: 400 , message: "some field(s) missing" });
         }else{
-            console.log(req.body);
+            console.log("req body-->>",req.body);
+
 //            Retailer.listRetailers(req.body, function (err, retailers) {
 //                if (err) {
 //                    res.status(err.status).json(err);
