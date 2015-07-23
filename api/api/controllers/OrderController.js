@@ -266,10 +266,10 @@ module.exports = {
 
                     Order.fetchOrderByTaskId({taskId:latestOrderStatus.taskid }, function(err, matchedOrder){
 //                        same as before but will be updated
-                        matchedOrder.orderStatusTrail.push(latestOrderStatus.id);
+                        matchedOrder.orderStatusTrail.push(savedOrderStatus.id);
                         matchedOrder.updateTime = latestOrderStatus.updatetime ;
                         matchedOrder.currentStatus =  sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
-                        matchedOrder.lastStatus = sails.config.globals.taskStatusDesc[latestOrderStatus.lastStatus] ;
+                        matchedOrder.lastStatus = sails.config.globals.taskStatusDesc[latestOrderStatus.laststatus] ;
                         matchedOrder.orderStatusBackend = sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
 
 //                        only when order event updated like completed
