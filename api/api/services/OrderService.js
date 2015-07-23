@@ -27,7 +27,9 @@ module.exports = {
         if(payload.zoneid){
             options.form.zoneid = payload.zoneid;
         }
-//        sails.log.debug("book now service options -- >>>  ", options);
+        sails.log.debug("book now service options -- >>>  "),
+            sails.log.debug(JSON.stringify(options));
+        sails.log.debug("book now service options -- ends>>>  ");
 
         request(options, function(error, response, body){
             if(error){

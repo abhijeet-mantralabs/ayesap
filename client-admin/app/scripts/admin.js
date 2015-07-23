@@ -9,7 +9,7 @@ angular
  //    }
 	// ])
 	.controller('AdminCtrl', function ($scope, retailerAdmin, $interval, $timeout) {
-		console.log('inadmin');
+
 		
 
 		$scope.retailerRegister = {};
@@ -48,7 +48,7 @@ angular
         var fetchRetailerList = function(){
             retailerAdmin.fetchRetailers().then(function(response){
                 // $scope.retailers = response.details.retailerList;
-                console.log(response);
+
                 var sortingOrder = ['pending', 'approved', 'declined','deactivated']
 	            $scope.retailers = [];
 	            for(var s in sortingOrder){
@@ -108,7 +108,7 @@ angular
 			$scope.error='';			
 			retailerAdmin.registerRetailer(retailerDetails)
 			.then(function(response){
-				console.log(response.details.user);
+//				console.log(response.details.user);
 				$scope.password = response.details.user.plainPass;
 				fetchRetailerList();
 			}).catch(function(err){
@@ -121,9 +121,9 @@ angular
 			$scope.message = '';		
 			retailerAdmin.updateRetailer(retailerDetails)
 			.then(function(response){
-				console.log('after editing',response);
+//				console.log('after editing',response);
 				$scope.message = response.message;
-				console.log($scope.message);
+//				console.log($scope.message);
 				fetchRetailerList();
 			}).catch(function(err){
 				$scope.error = err.message;
@@ -139,7 +139,7 @@ angular
 			}			
 			retailerAdmin.declineRetailer(data)
 			.then(function(response){
-				console.log('decline response',response);
+//				console.log('decline response',response);
 				fetchRetailerList();
 				$scope.message = response.message;
 			}).catch(function(err){

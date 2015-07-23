@@ -32,6 +32,8 @@ module.exports = {
             lastStatus: "req-not-received",
             currentStatus : "req-not-received"
         }
+        console.log("book now api time---->>",req.body.bookNowTime);
+
         if(req.body.bookNowTime){
             orderDBPayload.bookNowTime = req.body.bookNowTime;
         }
@@ -263,16 +265,19 @@ module.exports = {
                 }else{
 
                     Order.fetchOrderByTaskId({taskId:latestOrderStatus.taskid }, function(err, matchedOrder){
+//                        same as before but will be updated
                         matchedOrder.orderStatusTrail.push(latestOrderStatus.id);
-                        matchedOrder.resId = latestOrderStatus.resid ;
-                        matchedOrder.resMobile = latestOrderStatus.mobile ;
-                        matchedOrder.resName = latestOrderStatus.resname ;
+                        matchedOrder.updateTime = latestOrderStatus.updatetime ;
                         matchedOrder.currentStatus =  sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
                         matchedOrder.lastStatus = sails.config.globals.taskStatusDesc[latestOrderStatus.lastStatus] ;
                         matchedOrder.orderStatusBackend = sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
+
+//                        only when order event updated like completed
+                        matchedOrder.resId = latestOrderStatus.resid ;
+                        matchedOrder.resMobile = latestOrderStatus.mobile ;
+                        matchedOrder.resName = latestOrderStatus.resname ;
                         matchedOrder.resLastUpdatedLat = latestOrderStatus.lat;
                         matchedOrder.resLastUpdatedLong = latestOrderStatus.lng ;
-                        matchedOrder.updateTime = latestOrderStatus.updatetime ;
                         Order.updateOrder(matchedOrder , function(err, matchedUpdatedOrder){
                             if(err){
                                 sails.log.error("err in updating order with latest order status details->>>")
@@ -320,12 +325,12 @@ module.exports = {
 //       resId = latestOrderStatus.resid ;
 //       resMobile = latestOrderStatus.mobile ;
 //       resName = latestOrderStatus.resname ;
-//        .currentStatus =  sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
-//        matchedOrder.lastStatus = sails.config.globals.taskStatusDesc[latestOrderStatus.lastStatus] ;
-//        matchedOrder.orderStatusBackend = sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
-//        matchedOrder.resLastUpdatedLat = latestOrderStatus.lat;
-//        matchedOrder.resLastUpdatedLong = latestOrderStatus.lng ;
-//        matchedOrder.updateTime = latestOrderStatus.updatetime ;
+//        currentStatus =  sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
+//     lastStatus = sails.config.globals.taskStatusDesc[latestOrderStatus.lastStatus] ;
+//        orderStatusBackend = sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
+//        resLastUpdatedLat = latestOrderStatus.lat;
+//        resLastUpdatedLong = latestOrderStatus.lng ;
+//        updateTime = latestOrderStatus.updatetime ;
 //
 // }
 
