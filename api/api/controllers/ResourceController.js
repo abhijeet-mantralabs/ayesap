@@ -77,15 +77,33 @@ module.exports = {
 
             } else {
                 console.log("response in controller----->>");
-                console.log(JSON.parse(response));
+                console.log(response);
                 response = JSON.parse(response)
                 _.forEach(response.output.data.resources, function(resource){
                     console.log("resource------>>>")
-                    console.log(resource)
-                    resource.resId = resource.id;
-                    delete resource.id;
-                    resource.checkForOnlyRiderCheckedIn = checkForOnlyRiderCheckedIn;
+//                    console.log(resource)
 
+                    resource.resId = resource[" id "];
+                    resource.resName = resource[" name "];
+                    resource.maxCapacity = resource[" maxcapcity "];
+                    resource.usedCapacity = resource[" usedcapacity "];
+                    resource.resourceType = resource[" resource type"];
+                    resource.resMobile = resource[" mobile"];
+                    resource.resLat = resource[" lat"];
+                    resource.resLong = resource[" lng"];
+
+                    console.log("used capacity", resource[" usedcapacity "]);
+                    delete resource[" id "];
+                    delete resource[" name "];
+                    delete resource[" maxcapcity "];
+                    delete resource[" usedcapacity "];
+                    delete resource[" resource type"];
+                    delete resource[" mobile"];
+                    delete resource[" lat"];
+                    delete resource[" lng"];
+                    resource.checkForOnlyRiderCheckedIn = checkForOnlyRiderCheckedIn;
+//                    ActiveResources.saveUp()
+//                    ActiveResources.saveUp(resource, function)
                 })
                 res.json({ details:{ resourceList: response.output.data.resources}} );
             }
