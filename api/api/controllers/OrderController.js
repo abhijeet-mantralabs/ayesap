@@ -32,8 +32,8 @@ module.exports = {
             lastStatus: "req-not-received",
             currentStatus : "req-not-received"
         }
-        if(req.bookNowTime){
-            orderDBPayload.bookNowTime = req.bookNowTime;
+        if(req.body.bookNowTime){
+            orderDBPayload.bookNowTime = req.body.bookNowTime;
         }
 
         var customerDBPayload = {
