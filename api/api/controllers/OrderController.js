@@ -41,6 +41,9 @@ module.exports = {
         }
         console.log("book now api time---->>",req.body.bookNowTime);
 
+        orderDBPayload.bookNowResType = req.body.resourceType;
+
+
         if(req.body.bookNowTime){
             orderDBPayload.bookNowTime = req.body.bookNowTime;
         }
@@ -139,7 +142,8 @@ module.exports = {
 
                 }
 
-
+                addTaskPayload["restype"] = req.body.resourceType;
+                
                 if(customerDetails.address){
                     console.log("adrress is there")
                    var customerAddressObj =  {
@@ -200,10 +204,9 @@ module.exports = {
                     addTaskPayload.payload.payload.task.field.push(customerNameObj);
                 }
 
-                if(req.body.resourceType && req.body.resourceType == "Part time"){
-                    order.bookNowResType = req.body.resourceType;
-                    addTaskPayload["restype"] = req.body.resourceType;
-                }
+//                if(req.body.resourceType && req.body.resourceType == "Part time"){
+
+//                }
 
 //                res.json({message: "order successfully booked", details:{ order: addTaskPayload.payload}});
                 Customer.createCustomer(customerDBPayload, function(err, customer){
