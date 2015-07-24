@@ -18,6 +18,13 @@ module.exports = {
          * make payload according to addtask service payload,
          * get taskid store against 1 order Id
         **/
+
+        if(!req.body || !req.body.retailerDetails || !req.body.retailerDetails || !req.body.customerDetails || !req.body.paymentType || !req.body.orderAmount){
+            res.status(400).json( {status: 400 , message: " some required field(s) missing" });
+        }else{
+            console.log("all fine in payload")
+        }
+
         var retailerDetails = req.body.retailerDetails;
         var customerDetails = req.body.customerDetails;
         var orderDBPayload = {
@@ -298,15 +305,25 @@ module.exports = {
 
     },
     getOrdersByRetailer: function(req, res){
-        Order.fetchOrderByRetailerId({retailerId: req.body.retailerId} , function(err, Orders){
-            if(err){
-                sails.log.error("err in fetching order by retailer id->>>")
-                res.status(err.status).json(err);
-            }else{
-                res.json({message: "order fetched", details: Orders} );
-            }
-        })
-        //      sample-payload = { retailerId: "", mobile: ""}
+
+        if(!req.body || !req.body.retailerId){
+            res.status(400).json( {status: 400 , message: " retailer Id is missing" });
+        }else{
+            Order.fetchOrderByRetailerId({retailerId: req.body.retailerId} , function(err, Orders){
+                if(err){
+                    sails.log.error("err in fetching order by retailer id->>>")
+                    res.status(err.status).json(err);
+                }else{
+                    res.json({message: "order fetched", details: Orders} );
+                }
+            })
+        }
+
+
+    }
+};
+
+//      sample-payload = { retailerId: "", mobile: ""}
 //        {
 //            "orderStatusId": [],
 //            "retailerId": "0009",
@@ -334,6 +351,4 @@ module.exports = {
 //
 // }
 
-    }
-};
 

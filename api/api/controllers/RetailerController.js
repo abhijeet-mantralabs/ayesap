@@ -163,7 +163,29 @@ module.exports = {
                 }
             });
         }
+    },
+    changePassword: function(req, res){
+//        req.body = {"retailerId": "0002", "oldPlainPass":"IXRbBZ", "newPlainPass": "welcome123"}
+        if(!req.body || !req.body.retailerId || !req.body.oldPlainPass || !req.body.newPlainPass) {
+            res.status(400).json( {status: 400 , message: " some field(s) missing" });
+        }
+        else{
+            console.log(req.body);
+//            req.body.registrationStatus =  "declined";
+            Retailer.changePassword(req.body, function(err, user){
+                if(err)
+                    res.status(err.status).json(err);
+                else{
+
+                    delete user.createdAt;
+                    delete user.updatedAt;
+                    delete user.password;
+                    res.json({message: "Password successfully changed"});
+                }
+            });
+        }
     }
+
 
 //
 //    getRetailerDetail: function (req, res) {

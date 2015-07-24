@@ -55,6 +55,7 @@ module.exports.routes = {
   'POST /retailer/logOut': 'RetailerController.logout',
   'PUT /retailer/updateDetails' : 'RetailerController.updateDetails',
     'PUT /retailer/declineRetailer' : 'RetailerController.declineUser',
+    'PUT /retailer/changePassword' : 'RetailerController.changePassword',
 
     'POST /resources/reqForResRegister': 'ResourceController.reqForResRegister',
     'GET /resources/listReqResources': 'ResourceController.getResourceList',
