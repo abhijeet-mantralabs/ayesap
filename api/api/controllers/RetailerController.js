@@ -170,7 +170,7 @@ module.exports = {
             res.status(400).json( {status: 400 , message: " some field(s) missing" });
         }
         else{
-            console.log(req.body);
+//            console.log(req.body);
 //            req.body.registrationStatus =  "declined";
             Retailer.changePassword(req.body, function(err, user){
                 if(err)

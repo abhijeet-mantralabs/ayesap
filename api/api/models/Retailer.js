@@ -81,6 +81,9 @@ module.exports = {
         },
         comments:{
             type: 'string'
+        },
+        OTPChanged:{
+            type:'string'
         }
     },
     requestSignUp:function(opts,cb){
@@ -107,6 +110,7 @@ module.exports = {
                         var retailerId =  pad.substring(0, pad.length - id.length) + id;
                         console.log("generated Id ->>>>",  retailerId)
                         opts.retailerId = retailerId
+                        opts.OTPChanged = "no";
                         Retailer.create(opts, function(err, user){
                             if(err){
                                  cb(err);
@@ -131,6 +135,7 @@ module.exports = {
                 }else{
 //                    opts.plainPass = generateSalt(6);
                     opts.plainPass = "welcome123";
+
                     saltAndHash(opts.plainPass ,function(hash) {
                         opts.password = hash;
                         opts.registrationStatus = "approved";
@@ -226,11 +231,19 @@ module.exports = {
                 cb(err);
             }else if(retailer){
                     if(retailer.registrationStatus == "approved"){
+
+                        if(retailer.OTPChanged && retailer.OTPChanged == "no") {
+                            var OTPChanged = "yes";
+                        }
                         validatePassword(opts.oldPlainPass ,retailer.password, function(result){
                             if(result){
                                 saltAndHash(opts.newPlainPass ,function(newHash) {
 //                                    opts.password = newHash;
-                                    var newPayload = {password:  newHash, plainPass:opts.newPlainPass}
+                                    if(!retailer.OTPChanged){
+                                        var newPayload = {password:  newHash, plainPass:opts.newPlainPass}
+                                    }else{
+                                        var newPayload = {password:  newHash, plainPass:opts.newPlainPass, OTPChanged: OTPChanged }
+                                    }
                                     Retailer.update({retailerId: opts.retailerId}, newPayload ,  function (err, retailerUpdated) {
                                         if (!err){
                                             cb(null, retailerUpdated[0]);
