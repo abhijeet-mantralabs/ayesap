@@ -105,8 +105,6 @@ module.exports = {
                         delete resource[" lat"];
                         delete resource[" lng"];
                         resource.checkForOnlyRiderCheckedIn = checkForOnlyRiderCheckedIn;
-//                    ActiveResources.saveUp()
-//                    ActiveResources.saveUp(resource, function)
                     })
                     res.json({ details:{ resourceList: response.output.data.resources}} );
                 }

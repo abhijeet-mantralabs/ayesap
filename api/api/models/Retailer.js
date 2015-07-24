@@ -232,18 +232,21 @@ module.exports = {
             }else if(retailer){
                     if(retailer.registrationStatus == "approved"){
 
-                        if(retailer.OTPChanged && retailer.OTPChanged == "no") {
-                            var OTPChanged = "yes";
-                        }
+
                         validatePassword(opts.oldPlainPass ,retailer.password, function(result){
                             if(result){
+//                                if(retailer.OTPChanged && retailer.OTPChanged == "no") {
+                                    var OTPChanged = "yes";
+//                                }else{
+//                                    var OTPChanged = "yes";
+//                                }
                                 saltAndHash(opts.newPlainPass ,function(newHash) {
 //                                    opts.password = newHash;
-                                    if(!retailer.OTPChanged){
-                                        var newPayload = {password:  newHash, plainPass:opts.newPlainPass}
-                                    }else{
+//                                    if(!retailer.OTPChanged){
+//                                        var newPayload = {password:  newHash, plainPass:opts.newPlainPass}
+//                                    }else{
                                         var newPayload = {password:  newHash, plainPass:opts.newPlainPass, OTPChanged: OTPChanged }
-                                    }
+//                                    }
                                     Retailer.update({retailerId: opts.retailerId}, newPayload ,  function (err, retailerUpdated) {
                                         if (!err){
                                             cb(null, retailerUpdated[0]);
