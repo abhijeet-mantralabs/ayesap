@@ -27,6 +27,9 @@ module.exports = {
         if(payload.zoneid){
             options.form.zoneid = payload.zoneid;
         }
+        if(payload.restype){
+            options.form.restype = payload.restype;
+        }
         sails.log.debug("book now service options -- >>>  "),
             sails.log.debug(JSON.stringify(options));
         sails.log.debug("book now service options -- ends>>>  ");

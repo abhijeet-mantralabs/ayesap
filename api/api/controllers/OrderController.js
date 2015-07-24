@@ -199,8 +199,12 @@ module.exports = {
                     customerDBPayload.name = customerDetails.name;
                     addTaskPayload.payload.payload.task.field.push(customerNameObj);
                 }
-//                addTaskPayload.zoneid =
-//                addTaskPayload.zoneid = 7; //  hardcoded
+
+                if(req.body.resourceType && req.body.resourceType == "Part time"){
+                    order.bookNowResType = req.body.resourceType;
+                    addTaskPayload["restype"] = req.body.resourceType;
+                }
+
 //                res.json({message: "order successfully booked", details:{ order: addTaskPayload.payload}});
                 Customer.createCustomer(customerDBPayload, function(err, customer){
                     if(err){
