@@ -143,7 +143,6 @@ module.exports = {
                 }
 
                 addTaskPayload["restype"] = req.body.resourceType;
-                
                 if(customerDetails.address){
                     console.log("adrress is there")
                    var customerAddressObj =  {
