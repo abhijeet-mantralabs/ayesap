@@ -41,9 +41,9 @@ module.exports = {
         }
         console.log("book now api time---->>",req.body.bookNowTime);
 
-//        if(req.body.bookNowTime){
-//            orderDBPayload.bookNowTime = req.body.bookNowTime;
-//        }
+        if(req.body.bookNowTime){
+            orderDBPayload.bookNowTime = req.body.bookNowTime;
+        }
 
         var customerDBPayload = {
             mobile: customerDetails.mobile
