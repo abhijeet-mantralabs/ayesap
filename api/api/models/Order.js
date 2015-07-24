@@ -80,6 +80,9 @@ module.exports = {
         },
         custName:{
             type: "string"
+        },
+        bookNowResType:{
+            type:"string"
         }
 
 
@@ -140,7 +143,7 @@ module.exports = {
         });
     },
     fetchOrderByRetailerId: function(opts, cb){
-        Order.find({reatilerId:opts.retailerId}).exec(function(err, order){
+        Order.find({retailerId:opts.retailerId}).exec(function(err, order){
             if(err){
                 console.log(" error in fetching order against task from db ---- ---->> ", err)
                 cb(err);

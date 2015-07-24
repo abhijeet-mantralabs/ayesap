@@ -41,9 +41,9 @@ module.exports = {
         }
         console.log("book now api time---->>",req.body.bookNowTime);
 
-        if(req.body.bookNowTime){
-            orderDBPayload.bookNowTime = req.body.bookNowTime;
-        }
+//        if(req.body.bookNowTime){
+//            orderDBPayload.bookNowTime = req.body.bookNowTime;
+//        }
 
         var customerDBPayload = {
             mobile: customerDetails.mobile
@@ -138,6 +138,7 @@ module.exports = {
                     }
 
                 }
+
 
                 if(customerDetails.address){
                     console.log("adrress is there")
