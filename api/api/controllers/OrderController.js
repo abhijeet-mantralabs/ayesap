@@ -19,7 +19,7 @@ module.exports = {
          * get taskid store against 1 order Id
         **/
 
-        if(!req.body || !req.body.retailerDetails || !req.body.retailerDetails || !req.body.customerDetails || !req.body.paymentType || !req.body.orderAmount){
+        if(!req.body || !req.body.retailerDetails || !req.body.customerDetails || !req.body.paymentType || !req.body.orderAmount){
             res.status(400).json( {status: 400 , message: " some required field(s) missing" });
         }else{
             console.log("all fine in payload")
