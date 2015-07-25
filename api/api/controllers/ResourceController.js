@@ -126,7 +126,7 @@ module.exports = {
                         resource.resLat = resource[" lat"];
                         resource.resLong = resource[" lng"];
 
-                        console.log("used capacity", resource[" usedcapacity "]);
+//                        console.log("used capacity", resource[" usedcapacity "]);
                         delete resource[" id "];
                         delete resource[" name "];
                         delete resource[" maxcapcity "];

@@ -9,9 +9,10 @@
 
 module.exports = {
     bookOrder: function(req, res){
-//        sails.log.debug("addTaskpayload overall------ >>>>   ")
+        sails.log.debug("addTaskpayload front end------ >>>>   ")
 //        sails.log.debug(JSON.stringify(addTaskPayload));
-//        console.log(req.body);
+        console.log(req.body);
+        sails.log.debug("addTaskpayload front end   ends------ >>>>   ")
         /** for backend-->>
          * take order details, call order model to save it on db with orderId, return full order details with orderId, (will be used in add task payload)
          * take customer Details(will be used in add task payload) , call customer Model to save it on db with mongodb default id
@@ -51,7 +52,9 @@ module.exports = {
         var customerDBPayload = {
             mobile: customerDetails.mobile
         }
-
+        console.log("order initially saved payload after--------->>>>>")
+        console.log(orderDBPayload);
+        console.log("order initially saved payload after ends--------->>>>>")
         Order.registerOrder(orderDBPayload, function(err, order){
             if(err) {
                 console.log("order not initially saved to db")
