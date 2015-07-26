@@ -18,10 +18,11 @@ module.exports = {
                 method: "getallresources",
                 email: partner.email,
                 key: partner.key,
-                zoneid: zone,
-                status: sails.config.globals.riderActiveStatusInUse
+                zoneid: zone
             }
         };
+//        status: sails.config.globals.riderActiveStatusInUse
+
 //        rp(options)
 //            .then(function (response) {
 //                console.log("got resources", response);

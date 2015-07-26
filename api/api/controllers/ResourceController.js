@@ -99,11 +99,11 @@ module.exports = {
             var zone = req.body.zoneId;
             console.log(zone)
 
-            if(sails.config.globals.riderActiveStatusInUse == 1){
-                var  checkForOnlyRiderCheckedIn = true;
-            }else if(sails.config.globals.riderActiveStatusInUse == 0){
-                var  checkForOnlyRiderCheckedIn  = false;
-            }
+//            if(sails.config.globals.riderActiveStatusInUse == 1){
+//                var  checkForOnlyRiderCheckedIn = true;
+//            }else if(sails.config.globals.riderActiveStatusInUse == 0){
+//                var  checkForOnlyRiderCheckedIn  = false;
+//            }
             ActiveResourceService.getRidersInZone(zone, function(err, response) {
                 if (err) {
                     console.log("error in controller", err)
@@ -113,31 +113,35 @@ module.exports = {
                     console.log("response in controller----->>");
                     console.log(response);
                     response = JSON.parse(response)
+                    var checkedInRes = [];
                     _.forEach(response.output.data.resources, function(resource){
                         console.log("resource------>>>")
-//                    console.log(resource)
+                        resource.resId = resource["id"];
+                        resource.resName = resource["name"];
+                        resource.maxCapacity = resource["maxcapacity"];
+                        resource.usedCapacity = resource["usedcapacity"];
+                        resource.resourceType = resource["resource type"];
+                        resource.resourceValue = resource["resource value"];
+                        resource.resMobile = resource["mobile"];
+                        resource.resLat = resource["lat"];
+                        resource.resLong = resource["lng"];
 
-                        resource.resId = resource[" id "];
-                        resource.resName = resource[" name "];
-                        resource.maxCapacity = resource[" maxcapcity "];
-                        resource.usedCapacity = resource[" usedcapacity "];
-                        resource.resourceType = resource[" resource type"];
-                        resource.resMobile = resource[" mobile"];
-                        resource.resLat = resource[" lat"];
-                        resource.resLong = resource[" lng"];
+                        delete resource["id"];
+                        delete resource["name"];
+                        delete resource["maxcapacity"];
+                        delete resource["usedcapacity"];
+                        delete resource["resource type"];
+                        delete resource["resource value"];
+                        delete resource["mobile"];
+                        delete resource["lat"];
+                        delete resource["lng"];
+                        resource.checkForOnlyRiderCheckedIn = true;
+                        if(resource.checkin == 1){
+                            checkedInRes.push(resource);
+                        }
 
-//                        console.log("used capacity", resource[" usedcapacity "]);
-                        delete resource[" id "];
-                        delete resource[" name "];
-                        delete resource[" maxcapcity "];
-                        delete resource[" usedcapacity "];
-                        delete resource[" resource type"];
-                        delete resource[" mobile"];
-                        delete resource[" lat"];
-                        delete resource[" lng"];
-                        resource.checkForOnlyRiderCheckedIn = checkForOnlyRiderCheckedIn;
                     })
-                    res.json({ details:{ resourceList: response.output.data.resources}} );
+                    res.json({ details:{ resourceList: checkedInRes}} );
                 }
             })
         }
