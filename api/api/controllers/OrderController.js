@@ -9,7 +9,9 @@
 
 module.exports = {
     bookOrder: function(req, res){
-        console.log(req.body);
+//        sails.log.debug("addTaskpayload overall------ >>>>   ")
+//        sails.log.debug(JSON.stringify(addTaskPayload));
+//        console.log(req.body);
         /** for backend-->>
          * take order details, call order model to save it on db with orderId, return full order details with orderId, (will be used in add task payload)
          * take customer Details(will be used in add task payload) , call customer Model to save it on db with mongodb default id
@@ -25,7 +27,7 @@ module.exports = {
             customerMobile: customerDetails.mobile,
             paymentType: req.body.paymentType,
             orderAmount: req.body.orderAmount,
-            orderStatusBackend: "notassigned"
+            orderStatusBackend: "req-not-received"
         }
 
         var customerDBPayload = {
@@ -40,18 +42,18 @@ module.exports = {
             else{
                 console.log("order initially Saved--->>", order)
                 var addTaskPayload = {
-                    zoneid : retailerDetails.zone,
-                    payload:{
-                        payload: {
-                            task: {
-                                field: [
+
+                    "payload":{
+                        "payload": {
+                            "task": {
+                                "field": [
                                     {
-                                        name: "Order ID",
-                                        value: order.orderId
+                                        "name": "Order ID",
+                                        "value": order.orderId
                                     },
                                     {
-                                        name: "Retailer Phone Number",
-                                        value: retailerDetails.mobile
+                                        "name": "Retailer Phone Number",
+                                        "value": retailerDetails.mobile
                                     },
 
 
@@ -158,6 +160,8 @@ module.exports = {
                     customerDBPayload.city = customerDetails.address.city,
                     customerDBPayload.pincode = customerDetails.address.pinCode
 
+                }else{
+                    addTaskPayload["zoneid"] = retailerDetails.zone
                 }
                 if(req.body.CODValue){
 
@@ -179,13 +183,18 @@ module.exports = {
                     customerDBPayload.name = customerDetails.name;
                     addTaskPayload.payload.payload.task.field.push(customerNameObj);
                 }
-                addTaskPayload.zoneid = 7; //  hardcoded
+//                addTaskPayload.zoneid =
+//                addTaskPayload.zoneid = 7; //  hardcoded
 //                res.json({message: "order successfully booked", details:{ order: addTaskPayload.payload}});
                 Customer.createCustomer(customerDBPayload, function(err, customer){
                     if(err){
                         sails.log.error("failed to save customer on db")
                     }else{
                         sails.log.debug("customer saved")
+                        sails.log.debug("addTaskpayload overall------ >>>>   ")
+                        sails.log.debug(JSON.stringify(addTaskPayload));
+                        sails.log.debug("addTaskpayload actual ------ >>>>   ")
+                        sails.log.debug(JSON.stringify(addTaskPayload.payload));
 
                         OrderService.createOrder(addTaskPayload, function(err, response){
                             if(err){
@@ -201,7 +210,7 @@ module.exports = {
                                 if(response.output.status == 201){
                                     order.taskId = response.output.data.taskid[0];
                                     order.customerId = customer.customerId;
-                                    order.orderStatusBackend = "successfully-assigned"
+                                    order.orderStatusBackend = "req-not-received"
                                     Order.updateOrder(order, function(err, order){
                                         if(err) {
                                             res.status(err.status).json(err);

@@ -23,13 +23,13 @@ module.exports = {
             type:'string'
         },
         retailerMobile:{
-            type: 'integer'
+            type: 'string'
         },
         customerId:{
             type:'string'
         },
         customerMobile:{
-            type: 'integer'
+            type: 'string'
         },
         paymentType:{
            type: 'string',
