@@ -11,7 +11,7 @@ module.exports = {
     bookOrder: function(req, res){
         sails.log.debug("addTaskpayload front end------ >>>>   ")
 //        sails.log.debug(JSON.stringify(addTaskPayload));
-        console.log(req.body);
+        console.log(JSON.stringify(req.body));
         sails.log.debug("addTaskpayload front end   ends------ >>>>   ")
         /** for backend-->>
          * take order details, call order model to save it on db with orderId, return full order details with orderId, (will be used in add task payload)
