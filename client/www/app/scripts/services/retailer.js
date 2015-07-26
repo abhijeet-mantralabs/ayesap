@@ -114,5 +114,20 @@ define(['modules/AyesapModule'] , function (AyesapModule) {
 
 			return deferred.promise;
 		}
+
+		this.bookResource = function(data){
+
+			var deferred = $q.defer();
+			$http.post(base_url+'order/bookOrder',data)
+			.success(function(response){
+				deferred.resolve(response);
+			})
+			.error(function(err){
+				deferred.reject(err);
+			});
+
+			return deferred.promise;
+		}
+
   	})
 })

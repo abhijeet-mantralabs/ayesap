@@ -4,7 +4,8 @@ require.config({
 		'angular': 'vendor/angular/angular.min',
 		'angularResource': 'vendor/angular-resource/angular-resource.min',
 	    'angularRoute' :'vendor/angular-route/angular-route.min',
-        'bootstrap'    : 'vendor/bootstrap/dist/js/bootstrap.min'
+        'bootstrap'    : 'vendor/bootstrap/dist/js/bootstrap.min',
+        'angularTouch': 'vendor/angular-touch/angular-touch.min'
     },
 	shim: {
         'angular' : {'exports' : 'angular'},
@@ -21,11 +22,14 @@ require.config({
         },
         'bootstrap' : {
             deps:['jquery']
+        },
+        'angularTouch' : {
+            deps:['angular']
         }
     }
 });
 
-require(['jquery', 'bootstrap', 'angular', 'angularRoute','angularResource', 'routes/route'] , function ($, bootstrap, angular, angularRoute, angularResource ,route) {
+require(['jquery', 'bootstrap', 'angular', 'angularRoute','angularResource', 'angularTouch', 'routes/route'] , function ($, bootstrap, angular, angularRoute, angularResource ,angularTouch ,route) {
     $(function () {
       angular.bootstrap(document , ['AyesapModule']);
     });

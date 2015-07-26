@@ -55,11 +55,16 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
                 $scope.error = err.message;
             });
         }
-      }
+    }
+
+    $scope.expression = function(){
+        console.log('inside swipe left');
+    }
+
     })
 
-     AyesapModule.controller('HomeCtrl', function ($scope, Retailer, $timeout, $location, $routeParams, $rootScope) {
-      console.log('HomeCtrl');
+    AyesapModule.controller('HomeCtrl', function ($scope, Retailer, $timeout, $location, $routeParams, $rootScope) {
+        
         document.addEventListener("backbutton", function(e){ 
             var path = $location.path();
             if (path == '/'){
@@ -70,18 +75,17 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
                 navigator.app.backHistory();
             }
         });
+
         $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
         $('#map-canvas').css('min-height',$(window).innerHeight()-90 + 'px');
-        console.log($(window).height());
-        console.log($('#map-canvas').height());
-        
+    
         var address = $rootScope.fullAddress;
         if(address){
             geocoder = new google.maps.Geocoder();
             geocoder.geocode({ 'address': address }, function(results, status) {
-              if (status == google.maps.GeocoderStatus.OK) {
-                console.log('results',results);
-                $scope.myLatLng = new google.maps.LatLng((results[0].geometry.location.A),(results[0].geometry.location.F));
+                if (status == google.maps.GeocoderStatus.OK) {
+                    // console.log('results',results);
+                    $scope.myLatLng = new google.maps.LatLng((results[0].geometry.location.A),(results[0].geometry.location.F));
                     var mapOptions = {
                         zoom: 12,
                         center: $scope.myLatLng,
@@ -96,28 +100,23 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
                     });
                     // To add the marker to the map, call setMap();
                     marker.setMap($scope.map);
-              }
+                }
             });
         }
-            
-        var markers = [
-            [13.020705,77.647896],
-            [12.971598700000000000,77.594562699999980000]
-        ];
-          
-        $timeout(function() {
-            for( i = 0; i < markers.length; i++ ) {
-                var position = new google.maps.LatLng(markers[i][0], markers[i][1]);
-                // bounds.extend(position);
-                // console.log(position);
-                marker = new google.maps.Marker({
-                    position: position,
-                    map: $scope.map,
-                    // title: markers[i][0]
-                    icon : 'app/img/bike.png'
-                });
-            }
-        }, 3000);
+        // showing resources in map  
+        var showMarkers = function(destinationArray)  {
+            $timeout(function() {
+                for( i = 0; i < destinationArray.length; i++ ) {
+                    var latlong = destinationArray[i].split(',');
+                    var position = new google.maps.LatLng(latlong[0], latlong[1]);
+                    marker = new google.maps.Marker({
+                        position: position,
+                        map: $scope.map,
+                        icon : 'app/img/bike.png'
+                    });
+                }
+            }, 3000);
+        }
 
         // finding current location
         // if (navigator.geolocation) {
@@ -128,12 +127,12 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
         //     })
         // }
 
+        //hardcoded for time being ,should be fetched from biker side api
         var location = {
             origins : '13.021808799999999, 77.6495135',
             destinations : '12.971598700000000000, 77.594562699999980000|13.020705, 77.647896|13.000688, 77.674658'
         }
         $scope.destinationArray = location.destinations.split('|');
-        console.log('destinationArray',$scope.destinationArray);
         var getdistanceMatrix = function(location){
             Retailer.getdistanceMatrix(location)
             .then(function(response){
@@ -144,11 +143,11 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
                 }
                 // $scope.leastEta = Math.round((Math.min.apply(null, eta))/60);
                 $scope.leastValue = (Math.min.apply(null, eta));
-                console.log('index',eta.indexOf($scope.leastValue));
                 var indexOfResource = eta.indexOf($scope.leastValue);
                 $rootScope.leastEta = Math.round($scope.leastValue/60);
                 $scope.nearestResource = $scope.destinationArray[indexOfResource];
-                console.log('$scope.nearestResource',$scope.nearestResource);
+                $rootScope.nearestResource = $scope.nearestResource;
+                showMarkers($scope.destinationArray);
             }).catch(function(err){
                 $scope.error = err.message;
             })
@@ -157,6 +156,25 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
             getdistanceMatrix(location);
         }
 
+    })
+
+    AyesapModule.controller('orderDetailsCtrl', function ($scope, $rootScope) {
+        console.log('orderDetailsCtrl');
+        $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
+        $scope.leastEta = $rootScope.leastEta;
+        // console.log('$scope.leastEta',$scope.leastEta);
+
+        $scope.user = $rootScope.user;
+        $scope.nearestResource = $rootScope.nearestResource;
+
+        $scope.bookResource = function(bookResource,customerDetails){
+            console.log('customerDetails',customerDetails);
+            console.log('bookResource',bookResource);
+            console.log('inside bookresource');
+            // var data = {
+            //      retailerDetails: $scope.log.assertEmpty()
+            // }
+        }
     })
 
     AyesapModule.controller('PickupCtrl', function ($scope) {
@@ -179,12 +197,7 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
         // console.log('customerDetailsCtrl');
     })
     
-    AyesapModule.controller('orderDetailsCtrl', function ($scope, $rootScope) {
-        console.log('orderDetailsCtrl');
-        $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
-        $scope.leastEta = $rootScope.leastEta;
-        console.log('$scope.leastEta',$scope.leastEta);
-    })
+    
 
     AyesapModule.controller('settingCtrl', function ($scope) {
         // console.log('settingCtrl');

@@ -3,7 +3,7 @@
     	<div class="odf-top">
     		<div class="time-to-reach">
     			<p class="time-to-reach-head">{{leastEta}} min from now</p>
-    			<p>Maximum order value is Rs3000</p>
+    			<!-- <p>Maximum order value is Rs3000</p> -->
     		</div>
     		<!-- <div class="skip-details">
     			<span class="custom-check"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span>
@@ -13,22 +13,22 @@
     	<form>
     		<div class="odf">
     			<div class="input-form">
-                	<input type="text" placeholder="2500">
+                	<input type="text" placeholder="Order Amount" ng-model="bookNow.orderAmount">
                 	<span class="form-info">Rupees</span>
                 	<p class="ip-holder"></p>
             	</div>
             	<div class="input-form">
-                	<input type="text" placeholder="Amount to be collected">
+                	<input type="text" placeholder="Amount to be collected" ng-model="bookNow.CODValue">
                 	<span class="form-info mandatory">(mandatory)</span>
                 	<p class="ip-holder"></p>
             	</div>
                 <div class="input-form">
-                    <input type="text" placeholder="Customer mobile number">
+                    <input type="text" placeholder="Customer mobile number" ng-model="customerDetails.mobile">
                     <span class="form-info mandatory">(mandatory)</span>
                     <p class="ip-holder"></p>
                 </div>
-                <div class="input-form cust-address">
-                    <input type="text" placeholder="Customer name">
+                <div class="input-form">
+                    <input type="text" placeholder="Customer name" ng-model="customerDetails.name">
                     <p class="ip-holder"></p>
                 </div>
             	<!-- <div class="locality input-form">
@@ -42,21 +42,29 @@
             		<p class="ip-holder"></p>
             	</div> -->
             	<div class="input-form cust-address">
-                	<input type="text" placeholder="Customer address">
+                	<input type="text" placeholder="address" ng-model="customerDetails.address.address">
                     <p class="ip-holder"></p>
             	</div>
             	<div class="input-form cust-address">
-                	<input type="text" placeholder="">
+                	<input type="text" placeholder="street" ng-model="customerDetails.address.street">
                     <p class="ip-holder"></p>
             	</div>
             	<div class="input-form cust-address">
-                	<input type="text" placeholder="">
+                	<input type="text" placeholder="area" ng-model="customerDetails.address.area">
                     <p class="ip-holder"></p>
             	</div>
+                <div class="input-form cust-address">
+                    <input type="text" placeholder="city" ng-model="customerDetails.address.city">
+                    <p class="ip-holder"></p>
+                </div>
+                <div class="input-form cust-address">
+                    <input type="text" placeholder="pincode" ng-model="customerDetails.address.pinCode">
+                    <p class="ip-holder"></p>
+                </div>
     		</div>
     	</form>
     </div>
-    <div class="footer-home text-center">
+    <div class="footer-home text-center" ng-click="bookResource(bookNow,customerDetails)">
     	<p>BOOK NOW</p>
     </div>
 </div>

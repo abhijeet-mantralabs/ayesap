@@ -289,7 +289,6 @@ header .logo-homepage img {
   padding: 10px 15px;
 }
 .odf-top .time-to-reach {
-  height: 80px;
   padding: 15px 10px;
   background-color: #ebebeb;
   -webkit-border-top-left-radius: 5px;
@@ -304,9 +303,6 @@ header .logo-homepage img {
 }
 .odf-top .time-to-reach p {
   margin-bottom: 0;
-}
-.odf-top .time-to-reach p:last-child {
-  font-size: 14px;
 }
 .odf-top .skip-details {
   height: 80px;
