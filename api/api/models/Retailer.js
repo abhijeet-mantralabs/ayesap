@@ -81,6 +81,9 @@ module.exports = {
         },
         comments:{
             type: 'string'
+        },
+        OTPChanged:{
+            type:'string'
         }
     },
     requestSignUp:function(opts,cb){
@@ -107,6 +110,7 @@ module.exports = {
                         var retailerId =  pad.substring(0, pad.length - id.length) + id;
                         console.log("generated Id ->>>>",  retailerId)
                         opts.retailerId = retailerId
+                        opts.OTPChanged = "no";
                         Retailer.create(opts, function(err, user){
                             if(err){
                                  cb(err);
@@ -129,7 +133,9 @@ module.exports = {
                 if(retailer.registrationStatus == "approved"){
                     cb({status: 400 , message: "user registration status is already approved" }, null);
                 }else{
-                    opts.plainPass = generateSalt(6);
+//                    opts.plainPass = generateSalt(6);
+                    opts.plainPass = "welcome123";
+
                     saltAndHash(opts.plainPass ,function(hash) {
                         opts.password = hash;
                         opts.registrationStatus = "approved";
@@ -215,6 +221,50 @@ module.exports = {
                 });
             }else if(!retailer){
                 cb({status: 400 , message: "No user found with matching retailerID and mobile no." }, null);
+            }
+        });
+    },
+    changePassword: function(opts, cb){
+//        opts = {"retailerId": "0002", "oldPlainPass":"IXRbBZ", "newPlainPass": "welcome123"}
+        Retailer.findOne({retailerId:opts.retailerId}).exec(function(err, retailer){
+            if(err){
+                cb(err);
+            }else if(retailer){
+                    if(retailer.registrationStatus == "approved"){
+
+
+                        validatePassword(opts.oldPlainPass ,retailer.password, function(result){
+                            if(result){
+//                                if(retailer.OTPChanged && retailer.OTPChanged == "no") {
+                                    var OTPChanged = "yes";
+//                                }else{
+//                                    var OTPChanged = "yes";
+//                                }
+                                saltAndHash(opts.newPlainPass ,function(newHash) {
+//                                    opts.password = newHash;
+//                                    if(!retailer.OTPChanged){
+//                                        var newPayload = {password:  newHash, plainPass:opts.newPlainPass}
+//                                    }else{
+                                        var newPayload = {password:  newHash, plainPass:opts.newPlainPass, OTPChanged: OTPChanged }
+//                                    }
+                                    Retailer.update({retailerId: opts.retailerId}, newPayload ,  function (err, retailerUpdated) {
+                                        if (!err){
+                                            cb(null, retailerUpdated[0]);
+                                        }else{
+                                            cb(err);
+                                        }
+                                    });
+                                })
+                            }else{
+                                cb({status: 400 , message: "old password is incorrect" }, null);
+                            }
+                        })
+                    }else{
+                        cb({status: 400 , message: "user status is not approved" }, null);
+                    }
+
+            }else if(!retailer){
+                cb({status: 404 , message: "No user found with matching retailerId " }, null);
             }
         });
     }

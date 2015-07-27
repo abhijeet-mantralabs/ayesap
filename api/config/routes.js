@@ -55,11 +55,14 @@ module.exports.routes = {
   'POST /retailer/logOut': 'RetailerController.logout',
   'PUT /retailer/updateDetails' : 'RetailerController.updateDetails',
     'PUT /retailer/declineRetailer' : 'RetailerController.declineUser',
+    'PUT /retailer/changePassword' : 'RetailerController.changePassword',
 
     'POST /resources/reqForResRegister': 'ResourceController.reqForResRegister',
     'GET /resources/listReqResources': 'ResourceController.getResourceList',
     'GET /resources/getRiderByZone': 'ResourceController.getRiderByZone',
+    'POST /resource/getAllRiderStatus': 'ResourceController.getAllResourceStatus',
 
     'POST /order/bookOrder': 'OrderController.bookOrder',
-    'POST /order/getOrderStatus': 'OrderController.getOrderStatus'
+    'POST /order/getOrderStatus': 'OrderController.getOrderStatus',
+    'POST /order/getOrdersByRetailer': 'OrderController.getOrdersByRetailer'
 };

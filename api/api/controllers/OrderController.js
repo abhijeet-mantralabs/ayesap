@@ -9,15 +9,23 @@
 
 module.exports = {
     bookOrder: function(req, res){
-//        sails.log.debug("addTaskpayload overall------ >>>>   ")
+        sails.log.debug("addTaskpayload front end------ >>>>   ")
 //        sails.log.debug(JSON.stringify(addTaskPayload));
-//        console.log(req.body);
+        console.log(JSON.stringify(req.body));
+        sails.log.debug("addTaskpayload front end   ends------ >>>>   ")
         /** for backend-->>
          * take order details, call order model to save it on db with orderId, return full order details with orderId, (will be used in add task payload)
          * take customer Details(will be used in add task payload) , call customer Model to save it on db with mongodb default id
          * make payload according to addtask service payload,
          * get taskid store against 1 order Id
         **/
+
+        if(!req.body || !req.body.retailerDetails || !req.body.customerDetails || !req.body.paymentType || !req.body.orderAmount){
+            res.status(400).json( {status: 400 , message: " some required field(s) missing" });
+        }else{
+            console.log("all fine in payload")
+        }
+
         var retailerDetails = req.body.retailerDetails;
         var customerDetails = req.body.customerDetails;
         var orderDBPayload = {
@@ -27,13 +35,26 @@ module.exports = {
             customerMobile: customerDetails.mobile,
             paymentType: req.body.paymentType,
             orderAmount: req.body.orderAmount,
-            orderStatusBackend: "req-not-received"
+            orderStatusBackend: "req-not-received",
+            orderStatusTrail:[],
+            lastStatus: "req-not-received",
+            currentStatus : "req-not-received"
+        }
+        console.log("book now api time---->>",req.body.bookNowTime);
+
+        orderDBPayload.bookNowResType = req.body.resourceType;
+
+
+        if(req.body.bookNowTime){
+            orderDBPayload.bookNowTime = req.body.bookNowTime;
         }
 
         var customerDBPayload = {
             mobile: customerDetails.mobile
         }
-
+        console.log("order initially saved payload after--------->>>>>")
+        console.log(orderDBPayload);
+        console.log("order initially saved payload after ends--------->>>>>")
         Order.registerOrder(orderDBPayload, function(err, order){
             if(err) {
                 console.log("order not initially saved to db")
@@ -124,6 +145,7 @@ module.exports = {
 
                 }
 
+                addTaskPayload["restype"] = req.body.resourceType;
                 if(customerDetails.address){
                     console.log("adrress is there")
                    var customerAddressObj =  {
@@ -170,7 +192,7 @@ module.exports = {
                         "value": req.body.CODValue
                     }
                     addTaskPayload.payload.payload.task.field.push(CODValueEntry);
-                    orderDBPayload.CODValue = req.body.CODValue
+                    order.CODValue = req.body.CODValue;
 
                 }
 
@@ -183,34 +205,47 @@ module.exports = {
                     customerDBPayload.name = customerDetails.name;
                     addTaskPayload.payload.payload.task.field.push(customerNameObj);
                 }
-//                addTaskPayload.zoneid =
-//                addTaskPayload.zoneid = 7; //  hardcoded
+
+//                if(req.body.resourceType && req.body.resourceType == "Part time"){
+
+//                }
+
 //                res.json({message: "order successfully booked", details:{ order: addTaskPayload.payload}});
                 Customer.createCustomer(customerDBPayload, function(err, customer){
                     if(err){
-                        sails.log.error("failed to save customer on db")
+
                     }else{
-                        sails.log.debug("customer saved")
-                        sails.log.debug("addTaskpayload overall------ >>>>   ")
+                        sails.log.debug("customer saved");
+                        sails.log.debug("addTaskpayload overall------ >>>>   ");
                         sails.log.debug(JSON.stringify(addTaskPayload));
-                        sails.log.debug("addTaskpayload actual ------ >>>>   ")
+                        sails.log.debug("addTaskpayload actual ------ >>>>   ");
                         sails.log.debug(JSON.stringify(addTaskPayload.payload));
 
                         OrderService.createOrder(addTaskPayload, function(err, response){
                             if(err){
-                                console.log("error in order controller book order--->>")
+                                console.log("error in order controller book order--->>");
                                 res.status(err.status).json(err);
                             }else{
 //                        {"output":{"status":201,"data":{"taskid":["FV-9-01678"]}}}
 //                         '{"output":{"status":403,"data":{"errorcode":"403105","message":"Currently no shift is running with resources"}}}'
 
-                                response = JSON.parse(response)
-                                sails.log.debug("object like output-->>>>>")
-                                sails.log.debug(response.output)
+                                response = JSON.parse(response);
+                                sails.log.debug("object like output-->>>>>");
+                                sails.log.debug(response.output);
+                                order.customerId = customer.customerId;
+
+                                if(customerDetails.address){
+                                    var fullAdd = customerDetails.address.address + " " + customerDetails.address.street+ " " + customerDetails.address.area+ " " +  customerDetails.address.city+ " " + customerDetails.address.pinCode;
+                                    order.custFullAddress = fullAdd;
+                                }
+                                if(customerDetails.name){
+                                    order.custName = customerDetails.name;
+                                }
                                 if(response.output.status == 201){
                                     order.taskId = response.output.data.taskid[0];
-                                    order.customerId = customer.customerId;
-                                    order.orderStatusBackend = "req-not-received"
+                                    order.orderStatusBackend = "Pending";
+                                    order.lastStatus = "req-not-received";
+                                    order.currentStatus = "Pending";
                                     Order.updateOrder(order, function(err, order){
                                         if(err) {
                                             res.status(err.status).json(err);
@@ -237,197 +272,93 @@ module.exports = {
     },
     getOrderStatus: function(req, res){
         sails.log(req.body)
-//        orderStatus = JSON.parse(req.body);
-        sails.log(req.body);
-        if(req.body.token == "taskstatus"){
-            OrderStatus.createOrderStatus(req.body, function(err, savedOrderStatus){
+        var latestOrderStatus = req.body;
+
+
+        if(latestOrderStatus.token == "taskstatus"){
+            OrderStatus.createOrderStatus(latestOrderStatus, function(err, savedOrderStatus){
                 if(err){
                     res.status(err.status).json(err);
                 }else{
-                    res.json({message: "request registered", details: "order status saved"} );
+
+                    Order.fetchOrderByTaskId({taskId:latestOrderStatus.taskid }, function(err, matchedOrder){
+//                        same as before but will be updated
+                        matchedOrder.orderStatusTrail.push(savedOrderStatus.id);
+                        matchedOrder.updateTime = latestOrderStatus.updatetime ;
+                        matchedOrder.currentStatus =  sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
+                        matchedOrder.lastStatus = sails.config.globals.taskStatusDesc[latestOrderStatus.laststatus] ;
+                        matchedOrder.orderStatusBackend = sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
+
+//                        only when order event updated like completed
+                        matchedOrder.resId = latestOrderStatus.resid ;
+                        matchedOrder.resMobile = latestOrderStatus.mobile ;
+                        matchedOrder.resName = latestOrderStatus.resname ;
+                        matchedOrder.resLastUpdatedLat = latestOrderStatus.lat;
+                        matchedOrder.resLastUpdatedLong = latestOrderStatus.lng ;
+                        Order.updateOrder(matchedOrder , function(err, matchedUpdatedOrder){
+                            if(err){
+                                sails.log.error("err in updating order with latest order status details->>>")
+                                res.status(err.status).json(err);
+                            }else{
+                                sails.log.debug("original order status saved to DB and updated at main order collection----- >>", savedOrderStatus)
+                                res.json({message: "request registered", details: "original order status saved"} );
+                            }
+                        })
+
+                    })
                 }
             })
         }else{
             sails.log.debug("token is different")
-//            res.json({message: "request registered", details: "order not saved, wrong"} );
+            res.json({message: "update order status request not registered", details: "order not saved, wrong"} );
         }
+
+    },
+    getOrdersByRetailer: function(req, res){
+
+        if(!req.body || !req.body.retailerId){
+            res.status(400).json( {status: 400 , message: " retailer Id is missing" });
+        }else{
+            Order.fetchOrderByRetailerId({retailerId: req.body.retailerId} , function(err, Orders){
+                if(err){
+                    sails.log.error("err in fetching order by retailer id->>>")
+                    res.status(err.status).json(err);
+                }else{
+                    res.json({message: "order fetched", details: Orders} );
+                }
+            })
+        }
+
 
     }
 };
 
-//{
-//    "dateformat":"2015-06-14",  service
-//    "route":0,   service
-//    "payload": {
-//    "task": {
-//        "field": [
-//
-//            {
-//                "name": "Order ID",
-//                "value": "ORDAT00001"
-//            },
-//            {
-//                "name": "Retailer Phone Number",
-//                "value": "1234567892"
-//            },
-//            {
-//                "name": "Customer Name",
-//                "value": "test-customer"
-//            },
-//            {
-//                "name": "Customer Address",
-//                "value": {
-//                    "address": [
-//                        {
-//                            "name": "Street",
-//                            "value": "DQ Labs, 6th Main Rd Indira Nagar III Stage"
-//                        },
-//                        {
-//                            "name": "Street1",
-//                            "value": "Binnamangala, Hoysala Nagar"
-//                        },
-//                        {
-//                            "name": "Area",
-//                            "value": "Indiranagar"
-//                        },
-//                        {
-//                            "name": "City",
-//                            "value": "Bangalore"
-//                        },
-//                        {
-//                            "name": "Pincode",
-//                            "value": "560038"
-//                        }
-//                    ]
-//                }
-//            },
-//            {
-//                "name": "Customer Phone Number",
-//                "value": "1234567821"
-//            },
-//
-//            {
-//
-//                "name": "Pick-up Address",
-//
-//                "value": {
-//
-//                    "address": [
-//
-//                        {
-//
-//                            "name": "Street",
-//
-//                            "value": "Myntra office AKR tech park"
-//
-//                        },
-//
-//                        {
-//
-//                            "name": "Street1",
-//
-//                            "value": ""
-//
-//                        },
-//
-//                        {
-//
-//                            "name": "Area",
-//
-//                            "value": "Kudlu"
-//
-//                        },
-//
-//                        {
-//
-//                            "name": "City",
-//
-//                            "value": "Bangalore"
-//
-//                        },
-//
-//                        {
-//
-//                            "name": "Pincode",
-//
-//                            "value": "560068"
-//
-//                        },
-//
-//                        {
-//
-//                            "name": "lat",
-//
-//                            "value": ""
-//
-//                        },
-//
-//                        {
-//
-//                            "name": "lng",
-//
-//                            "value": ""
-//
-//                        }
-//
-//                    ]
-//
-//                }
-//
-//            },
-//
-//            {
-//
-//                "name": "Payment Type",
-//
-//                "value": "COD"
-//
-//            },
-//
-//            {
-//
-//                "name": "Order Amount",
-//
-//                "value": "200"
-//
-//            },
-//
-//            {
-//
-//                "name": "COD Value",
-//
-//                "value": "2000"
-//
-//            },
-//
-//            {
-//
-//                "name": "Retailer ID",
-//
-//                "value": "RT001"
-//
-//            },
-//
-//            {
-//
-//                "name": "Retailer Name",
-//
-//                "value": "Food Palace"
-//
-//            },
-//
-//            {
-//
-//                "name": "Retailer Type",
-//
-//                "value": "Restaurant"
-//
-//            }
-//
-//        ]
-//
-//    }
-//
-//}
-//
-//}
+//      sample-payload = { retailerId: "", mobile: ""}
+//        {
+//            "orderStatusId": [],
+//            "retailerId": "0009",
+//            "retailerMobile": 1234567811,
+//            "customerMobile": 1234567821,
+//            "paymentType": "COD",
+//            "orderAmount": 2000,
+//            "orderStatusBackend": "successfully-assigned",
+//            "orderId": "0002",
+//            "createdAt": "2015-07-20T08:29:29.494Z",
+//            "updatedAt": "2015-07-20T08:29:29.891Z",
+//            "taskId": "FV-9-01917",
+//            "customerId": "0001",
+//            "id": "55acb16941d80c851c010b6e",
+//        orderStatusTrail.push(latestOrderStatus.id);
+//       resId = latestOrderStatus.resid ;
+//       resMobile = latestOrderStatus.mobile ;
+//       resName = latestOrderStatus.resname ;
+//        currentStatus =  sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
+//     lastStatus = sails.config.globals.taskStatusDesc[latestOrderStatus.lastStatus] ;
+//        orderStatusBackend = sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
+//        resLastUpdatedLat = latestOrderStatus.lat;
+//        resLastUpdatedLong = latestOrderStatus.lng ;
+//        updateTime = latestOrderStatus.updatetime ;
+//
+// }
+
+

@@ -67,7 +67,28 @@ module.exports.globals = {
     email: "abhijeet@mantralabsglobal.com",
     key: "25b7c81e770034aeda70db74af0fb638beca992d2a535641e6313f38b9665016"
   },
+//   partnerDetails: {
+//    email: "anurag.khemka@iiml.org",
+//    key: "0fbc9039145b6449a7765dcc00d3bd8377d93ac8cccda9f0292b5976e6d67c75"
+//  },
   APIurl : "http://103.241.183.119/fvapi",
-  listOfZones: [9]
+  listOfZones: [9],
+  taskStatusDesc : {
+      "10001" : "Pending",
+      "10002" : "Completed",
+      "10003" : "Failed",
+      "10004" : "Rescheduled",
+      "10005" : "Pending Approval"
+  },
+    riderActiveStatusInUse : 1,
+    taskAutoAssignOptionInUse: 1
 
+//  riderActiveStatus: {
+//    active: 0,   //<<-- default
+//    checkedIn: 1
+//  },
+//  taskAutoAssignOption:{
+//    autoAssign: 1,  <<----- when pushed in live to check for real time testing
+//    doNotAutoAssign: 0
+//  }
 };

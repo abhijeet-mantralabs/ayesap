@@ -40,20 +40,140 @@ module.exports = {
         });
     },
     getRiderByZone: function(req, res){
-        zone = sails.config.globals.listOfZones[0];
-//        async.each(sails.config.globals.listOfZones, function(zone, callback) {
+//        if(!req.body || !req.body.zoneId){
+//            res.status(400).json( {status: 400 , message: "zone Id is missing" });
+//        }else{
+//            var zone = req.body.zoneId;
+//            console.log(zone)
+//
+//            if(sails.config.globals.riderActiveStatusInUse == 1){
+//                var  checkForOnlyRiderCheckedIn = true;
+//            }else if(sails.config.globals.riderActiveStatusInUse == 0){
+//                var  checkForOnlyRiderCheckedIn  = false;
+//            }
+//            ActiveResourceService.getRidersInZone(zone, function(err, response) {
+//                if (err) {
+//                    console.log("error in controller", err)
+//                    res.status(err.status).json(error);
+//
+//                } else {
+//                    console.log("response in controller----->>");
+//                    console.log(response);
+//                    response = JSON.parse(response)
+//                    _.forEach(response.output.data.resources, function(resource){
+//                        console.log("resource------>>>")
+////                    console.log(resource)
+//
+//                        resource.resId = resource[" id "];
+//                        resource.resName = resource[" name "];
+//                        resource.maxCapacity = resource[" maxcapcity "];
+//                        resource.usedCapacity = resource[" usedcapacity "];
+//                        resource.resourceType = resource[" resource type"];
+//                        resource.resMobile = resource[" mobile"];
+//                        resource.resLat = resource[" lat"];
+//                        resource.resLong = resource[" lng"];
+//
+//                        console.log("used capacity", resource[" usedcapacity "]);
+//                        delete resource[" id "];
+//                        delete resource[" name "];
+//                        delete resource[" maxcapcity "];
+//                        delete resource[" usedcapacity "];
+//                        delete resource[" resource type"];
+//                        delete resource[" mobile"];
+//                        delete resource[" lat"];
+//                        delete resource[" lng"];
+//                        resource.checkForOnlyRiderCheckedIn = checkForOnlyRiderCheckedIn;
+//                    })
+//                    response.output.data.resources
+////                    res.json({ details:{ resourceList: response.output.data.resources}} );
+//                }
+//            })
+//        }
+    },
+    getAllResourceStatus: function(req, res) {
+        //sample input-->> {zoneId: 9}
+
+        if(!req.body || !req.body.zoneId){
+            res.status(400).json( {status: 400 , message: "zone Id is missing" });
+        }else{
+            var zone = req.body.zoneId;
+            console.log(zone)
+
+//            if(sails.config.globals.riderActiveStatusInUse == 1){
+//                var  checkForOnlyRiderCheckedIn = true;
+//            }else if(sails.config.globals.riderActiveStatusInUse == 0){
+//                var  checkForOnlyRiderCheckedIn  = false;
+//            }
+            ActiveResourceService.getRidersInZone(zone, function(err, response) {
+                if (err) {
+                    console.log("error in controller", err)
+                    res.status(err.status).json(error);
+
+                } else {
+                    console.log("response in controller----->>");
+                    console.log(response);
+                    response = JSON.parse(response)
+                    var checkedInRes = [];
+                    _.forEach(response.output.data.resources, function(resource){
+                        console.log("resource------>>>")
+                        resource.resId = resource["id"];
+                        resource.resName = resource["name"];
+                        resource.maxCapacity = resource["maxcapacity"];
+                        resource.usedCapacity = resource["usedcapacity"];
+                        resource.resourceType = resource["resource type"];
+                        resource.resourceValue = resource["resource value"];
+                        resource.resMobile = resource["mobile"];
+                        resource.resLat = resource["lat"];
+                        resource.resLong = resource["lng"];
+
+                        delete resource["id"];
+                        delete resource["name"];
+                        delete resource["maxcapacity"];
+                        delete resource["usedcapacity"];
+                        delete resource["resource type"];
+                        delete resource["resource value"];
+                        delete resource["mobile"];
+                        delete resource["lat"];
+                        delete resource["lng"];
+                        resource.checkForOnlyRiderCheckedIn = true;
+                        if(resource.checkin == 1){
+                            checkedInRes.push(resource);
+                        }
+
+                    })
+                    res.json({ details:{ resourceList: checkedInRes}} );
+                }
+            })
+        }
+
+    }
+};
+
+//        zone = sails.config.globals.listOfZones[0];
+//        async.each(sails.config.globals.listOfZones[], function(zone, callback) {
 //
 //            // Perform operation on file here.
+//            ResourceService.getRidersInZone(7 ,zone,function(err, response) {
+//                if (err) {
+//                    console.log("error in controller", err)
+//                    res.status(err.status).json(error);
+//                } else {
+//                    console.log("resource came in controller", response)
 //
 //
-//            if( file.length > 32 ) {
-//                console.log('This file name is too long');
-//                callback('File name too long');
-//            } else {
-//                // Do work to process file here
-//                console.log('File processed');
-//                callback();
-//            }
+////                    res.json({message: "riders fetched", details: response});
+//                }
+//            })
+//
+//
+////            if( file.length > 32 ) {
+////                console.log('This file name is too long');
+////                callback('File name too long');
+////            } else {
+////                // Do work to process file here
+////                console.log('File processed');
+////                callback();
+////            }
 //        }, function(err){
 //            // if any of the file processing produced an error, err would equal that error
 //            if( err ) {
@@ -64,15 +184,4 @@ module.exports = {
 //                console.log('All files have been processed successfully');
 //            }
 //        });
-//        ResourceService.getRidersInZone(7 ,zone,function(err, response) {
-//            if (err) {
-//                console.log("error in controller", err)
-//                res.status(err.status).json(error);
-//            } else {
-//                console.log("response in controller", response)
-//                res.json({message: "riders fetched", details: response});
-//            }
-//        })
-    }
-};
 
