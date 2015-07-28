@@ -90,6 +90,63 @@ module.exports = {
 //            })
 //        }
     },
+//    getAllResourceStatus: function(req, res) {
+//        //sample input-->> {zoneId: 9}
+//
+//        if(!req.body || !req.body.zoneId){
+//            res.status(400).json( {status: 400 , message: "zone Id is missing" });
+//        }else{
+//            var zone = req.body.zoneId;
+//            console.log(zone)
+//
+////            if(sails.config.globals.riderActiveStatusInUse == 1){
+////                var  checkForOnlyRiderCheckedIn = true;
+////            }else if(sails.config.globals.riderActiveStatusInUse == 0){
+////                var  checkForOnlyRiderCheckedIn  = false;
+////            }
+//            ActiveResourceService.getRidersInZone(zone, function(err, response) {
+//                if (err) {
+//                    console.log("error in controller", err)
+//                    res.status(err.status).json(error);
+//
+//                } else {
+//                    console.log("response in controller----->>");
+//                    console.log(response);
+//                    response = JSON.parse(response)
+//                    var checkedInRes = [];
+//                    _.forEach(response.output.data.resources, function(resource){
+//                        console.log("resource------>>>")
+//                        resource.resId = resource["id"];
+//                        resource.resName = resource["name"];
+//                        resource.maxCapacity = resource["maxcapacity"];
+//                        resource.usedCapacity = resource["usedcapacity"];
+//                        resource.resourceType = resource["resource type"];
+//                        resource.resourceValue = resource["resource value"];
+//                        resource.resMobile = resource["mobile"];
+//                        resource.resLat = resource["lat"];
+//                        resource.resLong = resource["lng"];
+//
+//                        delete resource["id"];
+//                        delete resource["name"];
+//                        delete resource["maxcapacity"];
+//                        delete resource["usedcapacity"];
+//                        delete resource["resource type"];
+//                        delete resource["resource value"];
+//                        delete resource["mobile"];
+//                        delete resource["lat"];
+//                        delete resource["lng"];
+//                        resource.checkForOnlyRiderCheckedIn = true;
+//                        if(resource.checkin == 1){
+//                            checkedInRes.push(resource);
+//                        }
+//
+//                    })
+//                    res.json({ details:{ resourceList: checkedInRes}} );
+//                }
+//            })
+//        }
+//
+//    },
     getAllResourceStatus: function(req, res) {
         //sample input-->> {zoneId: 9}
 

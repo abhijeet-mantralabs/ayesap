@@ -23,7 +23,7 @@ module.exports = {
         if(!req.body || !req.body.retailerDetails || !req.body.customerDetails || !req.body.paymentType || !req.body.orderAmount){
             res.status(400).json( {status: 400 , message: " some required field(s) missing" });
         }else{
-            console.log("all fine in payload")
+            sails.log.debug("all fine in payload")
         }
 
         var retailerDetails = req.body.retailerDetails;
@@ -40,7 +40,7 @@ module.exports = {
             lastStatus: "req-not-received",
             currentStatus : "req-not-received"
         }
-        console.log("book now api time---->>",req.body.bookNowTime);
+        sails.log.debug("book now api time---->>",req.body.bookNowTime);
 
         orderDBPayload.bookNowResType = req.body.resourceType;
 
@@ -52,9 +52,9 @@ module.exports = {
         var customerDBPayload = {
             mobile: customerDetails.mobile
         }
-        console.log("order initially saved payload after--------->>>>>")
-        console.log(orderDBPayload);
-        console.log("order initially saved payload after ends--------->>>>>")
+        sails.log.debug("order initially saved payload after--------->>>>>")
+        sails.log.debug(orderDBPayload);
+        sails.log.debug("order initially saved payload after ends--------->>>>>")
         Order.registerOrder(orderDBPayload, function(err, order){
             if(err) {
                 console.log("order not initially saved to db")
