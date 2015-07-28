@@ -63,14 +63,19 @@ module.exports.globals = {
 
 	// models: true
 
-  partnerDetails: {
-    email: "abhijeet@mantralabsglobal.com",
-    key: "25b7c81e770034aeda70db74af0fb638beca992d2a535641e6313f38b9665016"
-  },
+//  partnerDetails: {
+//    email: "abhijeet@mantralabsglobal.com",
+//    key: "25b7c81e770034aeda70db74af0fb638beca992d2a535641e6313f38b9665016"
+//  },
 //   partnerDetails: {
 //    email: "anurag.khemka@iiml.org",
 //    key: "0fbc9039145b6449a7765dcc00d3bd8377d93ac8cccda9f0292b5976e6d67c75"
 //  },
+    partnerDetails: {
+        email: "retailerapp@ayesap.com",
+        key: "089ee14b926fabea6dd95890032d1a37e69c1011c710977af774ec3a7b5b39a6"
+    },
+
   APIurl : "http://103.241.183.119/fvapi",
   listOfZones: [9],
   taskStatusDesc : {
