@@ -59,7 +59,7 @@ module.exports.routes = {
 
     'POST /resources/reqForResRegister': 'ResourceController.reqForResRegister',
     'GET /resources/listReqResources': 'ResourceController.getResourceList',
-    'GET /resources/getRiderByZone': 'ResourceController.getRiderByZone',
+    'GET /resources/getRidersCron': 'ResourceController.getRiderByZone',
     'POST /resource/getAllRiderStatus': 'ResourceController.getAllResourceStatus',
 
     'POST /order/bookOrder': 'OrderController.bookOrder',
