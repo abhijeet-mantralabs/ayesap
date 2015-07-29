@@ -182,6 +182,7 @@ module.exports = {
                         resource.resMobile = resource["mobile"];
                         resource.resLat = resource["lat"];
                         resource.resLong = resource["lng"];
+                        resource.zoneId = req.body.zoneId;
 
                         delete resource["id"];
                         delete resource["name"];
@@ -198,7 +199,27 @@ module.exports = {
                         }
 
                     })
-                    res.json({ details:{ resourceList: checkedInRes}} );
+//                    res.json({ details:{ resourceList: checkedInRes}} );
+//                    var zones = [{id: 1},{id:  2}, {id: 3}];
+                    var resources = [];
+                    async.map(checkedInRes, function(res, cb){
+                        ActiveResource.saveUpRes(res).exec(cb);
+                    }, function(err, zones){
+                        var zoneData = {
+                            zoneId: req.body.zoneId,
+                            lastUpdated: new Date()
+                        }
+                        Zone.saveZone(zoneData, function(err, zoneRes){
+                            if(err){
+                                sails.log.debug(err)
+                            }else{
+                                sails.log.debug("zoneUpdated");
+                                sails.log.debug(JSON.stringify(zoneRes))
+
+                            }
+                        })
+                    });
+
                 }
             })
         }

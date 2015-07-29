@@ -39,26 +39,46 @@ module.exports = {
         },
         lng:{
             type: 'string'
+        },
+        zoneId: {
+            type: 'string'
         }
     },
-    saveUp:function(opts,cb){
+    saveUpRes:function(opts,cb){
         sails.log.debug("rider rcvd in db call ----  >> ", opts);
 
-        ActiveResource.create(opts, function(err, res){
+        ActiveResource.findOne({resId:opts.resId}).exec(function(err, activeRes){
             if(err){
                 cb(err);
-            }else{
-                cb(null,user);
+            }else if(!activeRes){
+                ActiveResource.create(opts, function(err, savedActiveRes){
+                    if(err){
+                        cb(err);
+                    }else{
+                        cb(null,savedActiveRes);
+                    }
+                });
+            }else if(activeRes){
+                ActiveResource.update({resId:opts.resId}, opts ,  function (err, updatedActiveRes) {
+                    if (!err){
+                        cb(null, updatedActiveRes[0]);
+                    }else{
+                        cb(err);
+                    }
+                });
             }
         });
     },
-    listResources: function (req, cb) {
-        Resource.find().exec(function(err, resources){
+    listResources: function (opts, cb) {
+        ActiveResource.find().exec(function(err, resources){
             if(err){
                 cb(err);
             }else if(resources){
                 cb(null, resources);
             }
         });
+    },
+    listResourceByZone: function(opts, cb) {
+        ActiveResource.find({zoneId: opts.zoneId})
     }
 };
