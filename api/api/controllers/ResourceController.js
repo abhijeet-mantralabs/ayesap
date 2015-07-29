@@ -215,7 +215,14 @@ module.exports = {
                             }else{
                                 sails.log.debug("zoneUpdated");
                                 sails.log.debug(JSON.stringify(zoneRes))
-
+                                ActiveResource.listResourceByZone({zoneId: zoneRes.zoneId}, function(err, resByZone){
+                                    if(err){
+                                        sails.log.error("err in fetching riders by zone id from DB->>>")
+                                        res.status(err.status).json(err);
+                                    }else{
+                                        res.json({message: "rider fetched from db by zoneid", details: resByZone} );
+                                    }
+                                })
                             }
                         })
                     });

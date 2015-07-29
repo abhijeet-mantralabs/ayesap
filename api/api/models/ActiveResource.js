@@ -79,6 +79,12 @@ module.exports = {
         });
     },
     listResourceByZone: function(opts, cb) {
-        ActiveResource.find({zoneId: opts.zoneId})
+        ActiveResource.find({zoneId: opts.zoneId}).exec(function(err, resources){
+            if(err){
+                cb(err);
+            }else if(resources){
+                cb(null, resources);
+            }
+        });
     }
 };

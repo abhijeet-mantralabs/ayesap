@@ -72,12 +72,19 @@ module.exports.session = {
 //  port: 27017,
 //  db: 'sails',
 //  collection: 'sessions',
+
+//    adapter: 'mongo',
+//    host: 'localhost',
+//    port: 27017,
+//    db: 'ayesap',
+//    collection: 'sessions'
+
+
     adapter: 'mongo',
     host: 'localhost',
     port: 27017,
-    db: 'ayesap',
+    db: 'ayesapdev',
     collection: 'sessions'
-
   /***************************************************************************
   *                                                                          *
   * Optional Values:                                                         *
