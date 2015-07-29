@@ -105,7 +105,8 @@ angular
 
 		// $scope.enterDetails = false;	
 		$scope.registerRetailer = function(retailerDetails){
-			$scope.error='';			
+			console.log('inside edit');
+			$scope.error='';	
 			retailerAdmin.registerRetailer(retailerDetails)
 			.then(function(response){
 //				console.log(response.details.user);
@@ -118,12 +119,13 @@ angular
 
 		$scope.editRetailer = function(retailerDetails){
 			$scope.error='';	
-			$scope.message = '';		
+			$scope.message = '';
+				
 			retailerAdmin.updateRetailer(retailerDetails)
 			.then(function(response){
-//				console.log('after editing',response);
+	//			console.log('after editing',response);
 				$scope.message = response.message;
-//				console.log($scope.message);
+	//			console.log($scope.message);
 				fetchRetailerList();
 			}).catch(function(err){
 				$scope.error = err.message;

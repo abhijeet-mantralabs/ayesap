@@ -61,6 +61,20 @@ define(['modules/AyesapModule'] , function (AyesapModule) {
 			return deferred.promise;
 		}
 
+		this.changePassword = function(data){
+			console.log('in service data',data);
+			var deferred = $q.defer();
+
+			$http.put(base_url+'retailer/changePassword',data)
+			.success(function(response){
+				deferred.resolve(response);
+			})
+			.error(function(err){
+				deferred.reject(err);
+			});
+			return deferred.promise;
+		}
+
 		this.sendLocation = function(){
 
 			var deferred = $q.defer();

@@ -48,6 +48,7 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
             $scope.error = 'Please Enter valid email or mobile number';
         }
         if((credentials.email || credentials.mobile)&& credentials.password){
+            console.log('credentials',credentials);
             Retailer.login(credentials)
             .then(function(response){
                 $location.path('/');
@@ -199,10 +200,29 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
     
     
 
-    AyesapModule.controller('settingCtrl', function ($scope) {
+    AyesapModule.controller('settingCtrl', function ($scope, $rootScope, Retailer) {
         // console.log('settingCtrl');
         $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
         $('.coming-soon').height($('.app-container').height()-40);
+        $scope.user = $rootScope.user;
+        // console.log($scope.user,$scope.user);
+        $scope.changePassword = function(oldPass,ConfirmPass){
+            $scope.error = "";
+            $scope.message = "";
+            var data = {
+                retailerId : $scope.user.retailerId,
+                oldPlainPass : oldPass,
+                newPlainPass : ConfirmPass
+            }
+            console.log('data',data);
+            Retailer.changePassword(data)
+            .then(function(response){
+                $scope.message = "Password changed successfully";
+            }).catch(function(err){
+                $scope.error = err.message;
+            });
+
+        }
     })
     
 

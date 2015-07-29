@@ -7,12 +7,15 @@
 	<div class="change-password">
 		<p>CHANGE PASSWORD</p>
 		<div class="cp-content">
-			<input type="text" class="cp-input" placeholder="Current Password">
-			<input type="text" class="cp-input" placeholder="New Password">
-			<input type="text" class="cp-input" placeholder="Confirm Password">
+			<input type="text" class="cp-input" placeholder="Current Password" ng-model="oldPass">
+			<input type="text" class="cp-input" placeholder="New Password" ng-model="newPass">
+			<input type="text" class="cp-input" placeholder="Confirm Password" ng-model="ConfirmPass">
 			<p class="cp-btn text-center">
-				<button class="btn btn-green">Submit</button>
+				<button class="btn btn-green" ng-disabled="newPass != ConfirmPass" ng-click="changePassword(oldPass,ConfirmPass)">Submit</button>
 			</p>
 		</div>
 	</div>
+	<div class="alert alert-success" role="alert" ng-if="message">{{message}}</div>
+	<div class="alert alert-danger" role="alert" ng-if="error">{{error}}</div>
+
 </div>
