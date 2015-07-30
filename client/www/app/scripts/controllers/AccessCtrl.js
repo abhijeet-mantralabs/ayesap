@@ -77,63 +77,54 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
             }
         });
 
+        $scope.user = $rootScope.user;
         $('.app-container').css('min-height', $(window).innerHeight() + 'px' );
         $('#map-canvas').css('min-height',$(window).innerHeight()-90 + 'px');
     
-        var address = $rootScope.fullAddress;
-        if(address){
-            geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ 'address': address }, function(results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    // console.log('results',results);
-                    $scope.myLatLng = new google.maps.LatLng((results[0].geometry.location.A),(results[0].geometry.location.F));
-                    var mapOptions = {
-                        zoom: 12,
-                        center: $scope.myLatLng,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP,
-                        // backgroundColor : '#000'
+        $scope.myLatLng = new google.maps.LatLng($scope.user.latitude,$scope.user.longitude)
+        var mapOptions = {
+            zoom: 12,
+            center: $scope.myLatLng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+        }
+        $scope.map = {};
+        $scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions); 
+        var marker = new google.maps.Marker({
+            position: $scope.myLatLng,
+            title:"Bangalore",
+        });
+        // To add the marker to the map, call setMap();
+        marker.setMap($scope.map);
+
+        var finalDestinationList = function(data){
+            var finalList = '';
+            angular.forEach(data, function(resource,idx){
+                for(var i=0;i<resource.length;i++){
+                    if(i == 0){
+                        finalList += resource[i] + ',';
                     }
-                    $scope.map = {};
-                    $scope.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions); 
-                    var marker = new google.maps.Marker({
-                        position: $scope.myLatLng,
-                        title:"Bangalore",
-                    });
-                    // To add the marker to the map, call setMap();
-                    marker.setMap($scope.map);
+                    if(i == 1 && (idx == data.length -1 )){
+                        finalList += resource[i];
+                    } else if(i == 1){
+                        finalList += resource[i] + '|';
+                    }
                 }
             });
-        }
-        // showing resources in map  
+            return finalList;
+        };
+
         var showMarkers = function(destinationArray)  {
-            $timeout(function() {
-                for( i = 0; i < destinationArray.length; i++ ) {
-                    var latlong = destinationArray[i].split(',');
-                    var position = new google.maps.LatLng(latlong[0], latlong[1]);
-                    marker = new google.maps.Marker({
-                        position: position,
-                        map: $scope.map,
-                        icon : 'app/img/bike.png'
-                    });
-                }
-            }, 3000);
-        }
+            for( i = 0; i < destinationArray.length; i++ ) {
+                var latlong = destinationArray[i];
+                var position = new google.maps.LatLng(latlong[0], latlong[1]);
+                marker = new google.maps.Marker({
+                    position: position,
+                    map: $scope.map,
+                    icon : 'app/img/bike.png'
+                });
+            }
+        };
 
-        // finding current location
-        // if (navigator.geolocation) {
-        //     navigator.geolocation.getCurrentPosition(function (position) {
-        //         // markOutLocation(position.coords.latitude, position.coords.longitude);
-        //         console.log(position);
-        //         // var myLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        //     })
-        // }
-
-        //hardcoded for time being ,should be fetched from biker side api
-        var location = {
-            origins : '13.021808799999999, 77.6495135',
-            destinations : '12.971598700000000000, 77.594562699999980000|13.020705, 77.647896|13.000688, 77.674658'
-        }
-        $scope.destinationArray = location.destinations.split('|');
         var getdistanceMatrix = function(location){
             Retailer.getdistanceMatrix(location)
             .then(function(response){
@@ -147,15 +138,44 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
                 var indexOfResource = eta.indexOf($scope.leastValue);
                 $rootScope.leastEta = Math.round($scope.leastValue/60);
                 $scope.nearestResource = $scope.destinationArray[indexOfResource];
-                $rootScope.nearestResource = $scope.nearestResource;
-                showMarkers($scope.destinationArray);
+                $rootScope.nearestResource = $scope.nearestResource;        
             }).catch(function(err){
                 $scope.error = err.message;
             })
-        }
-        if(location){
-            getdistanceMatrix(location);
-        }
+        };
+
+        var getResources = function(){
+            var zone = {zoneId:$scope.user.zone};
+            $scope.destinationArray = [];
+            Retailer.getNearbyResources(zone)
+            .then(function(response){
+                $scope.nearByResources = response.details.resourceList;
+                angular.forEach($scope.nearByResources, function(resource,idx){
+                    var data = [resource.resLat,resource.resLong]
+                    $scope.destinationArray.push(data);
+                })
+                var location = {
+                    origins : $scope.user.latitude +','+ $scope.user.longitude,
+                    destinations : finalDestinationList($scope.destinationArray)
+                }
+                showMarkers($scope.destinationArray);
+                getdistanceMatrix(location);
+            }).catch(function(err){
+                $scope.error = err.message; 
+            }); 
+        };
+        getResources();
+        
+        
+        // finding current location
+        // if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition(function (position) {
+        //         // markOutLocation(position.coords.latitude, position.coords.longitude);
+        //         console.log(position);
+        //         // var myLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        //     })
+        // }
+        
 
     })
 

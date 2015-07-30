@@ -109,6 +109,20 @@ define(['modules/AyesapModule'] , function (AyesapModule) {
 		// 	return deferred.promise;
 		// }
 
+		this.getNearbyResources = function(zone){
+			console.log('service zone',zone);
+			var deferred = $q.defer();
+			$http.post(base_url+'resource/getAllRiderStatus',zone)
+			.success(function(response){
+				deferred.resolve(response);
+			})
+			.error(function(err){
+				deferred.reject(err);
+			});
+
+			return deferred.promise;
+		}
+
 		this.getdistanceMatrix = function(location){
 			var deferred = $q.defer();
 			$http({
