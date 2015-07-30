@@ -271,7 +271,8 @@ module.exports = {
         });
     },
     getOrderStatus: function(req, res){
-        sails.log(req.body)
+        console.log("order completed updated------>>>")
+        console.log(JSON.stringify(req.body))
         var latestOrderStatus = req.body;
 
 
