@@ -44,7 +44,7 @@ module.exports = {
     },
     registerRetailerAdmin : function(req, res){
         console.log(req.body)
-        if(!req.body || !req.body.retailerId || !req.body.mobile || !req.body.name || !req.body.address  || !req.body.street || !req.body.area || !req.body.city || !req.body.state || !req.body.country || !req.body.pincode || !req.body.retailerType || !req.body.latitude || !req.body.longitude || !req.body.zone) {
+        if(!req.body || !req.body.retailerId || !req.body.mobile || !req.body.name || !req.body.address  || !req.body.street || !req.body.area || !req.body.city || !req.body.state || !req.body.country || !req.body.pincode || !req.body.latitude || !req.body.longitude || !req.body.zone) {
             res.status(400).json( {status: 400 , message: "some field(s) missing" });
         }
         else{

@@ -37,6 +37,7 @@ module.exports = {
             if(err){
                 cb(err);
             }else if(!zone){
+                console.log("zone created----->>")
                 Zone.create(opts, function(err, savedZone){
                     if(err){
                         cb(err);
@@ -45,6 +46,7 @@ module.exports = {
                     }
                 });
             }else if(zone){
+                console.log("zone updated----->>")
                 Zone.update({zoneId:opts.zoneId}, opts ,  function (err, zoneUpdated) {
                     if (!err){
                         cb(null, zoneUpdated[0]);

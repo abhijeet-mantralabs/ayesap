@@ -150,17 +150,16 @@ module.exports = {
     getAllResourceStatus: function(req, res) {
         //sample input-->> {zoneId: 9}
 
-        if(!req.body || !req.body.zoneId){
-            res.status(400).json( {status: 400 , message: "zone Id is missing" });
+        if(!req.body || !req.body.zoneId || !req.body.latitude || !req.body.longitude || !req.body.retailerType){
+            res.status(400).json( {status: 400 , message: "zone Id/latlong/type is missing" });
         }else{
             var zone = req.body.zoneId;
             console.log(zone)
+            var retailerLocation = {
+                latitude: parseFloat(req.body.latitude),
+                longitude: parseFloat(req.body.longitude)
+            }
 
-//            if(sails.config.globals.riderActiveStatusInUse == 1){
-//                var  checkForOnlyRiderCheckedIn = true;
-//            }else if(sails.config.globals.riderActiveStatusInUse == 0){
-//                var  checkForOnlyRiderCheckedIn  = false;
-//            }
             ActiveResourceService.getRidersInZone(zone, function(err, response) {
                 if (err) {
                     console.log("error in controller", err)
@@ -173,54 +172,70 @@ module.exports = {
                     var checkedInRes = [];
                     _.forEach(response.output.data.resources, function(resource){
                         console.log("resource------>>>")
-                        resource.resId = resource["id"];
-                        resource.resName = resource["name"];
-                        resource.maxCapacity = resource["maxcapacity"];
-                        resource.usedCapacity = resource["usedcapacity"];
-                        resource.resourceType = resource["resource type"];
-                        resource.resourceValue = resource["resource value"];
-                        resource.resMobile = resource["mobile"];
-                        resource.resLat = resource["lat"];
-                        resource.resLong = resource["lng"];
-                        resource.zoneId = req.body.zoneId;
-
-                        delete resource["id"];
-                        delete resource["name"];
-                        delete resource["maxcapacity"];
-                        delete resource["usedcapacity"];
-                        delete resource["resource type"];
-                        delete resource["resource value"];
-                        delete resource["mobile"];
-                        delete resource["lat"];
-                        delete resource["lng"];
-                        resource.checkForOnlyRiderCheckedIn = true;
                         if(resource.checkin == 1){
-                            checkedInRes.push(resource);
+                            var formattedRes = {
+                                resId : resource["id"],
+                                resName: resource["name"],
+                                maxCapacity  : resource["maxcapacity"],
+                                usedCapacity : resource["usedcapacity"],
+                                resourceType : resource["resource type"],
+                                resourceValue: resource["resource value"],
+                                resMobile : resource["mobile"],
+                                location : {
+                                    latitude:  parseFloat(resource["lat"]),
+                                    longitude: parseFloat(resource["lng"])
+                                },
+                                zoneId: req.body.zoneId,
+                                time:  resource["time"],
+                                speed:   resource["speed"],
+                                checkin: resource["checkin"],
+                                checkForOnlyRiderCheckedIn : true
+                            }
+                            checkedInRes.push(formattedRes);
                         }
 
                     })
-//                    res.json({ details:{ resourceList: checkedInRes}} );
-//                    var zones = [{id: 1},{id:  2}, {id: 3}];
-                    var resources = [];
                     async.map(checkedInRes, function(res, cb){
-                        ActiveResource.saveUpRes(res).exec(cb);
-                    }, function(err, zones){
+                        ActiveResource.saveUpRes(res, function(err, response){
+                            if(err){
+
+                            }else{
+                                cb(null, res);
+                            }
+                        })
+                    }, function(err, checkedInRes){
+
                         var zoneData = {
                             zoneId: req.body.zoneId,
-                            lastUpdated: new Date()
+                            lastUpdated:  new Date()
                         }
                         Zone.saveZone(zoneData, function(err, zoneRes){
                             if(err){
                                 sails.log.debug(err)
                             }else{
-                                sails.log.debug("zoneUpdated");
+                                sails.log.debug("in completed  function--->>");
                                 sails.log.debug(JSON.stringify(zoneRes))
                                 ActiveResource.listResourceByZone({zoneId: zoneRes.zoneId}, function(err, resByZone){
                                     if(err){
                                         sails.log.error("err in fetching riders by zone id from DB->>>")
                                         res.status(err.status).json(err);
                                     }else{
-                                        res.json({message: "rider fetched from db by zoneid", details: resByZone} );
+                                        sails.log.debug("retailerLocation-->>",  retailerLocation)
+                                        ActiveResource.findRidersNearBy(retailerLocation, 2000, function(err, resWithInCircle){
+                                            if(err){
+                                                sails.log.debug("err in controller for finding with in 2 km riders")
+                                                sails.log.debug(err)
+                                            }else{
+                                                sails.log.debug("resWithIn distance Circle--->>")
+                                                var finalList ={
+                                                    nearestRider :{},
+                                                    resourceList: resWithInCircle
+                                                }
+                                                res.json({message: "rider fetched from db by zoneid", details: finalList} );
+                                            }
+                                        })
+
+//                                        res.json({message: "rider fetched from db by zoneid", details: resByZone} );
                                     }
                                 })
                             }
