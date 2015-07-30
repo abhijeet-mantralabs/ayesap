@@ -105,10 +105,12 @@ angular
 
 		// $scope.enterDetails = false;	
 		$scope.registerRetailer = function(retailerDetails){
-			$scope.error='';			
+			$scope.error='';
+            if(angular.isUndefined(retailerDetails.retailerType)){
+                retailerDetails.retailerType = "";
+            }
 			retailerAdmin.registerRetailer(retailerDetails)
 			.then(function(response){
-//				console.log(response.details.user);
 				$scope.password = response.details.user.plainPass;
 				fetchRetailerList();
 			}).catch(function(err){

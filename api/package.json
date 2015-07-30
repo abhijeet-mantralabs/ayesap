@@ -30,7 +30,8 @@
     "nodemailer-express-handlebars": "*",
     "nodemailer-sendgrid-transport": "*",
     "connect-mongo":"*",
-    "async":"*"
+    "async":"*",
+    "geolib":"*"
   },
   "scripts": {
     "start": "node app.js",
