@@ -64,10 +64,10 @@ module.exports.globals = {
 	// models: true
 
   // IF YOU ARE CHANGING HERE MAKE SURE THAT YOU UPDATE THE SETBACKURL WITH NEW API KEY and MAIL
-//  partnerDetails: {
-//    email: "abhijeet@mantralabsglobal.com",
-//    key: "25b7c81e770034aeda70db74af0fb638beca992d2a535641e6313f38b9665016"
-//  },
+  partnerDetails: {
+    email: "abhijeet@mantralabsglobal.com",
+    key: "25b7c81e770034aeda70db74af0fb638beca992d2a535641e6313f38b9665016"
+  },
 
 //   partnerDetails: {
 //    email: "anurag.khemka@iiml.org",
@@ -75,10 +75,10 @@ module.exports.globals = {
 //  },
 
 
-    partnerDetails: {
-        email: "test@ayesap.com",
-        key: "40fb7164e459a38813f304e3b45db2b074be149818924e46fdc49cc38a3e4955"
-    },
+//    partnerDetails: {
+//        email: "test@ayesap.com",
+//        key: "40fb7164e459a38813f304e3b45db2b074be149818924e46fdc49cc38a3e4955"
+//    },
 
   APIurl : "http://103.241.183.119/fvapi",
   listOfZones: [9],
