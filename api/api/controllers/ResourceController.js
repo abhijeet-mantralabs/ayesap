@@ -173,7 +173,6 @@ module.exports = {
                     var checkedInRes = [];
                     _.forEach(response.output.data.resources, function(resource){
                         console.log("resource------>>>")
-//                        (resource.checkin == 1) && (resource.usedcapacity < resource.maxcapacity)
                         if( (resource.checkin == 1) && (resource.usedcapacity < resource.maxcapacity)){
                             var formattedRes = {
                                 resId : resource["id"],
@@ -195,7 +194,6 @@ module.exports = {
                             }
                             checkedInRes.push(formattedRes);
                         }
-
                     })
                     async.map(checkedInRes, function(res, cb){
                         ActiveResource.saveUpRes(res, function(err, response){
@@ -229,20 +227,28 @@ module.exports = {
                                                 sails.log.debug(err)
                                             }else{
                                                 sails.log.debug("resWithIn distance Circle--->>")
-                                                _.forEach(resWithInCircle, function(nearResource){
-                                                    nearResource.distance =  geolib.getDistance(retailerLocation, nearResource.location);
-                                                    nearResource.eta =  (((geolib.getDistance(retailerLocation, nearResource.location))*1.5)/(nearResource.speed*(5/18)))/60;
-                                                })
+                                                if(resWithInCircle.length>0){
+                                                    _.forEach(resWithInCircle, function(nearResource){
+                                                        nearResource.distance =  geolib.getDistance(retailerLocation, nearResource.location);
+                                                        nearResource.eta =  (((geolib.getDistance(retailerLocation, nearResource.location))*1.5)/(nearResource.speed*(5/18)))/60;
+                                                    })
 //                                                Math.ceil((((geolib.getDistance(retailerLocation, nearResource.location))*1.5)/(nearResource.speed*(5/8)))/60);
-                                                resWithInCircle.sort(function(a, b) {
-                                                    return a.eta > b.eta;
-                                                });
-                                                var finalList ={
-                                                    nearestRider :resWithInCircle[0],
-                                                    resourceList: resWithInCircle,
-                                                    eta:  Math.ceil(resWithInCircle[0].eta),
-                                                    resourceType: resWithInCircle[0].resourceType
+                                                    resWithInCircle.sort(function(a, b) {
+                                                        return a.eta > b.eta;
+                                                    });
+                                                    var finalList = {
+                                                        nearestRider :resWithInCircle[0],
+                                                        resourceList: resWithInCircle,
+                                                        eta:  Math.ceil(resWithInCircle[0].eta),
+                                                        resourceType: resWithInCircle[0].resourceType
+                                                    }
+                                                }else{
+                                                    sails.log.debug("no riders nearby ------>>")
+                                                    var finalList = {
+                                                        resourceList: resWithInCircle
+                                                    }
                                                 }
+
 
                                                 res.json({message: "rider fetched from db by zoneid", details: finalList });
                                             }
@@ -257,6 +263,9 @@ module.exports = {
                 }
             })
         }
+
+    },
+    deleteResById: function(req, res){
 
     }
 };

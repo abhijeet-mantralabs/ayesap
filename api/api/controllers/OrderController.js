@@ -276,7 +276,7 @@ module.exports = {
         var latestOrderStatus = req.body;
 
 
-        if(latestOrderStatus.token == "taskstatus"){
+        if( req.body &&  req.body.token == "taskstatus"){
             OrderStatus.createOrderStatus(latestOrderStatus, function(err, savedOrderStatus){
                 if(err){
                     res.status(err.status).json(err);

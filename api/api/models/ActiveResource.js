@@ -125,5 +125,16 @@ module.exports = {
                 cb(null, matchedRes);
             }
         })
+    },
+    removeResourceById: function(opts, cb){
+        ActiveResource.remove({resId: opts.resId}).exec(function(err, resource){
+            if(err){
+                sails.log.debug("error in deleting resource against resource Id--->>")
+                cb(err);
+            }else if(resources){
+                sails.log.debug("resource against resource Id--->>")
+                cb(null, resources);
+            }
+        })
     }
 };
