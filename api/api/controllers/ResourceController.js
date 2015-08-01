@@ -7,6 +7,7 @@
 var async = require('async');
 var request = require('request');
 var geolib = require('geolib');
+var moment = require('moment');
 module.exports = {
     fetchNearResources : function(req, res){
        console.log(req.body)
@@ -161,104 +162,186 @@ module.exports = {
                 longitude: parseFloat(req.body.longitude)
             }
 
-            ActiveResourceService.getRidersInZone(zone, function(err, response) {
-                if (err) {
-                    console.log("error in controller", err)
-                    res.status(err.status).json(error);
-
-                } else {
-                    console.log("response in controller----->>");
-                    console.log(response);
-                    response = JSON.parse(response)
-                    var checkedInRes = [];
-                    _.forEach(response.output.data.resources, function(resource){
-                        console.log("resource------>>>")
-                        if( (resource.checkin == 1) && (resource.usedcapacity < resource.maxcapacity)){
-                            var formattedRes = {
-                                resId : resource["id"],
-                                resName: resource["name"],
-                                maxCapacity  : resource["maxcapacity"],
-                                usedCapacity : resource["usedcapacity"],
-                                resourceType : resource["resource type"],
-                                resourceValue: resource["resource value"],
-                                resMobile : resource["mobile"],
-                                location : {
-                                    latitude:  parseFloat(resource["lat"]),
-                                    longitude: parseFloat(resource["lng"])
-                                },
-                                zoneId: req.body.zoneId,
-                                time:  resource["time"],
-                                speed:   resource["speed"],
-                                checkin: resource["checkin"],
-                                checkForOnlyRiderCheckedIn : true
+            //
+            var fetchZoneResource = function(zone, retailerLocation){
+                ActiveResource.findRidersNearBy(zone, retailerLocation, 2000, function(err, resWithInCircle){
+                    if(err){
+                        sails.log.debug("err in controller for finding with in 2 km riders")
+                        sails.log.debug(err)
+                    }else{
+                        sails.log.debug("resWithIn distance Circle--->>")
+                        if(resWithInCircle.length>0){
+                            _.forEach(resWithInCircle, function(nearResource){
+                                nearResource.distance =  geolib.getDistance(retailerLocation, nearResource.location);
+                                nearResource.eta =  (((geolib.getDistance(retailerLocation, nearResource.location))*1.5)/(nearResource.speed*(5/18)))/60;
+                            })
+    //                       Math.ceil((((geolib.getDistance(retailerLocation, nearResource.location))*1.5)/(nearResource.speed*(5/8)))/60);
+                            resWithInCircle.sort(function(a, b) {
+                                return a.eta > b.eta;
+                            });
+                            var finalList = {
+                                nearestRider :resWithInCircle[0],
+                                resourceList: resWithInCircle,
+                                eta:  Math.ceil(resWithInCircle[0].eta),
+                                resourceType: resWithInCircle[0].resourceType
                             }
-                            checkedInRes.push(formattedRes);
-                        }
-                    })
-                    async.map(checkedInRes, function(res, cb){
-                        ActiveResource.saveUpRes(res, function(err, response){
-                            if(err){
-
-                            }else{
-                                cb(null, res);
+                        }else{
+                            sails.log.debug("no riders nearby ------>>")
+                            var finalList = {
+                                resourceList: resWithInCircle
                             }
-                        })
-                    }, function(err, checkedInRes){
-
-                        var zoneData = {
-                            zoneId: req.body.zoneId,
-                            lastUpdated:  new Date()
                         }
-                        Zone.saveZone(zoneData, function(err, zoneRes){
-                            if(err){
-                                sails.log.debug(err)
-                            }else{
-                                sails.log.debug("in completed  function--->>");
-                                sails.log.debug(JSON.stringify(zoneRes))
-                                ActiveResource.listResourceByZone({zoneId: zoneRes.zoneId}, function(err, resByZone){
+                        res.json({message: "rider fetched from db by zoneid", details: finalList });
+                    }
+                })
+
+            }
+            var callZoneService = function(zone, retailerLocation){
+                ActiveResourceService.getRidersInZone(zone, function(err, response) {
+                    if (err) {
+                        console.log("error in controller", err)
+                        res.status(err.status).json(error);
+
+                    }else {
+//                     && response.output.data && response.output.data.resources != ""
+
+                        console.log("response in controller----->>");
+                        console.log(response);
+                        response = JSON.parse(response)
+                        if(response && response.output && (response.output.status == 200) && response.output.data && (response.output.data.resources != "")){
+                            var checkedInRes = [];
+                            _.forEach(response.output.data.resources, function(resource){
+                                console.log("resource------>>>")
+                                if( (resource.checkin == 1) && (resource.usedcapacity < resource.maxcapacity)){
+                                    var formattedRes = {
+                                        resId : resource["id"],
+                                        resName: resource["name"],
+                                        maxCapacity  : resource["maxcapacity"],
+                                        usedCapacity : resource["usedcapacity"],
+                                        resourceType : resource["resource type"],
+                                        resourceValue: resource["resource value"],
+                                        resMobile : resource["mobile"],
+                                        location : {
+                                            latitude:  parseFloat(resource["lat"]),
+                                            longitude: parseFloat(resource["lng"])
+                                        },
+                                        zoneId: req.body.zoneId,
+                                        time:  resource["time"],
+                                        speed:   resource["speed"],
+                                        checkin: resource["checkin"],
+                                        checkForOnlyRiderCheckedIn : true
+                                    }
+                                    checkedInRes.push(formattedRes);
+                                }
+                            })
+                            async.map(checkedInRes, function(res, cb){
+                                ActiveResource.saveUpRes(res, function(err, response){
                                     if(err){
-                                        sails.log.error("err in fetching riders by zone id from DB->>>")
-                                        res.status(err.status).json(err);
+
                                     }else{
-                                        sails.log.debug("retailerLocation-->>",  retailerLocation)
-                                        ActiveResource.findRidersNearBy(retailerLocation, 2000, function(err, resWithInCircle){
-                                            if(err){
-                                                sails.log.debug("err in controller for finding with in 2 km riders")
-                                                sails.log.debug(err)
-                                            }else{
-                                                sails.log.debug("resWithIn distance Circle--->>")
-                                                if(resWithInCircle.length>0){
-                                                    _.forEach(resWithInCircle, function(nearResource){
-                                                        nearResource.distance =  geolib.getDistance(retailerLocation, nearResource.location);
-                                                        nearResource.eta =  (((geolib.getDistance(retailerLocation, nearResource.location))*1.5)/(nearResource.speed*(5/18)))/60;
-                                                    })
-//                                                Math.ceil((((geolib.getDistance(retailerLocation, nearResource.location))*1.5)/(nearResource.speed*(5/8)))/60);
-                                                    resWithInCircle.sort(function(a, b) {
-                                                        return a.eta > b.eta;
-                                                    });
-                                                    var finalList = {
-                                                        nearestRider :resWithInCircle[0],
-                                                        resourceList: resWithInCircle,
-                                                        eta:  Math.ceil(resWithInCircle[0].eta),
-                                                        resourceType: resWithInCircle[0].resourceType
-                                                    }
-                                                }else{
-                                                    sails.log.debug("no riders nearby ------>>")
-                                                    var finalList = {
-                                                        resourceList: resWithInCircle
-                                                    }
-                                                }
-
-
-                                                res.json({message: "rider fetched from db by zoneid", details: finalList });
-                                            }
-                                        })
-
+                                        cb(null, res);
                                     }
                                 })
-                            }
-                        })
-                    });
+                            }, function(err, checkedInRes){
+
+                                var zoneData = {
+                                    zoneId: req.body.zoneId,
+                                    lastUpdated:  new Date()
+                                }
+
+//                                ActiveResource.listResourceByZone({zoneId:req.body.zoneId }, function(err, ResByZone){
+//                                   if(ResByZone.length > 0){
+//                                       var notInZoneNow = [];
+//                                       _.forEach(ResByZone, function(eachDBRes){
+//                                           _.forEach(checkedInRes, function(eachNewRes){
+//                                                if(eachDBRes.resId != eachNewRes.resId){
+//                                                    notInZoneNow.push(eachDBRes.resId)
+//                                                }
+//
+//                                           })
+//                                       })
+//                                       console.log("not in zone now--->>", notInZoneNow )
+//                                        if(notInZoneNow.length > 0){
+//                                            async.map(notInZoneNow, function(noZoneRes, cb){
+//                                                var deleteFilter = {
+//                                                    resIds : notInZoneNow,
+//                                                    zone : req.body.zoneId
+//                                                }
+//                                                ActiveResource.removeResourceByIdandZone({resIds: noZoneRes,zone : req.body.zoneId}, function(err, response){
+//                                                    if(err){
+//                                                        sails.log.debug("err in delete diff. resources in db relative to new data")
+//                                                    }else{
+//                                                        sails.log.debug("deleted diff. resources in db relative to new data, new are--->>")
+//                                                    }
+//                                                })
+//                                            }, function(err, finalDBRes){
+//                                                Zone.saveZone(zoneData, function(err, zoneRes){
+//                                                    if(err){
+//                                                        sails.log.debug(err)
+//                                                    }else{
+//                                                        sails.log.debug("zone last updated---->>", zoneRes);
+//                                                        sails.log.debug("in completed  function--->>");
+//                                                        sails.log.debug(JSON.stringify(zoneRes))
+////                                        res.json({message: "rider without filter", details: {resourceList: checkedInRes } });
+//                                                        fetchZoneResource(zoneRes.zoneId, retailerLocation);
+//
+//                                                    }
+//                                                })
+//                                            })
+//
+//
+//
+//                                        }
+//
+//                                   }
+//                                })
+
+                                Zone.saveZone(zoneData, function(err, zoneRes){
+                                    if(err){
+                                        sails.log.debug(err)
+                                    }else{
+                                        sails.log.debug("zone last updated---->>", zoneRes);
+                                        sails.log.debug("in completed  function--->>");
+                                        sails.log.debug(JSON.stringify(zoneRes))
+//                                        res.json({message: "rider without filter", details: {resourceList: checkedInRes } });
+                                        fetchZoneResource(zoneRes.zoneId, retailerLocation);
+//
+                                    }
+                                })
+                            });
+                        }else if(response && response.output && (response.output.status == 403) && response.output.data){
+                           console.log("message on 7-->>")
+                            res.json({message: response.output.data.message, details: {resourceList: [] } });
+                        }else{
+                            res.json({message: "no rider fetched empty from FV backend", details: {resourceList: [] } });
+                        }
+                    }
+                })
+            }
+            Zone.getZoneDetails({zoneId: zone}, function(err, fetchedZone){
+                if(err){
+                    sails.log.debug(err);
+                }else{
+                    if(fetchedZone == "no zone found"){
+                        sails.log.debug(fetchedZone)
+                        callZoneService(req.body.zoneId, retailerLocation);
+//                        res.json({ details: "no zone found with matching zone Id" });
+                    }else{
+                        console.log("zones found-->>")
+//                        zone.lastUpdated= "Sat Aug 01 2015 00:08:55 GMT+0530 (IST)"
+                        fetchedZone.now = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+//                        var now = new Date();
+//                        fetchedZone.now = Date.parse(now)
+                        fetchedZone.TimeDiff = get_time_diff(fetchedZone.lastUpdated);
+                        sails.log.debug(fetchedZone);
+                        if(fetchedZone.TimeDiff.days >= 1 || fetchedZone.TimeDiff.hours >= 1 || fetchedZone.TimeDiff.minutes >=1 ){
+                            console.log("zones last updated time is morethn 1 min-->>")
+                            callZoneService(req.body.zoneId, retailerLocation);
+                        }else{
+                            console.log("zones last updated time less thn 1 min.. feteching directly from db-->>")
+                            fetchZoneResource(req.body.zoneId, retailerLocation);
+                        }
+                    }
 
                 }
             })
@@ -267,6 +350,23 @@ module.exports = {
     },
     deleteResById: function(req, res){
 
+    },
+    getZonesData: function(req, res){
+        Zone.listofUpdatedZones( function (err, zones) {
+            if (err) {
+                res.status(err.status).json({error: err});
+            } else {
+
+                _.forEach(zones, function(zone){
+                      zone.now = moment().format();
+//                    zone.lastUpdated = "Sat Jul 31 2015 10:31:24 GMT+0530 (IST)"
+                        zone.TimeDiff = get_time_diff(zone.lastUpdated);
+
+                })
+                sails.log.debug(zones);
+                res.json({ details:{ zoneList: zones}} );
+            }
+        });
     }
 };
 
@@ -306,3 +406,143 @@ module.exports = {
 //            }
 //        });
 
+function get_time_diff(datetime)
+{
+//    var datetime = typeof datetime !== 'undefined' ? datetime : "2014-01-01 01:02:03.123456";
+
+    var datetime = new Date(datetime).getTime();
+    var now = new Date().getTime();
+
+    if( isNaN(datetime) )
+    {
+        return "";
+    }
+
+    console.log( datetime + " " + now);
+
+    if (datetime < now) {
+        var milisec_diff = now - datetime;
+
+    }else{
+        var milisec_diff = datetime - now;
+    }
+
+    //    }else{
+//        return "invalid last updated time";
+//    }
+
+    var days = Math.floor(milisec_diff / 1000 / 60 / (60 * 24));
+
+    var date_diff = new Date( milisec_diff );
+
+//    return days + "d "+ (date_diff.getHours() - 5) + "h " + (date_diff.getMinutes() - 30) + "m";
+    return {
+        days: days,
+        hours:(date_diff.getHours() - 5),
+        minutes: (date_diff.getMinutes() - 30),
+        seconds: Math.floor(milisec_diff / 1000),
+        totalMinutes: Math.floor(milisec_diff / 1000 / 60)
+    }
+}
+
+
+var difference = function(array){
+    var rest = Array.prototype.concat.apply(Array.prototype, Array.prototype.slice.call(arguments, 1));
+
+    var containsEquals = function(obj, target) {
+        if (obj == null) return false;
+        return _.any(obj, function(value) {
+            return _.isEqual(value, target);
+        });
+    };
+
+    return _.filter(array, function(value){ return ! containsEquals(rest, value); });
+};
+
+//
+//var fetchZoneResource = function(zone, retailerLocation){
+//    ActiveResource.listResourceByZone({zoneId: zone}, function(err, resByZone){
+//        if(err){
+//            sails.log.error("err in fetching riders by zone id from DB->>>")
+//            res.status(err.status).json(err);
+//        }else{
+//            sails.log.debug("retailerLocation-->>",  retailerLocation)
+//            ActiveResource.findRidersNearBy(retailerLocation, 2000, function(err, resWithInCircle){
+//                if(err){
+//                    sails.log.debug("err in controller for finding with in 2 km riders")
+//                    sails.log.debug(err)
+//                }else{
+//                    sails.log.debug("resWithIn distance Circle--->>")
+//                    if(resWithInCircle.length>0){
+//                        _.forEach(resWithInCircle, function(nearResource){
+//                            nearResource.distance =  geolib.getDistance(retailerLocation, nearResource.location);
+//                            nearResource.eta =  (((geolib.getDistance(retailerLocation, nearResource.location))*1.5)/(nearResource.speed*(5/18)))/60;
+//                        })
+////                                                Math.ceil((((geolib.getDistance(retailerLocation, nearResource.location))*1.5)/(nearResource.speed*(5/8)))/60);
+//                        resWithInCircle.sort(function(a, b) {
+//                            return a.eta > b.eta;
+//                        });
+//                        var finalList = {
+//                            nearestRider :resWithInCircle[0],
+//                            resourceList: resWithInCircle,
+//                            eta:  Math.ceil(resWithInCircle[0].eta),
+//                            resourceType: resWithInCircle[0].resourceType
+//                        }
+//                    }else{
+//                        sails.log.debug("no riders nearby ------>>")
+//                        var finalList = {
+//                            resourceList: resWithInCircle
+//                        }
+//                    }
+//
+//
+//                    res.json({message: "rider fetched from db by zoneid", details: finalList });
+//                }
+//            })
+//
+//        }
+//    })
+//}
+
+
+
+
+
+//var fetchZoneResource = function(zone, retailerLocation){
+//
+//    sails.log.debug("retailerLocation-->>",  retailerLocation)
+//    ActiveResource.findRidersNearBy(zone,retailerLocation, 2000, function(err, resWithInCircle){
+//        if(err){
+//            sails.log.debug("err in controller for finding with in 2 km riders")
+//            sails.log.debug(err)
+//        }else{
+//            sails.log.debug("resWithIn distance Circle--->>")
+//            if(resWithInCircle.length>0){
+//                _.forEach(resWithInCircle, function(nearResource){
+//                    nearResource.distance =  geolib.getDistance(retailerLocation, nearResource.location);
+//                    nearResource.eta =  (((geolib.getDistance(retailerLocation, nearResource.location))*1.5)/(nearResource.speed*(5/18)))/60;
+//                })
+////                                                Math.ceil((((geolib.getDistance(retailerLocation, nearResource.location))*1.5)/(nearResource.speed*(5/8)))/60);
+//                resWithInCircle.sort(function(a, b) {
+//                    return a.eta > b.eta;
+//                });
+//                var finalList = {
+//                    nearestRider :resWithInCircle[0],
+//                    resourceList: resWithInCircle,
+//                    eta:  Math.ceil(resWithInCircle[0].eta),
+//                    resourceType: resWithInCircle[0].resourceType
+//                }
+//            }else{
+//                sails.log.debug("no riders nearby ------>>")
+//                var finalList = {
+//                    resourceList: resWithInCircle
+//                }
+//            }
+//
+//
+//            res.json({message: "rider fetched from db by zoneid", details: finalList });
+//        }
+//    })
+//
+//
+//}

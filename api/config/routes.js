@@ -64,5 +64,8 @@ module.exports.routes = {
 
     'POST /order/bookOrder': 'OrderController.bookOrder',
     'POST /order/getOrderStatus': 'OrderController.getOrderStatus',
-    'POST /order/getOrdersByRetailer': 'OrderController.getOrdersByRetailer'
+    'POST /order/getOrdersByRetailer': 'OrderController.getOrdersByRetailer',
+
+
+    'GET /zone/getZonesData': 'ResourceController.getZonesData'
 };

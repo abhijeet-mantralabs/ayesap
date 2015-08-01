@@ -31,7 +31,8 @@
     "nodemailer-sendgrid-transport": "*",
     "connect-mongo":"*",
     "async":"*",
-    "geolib":"*"
+    "geolib":"*",
+    "moment":"*"
   },
   "scripts": {
     "start": "node app.js",

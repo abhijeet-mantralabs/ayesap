@@ -99,8 +99,9 @@ module.exports = {
             }
         });
     },
-    findRidersNearBy: function(point, distance, cb){
+    findRidersNearBy: function(zone,point, distance, cb){
         var condition = {
+            zoneId: zone,
             location: {
                 "$near":{
                     "$maxDistance": distance,
@@ -110,6 +111,7 @@ module.exports = {
                     }
                 }
             }
+
         };
         ActiveResource.find(condition).exec(function(err, matchedRes){
             if(err){
@@ -126,8 +128,9 @@ module.exports = {
             }
         })
     },
-    removeResourceById: function(opts, cb){
-        ActiveResource.remove({resId: opts.resId}).exec(function(err, resource){
+    removeResourceByIdandZone: function(opts, cb){
+//        {retailerId:{$in:["0005", "0006","0007"]}}
+        ActiveResource.remove({resId:opts.resId, zoneId: opts.zone}).exec(function(err, resource){
             if(err){
                 sails.log.debug("error in deleting resource against resource Id--->>")
                 cb(err);

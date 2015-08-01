@@ -26,7 +26,7 @@ module.exports = {
             required: true
         },
         lastUpdated:{
-            type: 'datetime'
+            type: 'string'
         },
         resourceIds:{
             type: 'array'
@@ -57,12 +57,25 @@ module.exports = {
             }
         });
     },
-    listofUpdatesZones: function (req, cb) {
+    listofUpdatedZones: function (cb) {
         Zone.find().exec(function(err, zones){
             if(err){
                 cb(err);
             }else if(zones){
                 cb(null, zones);
+            }
+        });
+    },
+    getZoneDetails: function(opts, cb){
+        sails.log.debug(opts)
+        Zone.findOne({zoneId: opts.zoneId}).exec(function(err, zone){
+            if(err){
+                cb(err);
+            }else if(zone){
+                console.log("db zone-->>", zone);
+                cb(null, zone);
+            }if(!zone){
+                cb(null, "no zone found");
             }
         });
     }
