@@ -213,6 +213,7 @@ module.exports = {
                             _.forEach(response.output.data.resources, function(resource){
                                 console.log("resource------>>>")
                                 if( (resource.checkin == 1) && (resource.usedcapacity < resource.maxcapacity)){
+
                                     var formattedRes = {
                                         resId : resource["id"],
                                         resName: resource["name"],
@@ -329,18 +330,20 @@ module.exports = {
                     }else{
                         console.log("zones found-->>")
 //                        zone.lastUpdated= "Sat Aug 01 2015 00:08:55 GMT+0530 (IST)"
-                        fetchedZone.now = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
-//                        var now = new Date();
-//                        fetchedZone.now = Date.parse(now)
-                        fetchedZone.TimeDiff = get_time_diff(fetchedZone.lastUpdated);
-                        sails.log.debug(fetchedZone);
-                        if(fetchedZone.TimeDiff.days >= 1 || fetchedZone.TimeDiff.hours >= 1 || fetchedZone.TimeDiff.minutes >=1 ){
-                            console.log("zones last updated time is morethn 1 min-->>")
-                            callZoneService(req.body.zoneId, retailerLocation);
-                        }else{
-                            console.log("zones last updated time less thn 1 min.. feteching directly from db-->>")
-                            fetchZoneResource(req.body.zoneId, retailerLocation);
-                        }
+                        callZoneService(req.body.zoneId, retailerLocation);
+
+//                        fetchedZone.now = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+////                        var now = new Date();
+////                        fetchedZone.now = Date.parse(now)
+//                        fetchedZone.TimeDiff = get_time_diff(fetchedZone.lastUpdated);
+//                        sails.log.debug(fetchedZone);
+//                        if(fetchedZone.TimeDiff.days >= 1 || fetchedZone.TimeDiff.hours >= 1 || fetchedZone.TimeDiff.minutes >=1 ){
+//                            console.log("zones last updated time is morethn 1 min-->>")
+//                            callZoneService(req.body.zoneId, retailerLocation);
+//                        }else{
+//                            console.log("zones last updated time less thn 1 min.. feteching directly from db-->>")
+//                            fetchZoneResource(req.body.zoneId, retailerLocation);
+//                        }
                     }
 
                 }
@@ -421,6 +424,7 @@ function get_time_diff(datetime)
     console.log( datetime + " " + now);
 
     if (datetime < now) {
+
         var milisec_diff = now - datetime;
 
     }else{

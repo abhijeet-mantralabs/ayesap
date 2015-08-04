@@ -26,7 +26,7 @@ module.exports = {
             required: true
         },
         lastUpdated:{
-            type: 'string'
+            type: 'datetime'
         },
         resourceIds:{
             type: 'array'
