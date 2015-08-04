@@ -164,7 +164,7 @@ module.exports = {
 
             //
             var fetchZoneResource = function(zone, retailerLocation){
-                ActiveResource.findRidersNearBy(zone, retailerLocation, 2000, function(err, resWithInCircle){
+                ActiveResource.findRidersNearBy(zone, retailerLocation, sails.config.globals.distanceCheckCircleInMeter, function(err, resWithInCircle){
                     if(err){
                         sails.log.debug("err in controller for finding with in 2 km riders")
                         sails.log.debug(err)
@@ -175,10 +175,13 @@ module.exports = {
                                 nearResource.distance =  geolib.getDistance(retailerLocation, nearResource.location);
                                 nearResource.eta =  (((geolib.getDistance(retailerLocation, nearResource.location))*1.5)/(nearResource.speed*(5/18)))/60;
                             })
-    //                       Math.ceil((((geolib.getDistance(retailerLocation, nearResource.location))*1.5)/(nearResource.speed*(5/8)))/60);
+
                             resWithInCircle.sort(function(a, b) {
                                 return a.eta > b.eta;
                             });
+
+
+
                             var finalList = {
                                 nearestRider :resWithInCircle[0],
                                 resourceList: resWithInCircle,
@@ -212,6 +215,17 @@ module.exports = {
                             var checkedInRes = [];
                             _.forEach(response.output.data.resources, function(resource){
                                 console.log("resource------>>>")
+//                                var now = new Date();
+//                                var timeDiffInms = now  - fetchedZone.updatedAt.getTime();
+//                                sails.log.debug("zone updated time diff. in ms--->>",timeDiffInms);
+//                                if(timeDiffInms < sails.config.globals.lastTimeCheckms ){
+//                                    sails.log.debug("zones last updated time less thn 1 min.. feteching directly from db-->>");
+//                                    fetchZoneResource(req.body.zoneId, retailerLocation);
+//                                }else{
+//                                    sails.log.debug("zones last updated time is morethn 1 min-->>");
+//                                    callZoneService(req.body.zoneId, retailerLocation);
+//                                }
+//
                                 if( (resource.checkin == 1) && (resource.usedcapacity < resource.maxcapacity)){
 
                                     var formattedRes = {
@@ -246,8 +260,8 @@ module.exports = {
                             }, function(err, checkedInRes){
 
                                 var zoneData = {
-                                    zoneId: req.body.zoneId,
-                                    lastUpdated:  new Date()
+                                    zoneId: req.body.zoneId
+//                                    lastUpdated:  new Date()
                                 }
 
 //                                ActiveResource.listResourceByZone({zoneId:req.body.zoneId }, function(err, ResByZone){
@@ -326,27 +340,19 @@ module.exports = {
                     if(fetchedZone == "no zone found"){
                         sails.log.debug(fetchedZone)
                         callZoneService(req.body.zoneId, retailerLocation);
-//                        res.json({ details: "no zone found with matching zone Id" });
                     }else{
                         console.log("zones found-->>")
-//                        zone.lastUpdated= "Sat Aug 01 2015 00:08:55 GMT+0530 (IST)"
 
-//                        callZoneService(req.body.zoneId, retailerLocation);
-//                            var lu = new Date()
-                        fetchedZone.lu = fetchedZone.lastUpdated ; 
-                        fetchedZone.now = new Date();
-//                        fetchedZone.now = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
-////                        var now = new Date();
-////                        fetchedZone.now = Date.parse(now)
-//                        fetchedZone.TimeDiff = get_time_diff(fetchedZone.lastUpdated);
-                        sails.log.debug(fetchedZone);
-//                        if(fetchedZone.TimeDiff.days >= 1 || fetchedZone.TimeDiff.hours >= 1 || fetchedZone.TimeDiff.minutes >=1 ){
-//                            console.log("zones last updated time is morethn 1 min-->>")
-//                            callZoneService(req.body.zoneId, retailerLocation);
-//                        }else{
-//                            console.log("zones last updated time less thn 1 min.. feteching directly from db-->>")
-//                            fetchZoneResource(req.body.zoneId, retailerLocation);
-//                        }
+                        var now = new Date();
+                        var timeDiffInms = now  - fetchedZone.updatedAt.getTime();
+                        sails.log.debug("zone updated time diff. in ms--->>",timeDiffInms);
+                        if(timeDiffInms < sails.config.globals.lastTimeCheckms ){
+                            sails.log.debug("zones last updated time less thn 1 min.. feteching directly from db-->>");
+                            fetchZoneResource(req.body.zoneId, retailerLocation);
+                        }else{
+                            sails.log.debug("zones last updated time is morethn 1 min-->>");
+                            callZoneService(req.body.zoneId, retailerLocation);
+                        }
                     }
 
                 }
@@ -411,60 +417,60 @@ module.exports = {
 //                console.log('All files have been processed successfully');
 //            }
 //        });
-
-function get_time_diff(datetime)
-{
-//    var datetime = typeof datetime !== 'undefined' ? datetime : "2014-01-01 01:02:03.123456";
-
-    var datetime = new Date(datetime).getTime();
-    var now = new Date().getTime();
-
-    if( isNaN(datetime) )
-    {
-        return "";
-    }
-
-    console.log( datetime + " " + now);
-
-    if (datetime < now) {
-
-        var milisec_diff = now - datetime;
-
-    }else{
-        var milisec_diff = datetime - now;
-    }
-
-    //    }else{
-//        return "invalid last updated time";
+//
+//function get_time_diff(datetime)
+//{
+////    var datetime = typeof datetime !== 'undefined' ? datetime : "2014-01-01 01:02:03.123456";
+//
+//    var datetime = new Date(datetime).getTime();
+//    var now = new Date().getTime();
+//
+//    if( isNaN(datetime) )
+//    {
+//        return "";
 //    }
-
-    var days = Math.floor(milisec_diff / 1000 / 60 / (60 * 24));
-
-    var date_diff = new Date( milisec_diff );
-
-//    return days + "d "+ (date_diff.getHours() - 5) + "h " + (date_diff.getMinutes() - 30) + "m";
-    return {
-        days: days,
-        hours:(date_diff.getHours() - 5),
-        minutes: (date_diff.getMinutes() - 30),
-        seconds: Math.floor(milisec_diff / 1000),
-        totalMinutes: Math.floor(milisec_diff / 1000 / 60)
-    }
-}
-
-
-var difference = function(array){
-    var rest = Array.prototype.concat.apply(Array.prototype, Array.prototype.slice.call(arguments, 1));
-
-    var containsEquals = function(obj, target) {
-        if (obj == null) return false;
-        return _.any(obj, function(value) {
-            return _.isEqual(value, target);
-        });
-    };
-
-    return _.filter(array, function(value){ return ! containsEquals(rest, value); });
-};
+//
+//    console.log( datetime + " " + now);
+//
+//    if (datetime < now) {
+//
+//        var milisec_diff = now - datetime;
+//
+//    }else{
+//        var milisec_diff = datetime - now;
+//    }
+//
+//    //    }else{
+////        return "invalid last updated time";
+////    }
+//
+//    var days = Math.floor(milisec_diff / 1000 / 60 / (60 * 24));
+//
+//    var date_diff = new Date( milisec_diff );
+//
+////    return days + "d "+ (date_diff.getHours() - 5) + "h " + (date_diff.getMinutes() - 30) + "m";
+//    return {
+//        days: days,
+//        hours:(date_diff.getHours() - 5),
+//        minutes: (date_diff.getMinutes() - 30),
+//        seconds: Math.floor(milisec_diff / 1000),
+//        totalMinutes: Math.floor(milisec_diff / 1000 / 60)
+//    }
+//}
+//
+//
+//var difference = function(array){
+//    var rest = Array.prototype.concat.apply(Array.prototype, Array.prototype.slice.call(arguments, 1));
+//
+//    var containsEquals = function(obj, target) {
+//        if (obj == null) return false;
+//        return _.any(obj, function(value) {
+//            return _.isEqual(value, target);
+//        });
+//    };
+//
+//    return _.filter(array, function(value){ return ! containsEquals(rest, value); });
+//};
 
 //
 //var fetchZoneResource = function(zone, retailerLocation){

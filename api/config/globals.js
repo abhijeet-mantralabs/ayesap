@@ -90,7 +90,9 @@ module.exports.globals = {
       "10005" : "Pending Approval"
   },
     riderActiveStatusInUse : 1,
-    taskAutoAssignOptionInUse: 1
+    taskAutoAssignOptionInUse: 1,
+    lastTimeCheckms : 60000,
+    distanceCheckCircleInMeter: 2000
 
 //  riderActiveStatus: {
 //    active: 0,   //<<-- default
