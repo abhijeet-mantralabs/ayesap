@@ -333,7 +333,7 @@ module.exports = {
 
 //                        callZoneService(req.body.zoneId, retailerLocation);
 //                            var lu = new Date()
-                        fetchedZone.lu = fetchedZone.lastUpdated.toISOString();
+                        fetchedZone.lu = fetchedZone.lastUpdated ; 
                         fetchedZone.now = new Date();
 //                        fetchedZone.now = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
 ////                        var now = new Date();
