@@ -330,8 +330,11 @@ module.exports = {
                     }else{
                         console.log("zones found-->>")
 //                        zone.lastUpdated= "Sat Aug 01 2015 00:08:55 GMT+0530 (IST)"
+
 //                        callZoneService(req.body.zoneId, retailerLocation);
-                          fetchedZone.now = new Date();
+//                            var lu = new Date()
+                        fetchedZone.lu = fetchedZone.lastUpdated.toISOString();
+                        fetchedZone.now = new Date();
 //                        fetchedZone.now = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
 ////                        var now = new Date();
 ////                        fetchedZone.now = Date.parse(now)
