@@ -284,72 +284,72 @@ module.exports = {
                             }, function(err, checkedInRes){
 
                                 var zoneData = {
-                                    zoneId: req.body.zoneId
-//                                    lastUpdated:  new Date()
+                                    zoneId: req.body.zoneId,
+                                   resourceIds: checkedResIdArr
                                 }
 
 
-//                               sails.log.debug("checkedResIds arr--->>>",checkedResIdArr);
-//                                DBResByZoneIdArr = []
-//                                var notInZoneNow = [];
-//                                ActiveResource.listResourceByZone({zoneId:req.body.zoneId }, function(err, ResByZone){
-//                                   if(ResByZone.length > 0){
-//                                       _.forEach(ResByZone, function(eachDBRes){
-//                                           DBResByZoneIdArr.push(eachDBRes.resId)
-//                                       })
-//                                       sails.log.debug("DB checkedResIds arr--->>>",DBResByZoneIdArr);
-//                                       notInZoneNow = difference(DBResByZoneIdArr, checkedResIdArr)
-//                                       sails.log.debug("not in zone now--->>>",notInZoneNow);
-//
-//
-//
-//                                        if(notInZoneNow.length > 0){
-//                                            async.map(notInZoneNow, function(noZoneRes, cb){
-//                                                var deleteFilter = {
-//                                                    resIds : notInZoneNow,
-//                                                    zone : req.body.zoneId
-//                                                }
-//                                                ActiveResource.removeResourceByIdandZone({resIds: noZoneRes,zone : req.body.zoneId}, function(err, response){
-//                                                    if(err){
-//                                                        sails.log.debug("err in delete diff. resources in db relative to new data")
-//                                                    }else{
-//                                                        sails.log.debug("deleted diff. resources in db relative to new data, new are--->>")
-//                                                    }
-//                                                })
-//                                            }, function(err, finalDBRes){
-//                                                Zone.saveZone(zoneData, function(err, zoneRes){
-//                                                    if(err){
-//                                                        sails.log.debug(err)
-//                                                    }else{
-//                                                        sails.log.debug("zone last updated---->>", zoneRes);
-//                                                        sails.log.debug("in completed  function--->>");
-//                                                        sails.log.debug(JSON.stringify(zoneRes))
-////                                        res.json({message: "rider without filter", details: {resourceList: checkedInRes } });
-//                                                        fetchZoneResource(zoneRes.zoneId, retailerLocation);
-//
-//                                                    }
-//                                                })
-//                                            })
-//
-//
-//
-//                                        }
-//
-//                                   }
-//                                })
+                               sails.log.debug("checkedResIds arr--->>>",checkedResIdArr);
+                                DBResByZoneIdArr = []
+                                var notInZoneNow = [];
+                                ActiveResource.listResourceByZone({zoneId:req.body.zoneId }, function(err, ResByZone){
+                                   if(ResByZone.length > 0){
+                                       _.forEach(ResByZone, function(eachDBRes){
+                                           DBResByZoneIdArr.push(eachDBRes.resId)
+                                       })
+                                       sails.log.debug("DB checkedResIds arr--->>>",DBResByZoneIdArr);
+                                       notInZoneNow = difference(DBResByZoneIdArr, checkedResIdArr)
+                                       sails.log.debug("not in zone now--->>>",notInZoneNow);
 
-                                Zone.saveZone(zoneData, function(err, zoneRes){
-                                    if(err){
-                                        sails.log.debug(err)
-                                    }else{
-                                        sails.log.debug("zone last updated---->>", zoneRes);
-                                        sails.log.debug("in completed  function--->>");
-                                        sails.log.debug(JSON.stringify(zoneRes))
+
+
+                                        if(notInZoneNow.length > 0){
+                                            async.map(notInZoneNow, function(noZoneResId, cb){
+                                                var deleteFilter = {
+                                                    resId : noZoneResId,
+                                                    zoneId : req.body.zoneId
+                                                }
+                                                ActiveResource.removeResourceByIdandZone(deleteFilter, function(err, response){
+                                                    if(err){
+                                                        sails.log.debug("err in delete diff. resources in db relative to new data")
+                                                    }else{
+                                                        sails.log.debug("deleted diff. resources in db relative to new data, new are--->>")
+                                                    }
+                                                })
+                                            }, function(err, finalDBRes){
+                                                Zone.saveZone(zoneData, function(err, zoneRes){
+                                                    if(err){
+                                                        sails.log.debug(err)
+                                                    }else{
+                                                        sails.log.debug("zone last updated---->>", zoneRes);
+                                                        sails.log.debug("in completed  function--->>");
+                                                        sails.log.debug(JSON.stringify(zoneRes))
 //                                        res.json({message: "rider without filter", details: {resourceList: checkedInRes } });
-                                        fetchZoneResource(zoneRes.zoneId, retailerLocation);
-//
-                                    }
+                                                        fetchZoneResource(zoneRes.zoneId, retailerLocation);
+
+                                                    }
+                                                })
+                                            })
+
+
+
+                                        }
+
+                                   }
                                 })
+
+//                                Zone.saveZone(zoneData, function(err, zoneRes){
+//                                    if(err){
+//                                        sails.log.debug(err)
+//                                    }else{
+//                                        sails.log.debug("zone last updated---->>", zoneRes);
+//                                        sails.log.debug("in completed  function--->>");
+//                                        sails.log.debug(JSON.stringify(zoneRes))
+////                                        res.json({message: "rider without filter", details: {resourceList: checkedInRes } });
+//                                        fetchZoneResource(zoneRes.zoneId, retailerLocation);
+////
+//                                    }
+//                                })
                             });
                         }else if(response && response.output && (response.output.status == 403) && response.output.data){
                            console.log("message on 7-->>")
