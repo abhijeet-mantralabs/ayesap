@@ -233,6 +233,8 @@ module.exports = {
                         console.log(response);
                         response = JSON.parse(response)
                         if(response && response.output && (response.output.status == 200) && response.output.data && (response.output.data.resources != "")){
+
+                            var checkedResIdArr = [];
                             var checkedInRes = [];
                             _.forEach(response.output.data.resources, function(resource){
                                 console.log("resource------>>>")
@@ -267,6 +269,7 @@ module.exports = {
                                         checkin: resource["checkin"],
                                         checkForOnlyRiderCheckedIn : true
                                     }
+                                    checkedResIdArr.push(formattedRes.resId);
                                     checkedInRes.push(formattedRes);
                                 }
                             })
@@ -285,18 +288,21 @@ module.exports = {
 //                                    lastUpdated:  new Date()
                                 }
 
+
+//                               sails.log.debug("checkedResIds arr--->>>",checkedResIdArr);
+//                                DBResByZoneIdArr = []
+//                                var notInZoneNow = [];
 //                                ActiveResource.listResourceByZone({zoneId:req.body.zoneId }, function(err, ResByZone){
 //                                   if(ResByZone.length > 0){
-//                                       var notInZoneNow = [];
 //                                       _.forEach(ResByZone, function(eachDBRes){
-//                                           _.forEach(checkedInRes, function(eachNewRes){
-//                                                if(eachDBRes.resId != eachNewRes.resId){
-//                                                    notInZoneNow.push(eachDBRes.resId)
-//                                                }
-//
-//                                           })
+//                                           DBResByZoneIdArr.push(eachDBRes.resId)
 //                                       })
-//                                       console.log("not in zone now--->>", notInZoneNow )
+//                                       sails.log.debug("DB checkedResIds arr--->>>",DBResByZoneIdArr);
+//                                       notInZoneNow = difference(DBResByZoneIdArr, checkedResIdArr)
+//                                       sails.log.debug("not in zone now--->>>",notInZoneNow);
+//
+//
+//
 //                                        if(notInZoneNow.length > 0){
 //                                            async.map(notInZoneNow, function(noZoneRes, cb){
 //                                                var deleteFilter = {
@@ -480,18 +486,18 @@ module.exports = {
 //}
 //
 //
-//var difference = function(array){
-//    var rest = Array.prototype.concat.apply(Array.prototype, Array.prototype.slice.call(arguments, 1));
-//
-//    var containsEquals = function(obj, target) {
-//        if (obj == null) return false;
-//        return _.any(obj, function(value) {
-//            return _.isEqual(value, target);
-//        });
-//    };
-//
-//    return _.filter(array, function(value){ return ! containsEquals(rest, value); });
-//};
+var difference = function(array){
+    var rest = Array.prototype.concat.apply(Array.prototype, Array.prototype.slice.call(arguments, 1));
+
+    var containsEquals = function(obj, target) {
+        if (obj == null) return false;
+        return _.any(obj, function(value) {
+            return _.isEqual(value, target);
+        });
+    };
+
+    return _.filter(array, function(value){ return ! containsEquals(rest, value); });
+};
 
 //
 //var fetchZoneResource = function(zone, retailerLocation){
