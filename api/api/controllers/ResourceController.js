@@ -330,13 +330,13 @@ module.exports = {
                     }else{
                         console.log("zones found-->>")
 //                        zone.lastUpdated= "Sat Aug 01 2015 00:08:55 GMT+0530 (IST)"
-                        callZoneService(req.body.zoneId, retailerLocation);
-
+//                        callZoneService(req.body.zoneId, retailerLocation);
+                          fetchedZone.now = new Date();
 //                        fetchedZone.now = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
 ////                        var now = new Date();
 ////                        fetchedZone.now = Date.parse(now)
 //                        fetchedZone.TimeDiff = get_time_diff(fetchedZone.lastUpdated);
-//                        sails.log.debug(fetchedZone);
+                        sails.log.debug(fetchedZone);
 //                        if(fetchedZone.TimeDiff.days >= 1 || fetchedZone.TimeDiff.hours >= 1 || fetchedZone.TimeDiff.minutes >=1 ){
 //                            console.log("zones last updated time is morethn 1 min-->>")
 //                            callZoneService(req.body.zoneId, retailerLocation);
