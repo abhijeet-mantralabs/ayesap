@@ -164,29 +164,50 @@ module.exports = {
 
             //
             var fetchZoneResource = function(zone, retailerLocation){
-                ActiveResource.findRidersNearBy(zone, retailerLocation, sails.config.globals.distanceCheckCircleInMeter, function(err, resWithInCircle){
+                ActiveResource.findRidersNearBy(zone, retailerLocation, sails.config.globals.distanceCheckCircleInMeter, function(err, DBResWithInCircle){
                     if(err){
                         sails.log.debug("err in controller for finding with in 2 km riders")
                         sails.log.debug(err)
                     }else{
                         sails.log.debug("resWithIn distance Circle--->>")
-                        if(resWithInCircle.length>0){
-                            _.forEach(resWithInCircle, function(nearResource){
-                                nearResource.distance =  geolib.getDistance(retailerLocation, nearResource.location);
-                                nearResource.eta =  (((geolib.getDistance(retailerLocation, nearResource.location))*1.5)/(nearResource.speed*(5/18)))/60;
+                        var resWithInCircle = [];
+                        if(DBResWithInCircle.length>0){
+
+                            _.forEach(DBResWithInCircle, function(nearResource){
+
+                                var resAcceptable = "no";
+                                if(req.body.retailerType != "Food" && req.body.retailerType != "Grocery"){
+                                   resAcceptable = "yes"
+                                }else if(req.body.retailerType == "Food" && nearResource.usedCapacity == 0){
+                                   resAcceptable = "yes"
+                                }else if(req.body.retailerType == "Grocery" && nearResource.usedCapacity <= 1){
+                                   resAcceptable = "yes"
+                                }
+
+
+                                if(resAcceptable == "yes"){
+                                    nearResource.distance =  geolib.getDistance(retailerLocation, nearResource.location);
+                                    nearResource.eta =  (((geolib.getDistance(retailerLocation, nearResource.location))*1.5)/(nearResource.speed*(5/18)))/60;
+                                    resWithInCircle.push(nearResource);
+                                }
+
                             })
 
-                            resWithInCircle.sort(function(a, b) {
-                                return a.eta > b.eta;
-                            });
-
-
-
-                            var finalList = {
-                                nearestRider :resWithInCircle[0],
-                                resourceList: resWithInCircle,
-                                eta:  Math.ceil(resWithInCircle[0].eta),
-                                resourceType: resWithInCircle[0].resourceType
+                            if(resWithInCircle.length>0){
+                                resWithInCircle.sort(function(a, b) {
+                                    return a.eta > b.eta;
+                                });
+                                var finalList = {
+                                    nearestRider :resWithInCircle[0],
+                                    resourceList: resWithInCircle,
+                                    eta:  Math.ceil(resWithInCircle[0].eta),
+                                    resourceType: resWithInCircle[0].resourceType
+                                }
+                            }else{
+                                sails.log.debug("no riders nearby after full filters ------>>")
+                                var finalList = {
+                                    resourceList: resWithInCircle
+                                }
                             }
                         }else{
                             sails.log.debug("no riders nearby ------>>")
