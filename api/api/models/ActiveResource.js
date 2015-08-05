@@ -130,13 +130,13 @@ module.exports = {
     },
     removeResourceByIdandZone: function(opts, cb){
 //        {retailerId:{$in:["0005", "0006","0007"]}}
-        ActiveResource.remove(opts).exec(function(err, resource){
+        ActiveResource.destroy(opts).exec(function(err, resource){
             if(err){
                 sails.log.debug("error in deleting resource against resource Id--->>")
                 cb(err);
-            }else if(resources){
+            }else if(resource){
                 sails.log.debug("resource against resource Id--->>")
-                cb(null, resources);
+                cb(null, resource);
             }
         })
     }

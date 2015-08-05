@@ -162,7 +162,7 @@ module.exports = {
                 longitude: parseFloat(req.body.longitude)
             }
 
-            //
+
             var fetchZoneResource = function(zone, retailerLocation){
                 ActiveResource.findRidersNearBy(zone, retailerLocation, sails.config.globals.distanceCheckCircleInMeter, function(err, DBResWithInCircle){
                     if(err){
@@ -220,6 +220,20 @@ module.exports = {
                 })
 
             }
+            var updateZone = function(zoneData, retailerLocation){
+                Zone.saveZone(zoneData, function(err, zoneRes){
+                    if(err){
+                        sails.log.debug(err)
+                    }else{
+                        sails.log.debug("zone last updated---->>", zoneRes);
+                        sails.log.debug("in completed  function--->>");
+                        sails.log.debug(JSON.stringify(zoneRes))
+                        fetchZoneResource(zoneRes.zoneId, retailerLocation);
+//
+                    }
+                })
+            }
+
             var callZoneService = function(zone, retailerLocation){
                 ActiveResourceService.getRidersInZone(zone, function(err, response) {
                     if (err) {
@@ -314,42 +328,21 @@ module.exports = {
                                                         sails.log.debug("err in delete diff. resources in db relative to new data")
                                                     }else{
                                                         sails.log.debug("deleted diff. resources in db relative to new data, new are--->>")
+                                                        cb(null, response);
                                                     }
                                                 })
-                                            }, function(err, finalDBRes){
-                                                Zone.saveZone(zoneData, function(err, zoneRes){
-                                                    if(err){
-                                                        sails.log.debug(err)
-                                                    }else{
-                                                        sails.log.debug("zone last updated---->>", zoneRes);
-                                                        sails.log.debug("in completed  function--->>");
-                                                        sails.log.debug(JSON.stringify(zoneRes))
-//                                        res.json({message: "rider without filter", details: {resourceList: checkedInRes } });
-                                                        fetchZoneResource(zoneRes.zoneId, retailerLocation);
-
-                                                    }
-                                                })
+                                            }, function(err, notInZoneNow){
+                                               sails.log.debug("final call back in calling zone")
+                                                updateZone(zoneData, retailerLocation);
                                             })
-
-
-
+                                        }else{
+                                            updateZone(zoneData, retailerLocation);
                                         }
 
                                    }
                                 })
 
-//                                Zone.saveZone(zoneData, function(err, zoneRes){
-//                                    if(err){
-//                                        sails.log.debug(err)
-//                                    }else{
-//                                        sails.log.debug("zone last updated---->>", zoneRes);
-//                                        sails.log.debug("in completed  function--->>");
-//                                        sails.log.debug(JSON.stringify(zoneRes))
-////                                        res.json({message: "rider without filter", details: {resourceList: checkedInRes } });
-//                                        fetchZoneResource(zoneRes.zoneId, retailerLocation);
-////
-//                                    }
-//                                })
+
                             });
                         }else if(response && response.output && (response.output.status == 403) && response.output.data){
                            console.log("message on 7-->>")
