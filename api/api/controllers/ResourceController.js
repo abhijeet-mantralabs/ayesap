@@ -215,6 +215,7 @@ module.exports = {
                                 resourceList: resWithInCircle
                             }
                         }
+                        sails.log.debug("final list----------->>", finalList);
                         res.json({message: "rider fetched from db by zoneid", details: finalList });
                     }
                 })
