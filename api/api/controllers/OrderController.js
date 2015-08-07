@@ -273,8 +273,8 @@ module.exports = {
     getOrderStatus: function(req, res){
         console.log("order completed updated original------>>>")
         console.log(req);
-        console.log("order completed updated------>>>")
-        console.log(JSON.stringify(req))
+//        console.log("order completed updated------>>>")
+//        console.log(JSON.stringify(req))
 
         var latestOrderStatus = req.body;
 
