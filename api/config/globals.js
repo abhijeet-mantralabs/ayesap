@@ -86,26 +86,26 @@ module.exports.globals = {
 
   APIurl : "http://103.241.183.119/fvapi",
   listOfZones: [9],
-  taskStatusDesc : {
-      "10001" : "Pending",
-      "10002" : "Completed",
-      "10003" : "Failed",
-      "10004" : "Rescheduled",
-      "10005" : "Pending Approval"
-  },
-//    taskStatusDesc :{
-//        "40001" : "Unassigned",
-//        "40002" : "Rejected",
-//        "40003" : "Not Seen",
-//        "40004" : "Pending",
-//        "40005" : "Arrived for Pick Up",
-//        "40006" : "Pick Up Cancelled",
-//        "40007" : "Enroute",
-//        "40008" : "Reached Delivery Point",
-//        "40009" : "Delivered",
-//        "40010" : "Cancelled by Customer",
-//        "40011" : "Rescheduled by Customer"
-//    },
+//  taskStatusDesc : {
+//      "10001" : "Pending",
+//      "10002" : "Completed",
+//      "10003" : "Failed",
+//      "10004" : "Rescheduled",
+//      "10005" : "Pending Approval"
+//  },
+    taskStatusDesc :{
+        "40001" : "Unassigned",
+        "40002" : "Rejected",
+        "40003" : "Not Seen",
+        "40004" : "Pending",
+        "40005" : "Arrived for Pick Up",
+        "40006" : "Pick Up Cancelled",
+        "40007" : "Enroute",
+        "40008" : "Reached Delivery Point",
+        "40009" : "Delivered",
+        "40010" : "Cancelled by Customer",
+        "40011" : "Rescheduled by Customer"
+    },
     riderActiveStatusInUse : 1,
     taskAutoAssignOptionInUse: 1,
     lastTimeCheckms : 60000,
