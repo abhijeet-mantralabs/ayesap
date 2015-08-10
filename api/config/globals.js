@@ -93,6 +93,19 @@ module.exports.globals = {
       "10004" : "Rescheduled",
       "10005" : "Pending Approval"
   },
+//    taskStatusDesc :{
+//        "40001" : "Unassigned",
+//        "40002" : "Rejected",
+//        "40003" : "Not Seen",
+//        "40004" : "Pending",
+//        "40005" : "Arrived for Pick Up",
+//        "40006" : "Pick Up Cancelled",
+//        "40007" : "Enroute",
+//        "40008" : "Reached Delivery Point",
+//        "40009" : "Delivered",
+//        "40010" : "Cancelled by Customer",
+//        "40011" : "Rescheduled by Customer"
+//    },
     riderActiveStatusInUse : 1,
     taskAutoAssignOptionInUse: 1,
     lastTimeCheckms : 60000,
