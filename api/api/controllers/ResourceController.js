@@ -195,7 +195,12 @@ module.exports = {
 
                             if(resWithInCircle.length>0){
                                 resWithInCircle.sort(function(a, b) {
-                                    return a.eta > b.eta;
+                                    if(a.eta == b.eta)  {
+                                        return a.resourceType.toLowerCase() > b.resourceType.toLowerCase();
+                                    }else{
+                                        return a.eta > b.eta;
+                                    }
+//                                    return a.eta > b.eta;
                                 });
                                 var finalList = {
                                     nearestRider :resWithInCircle[0],
@@ -251,21 +256,20 @@ module.exports = {
 
                             var checkedResIdArr = [];
                             var checkedInRes = [];
+
+
+                            var nowTime = new Date();
+
                             _.forEach(response.output.data.resources, function(resource){
-                                console.log("resource------>>>")
-//                                var now = new Date();
-//                                var timeDiffInms = now  - fetchedZone.updatedAt.getTime();
-//                                sails.log.debug("zone updated time diff. in ms--->>",timeDiffInms);
-//                                if(timeDiffInms < sails.config.globals.lastTimeCheckms ){
-//                                    sails.log.debug("zones last updated time less thn 1 min.. feteching directly from db-->>");
-//                                    fetchZoneResource(req.body.zoneId, retailerLocation);
-//                                }else{
-//                                    sails.log.debug("zones last updated time is morethn 1 min-->>");
-//                                    callZoneService(req.body.zoneId, retailerLocation);
-//                                }
-//
                                 if( (resource.checkin == 1) && (resource.usedcapacity < resource.maxcapacity)){
 
+                                    var resourceISOTime = convertDateToISO(resource.time);
+                                    var diffTime = nowTime  - resourceISOTime.getTime() ;
+                                    sails.log.debug("bikerUpdateTime diff in ms-->>", diffTime);
+                                    if(diffTime < sails.config.globals.bikerLastTimeCheckms){
+                                        sails.log.debug("biker time update less thn 15 min(less thn 900000 ms")
+                                        //---code will go here
+                                    }
                                     var formattedRes = {
                                         resId : resource["id"],
                                         resName: resource["name"],
@@ -492,6 +496,14 @@ var difference = function(array){
 
     return _.filter(array, function(value){ return ! containsEquals(rest, value); });
 };
+
+function convertDateToISO(datetime){
+    var match = datetime.match(/^(\d+)-(\d+)-(\d+) (\d+)\:(\d+)\:(\d+)$/)
+    var updateISOTime = new Date(match[1], match[2] - 1, match[3], match[4], match[5], match[6])
+    return updateISOTime;
+}
+
+
 
 //
 //var fetchZoneResource = function(zone, retailerLocation){

@@ -109,7 +109,8 @@ module.exports.globals = {
     riderActiveStatusInUse : 1,
     taskAutoAssignOptionInUse: 1,
     lastTimeCheckms : 60000,
-    distanceCheckCircleInMeter: 2000
+    distanceCheckCircleInMeter: 2000,
+    bikerLastTimeCheckms: 900000
 
 //  riderActiveStatus: {
 //    active: 0,   //<<-- default
