@@ -67,5 +67,14 @@ module.exports.routes = {
     'POST /order/getOrdersByRetailer': 'OrderController.getOrdersByRetailer',
 
 
-    'GET /zone/getZonesData': 'ResourceController.getZonesData'
+    'GET /zone/getZonesData': 'ResourceController.getZonesData',
+
+
+    'POST /admin/registerAdmin': 'AdminController.registerAdmin',
+    'POST /admin/adminLogin': 'AdminController.adminLogin',
+    'POST /admin/adminLogout': 'AdminController.adminLogout',
+    'POST /admin/updateConfig': 'AdminController.updateConfigByAdmin'
+
+
+
 };
