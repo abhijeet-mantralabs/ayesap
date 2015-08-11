@@ -21,7 +21,7 @@ module.exports.http = {
   *                                                                           *
   ****************************************************************************/
 
-  // middleware: {
+  middleware: {
 
   /***************************************************************************
   *                                                                          *
@@ -59,6 +59,20 @@ module.exports.http = {
     //     return next();
     // }
 
+    configLoader: function(req, res, next){
+        Config.find().exec(function(err, configs){
+            if(!err){
+                var config = {};
+                _.each(configs, function(configL){
+                    config[configL.name] = configL.value;
+                })
+                req.configs = config;
+
+            }
+            return next();
+        });
+    }
+
 
   /***************************************************************************
   *                                                                          *
@@ -71,7 +85,7 @@ module.exports.http = {
 
     // bodyParser: require('skipper')
 
-  // },
+  }
 
   /***************************************************************************
   *                                                                          *
