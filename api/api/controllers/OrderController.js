@@ -62,7 +62,7 @@ module.exports = {
                 res.status(err.status).json(err);
             }
             else{
-                console.log("order initially Saved--->>", order)
+                console.log("order initially Saved--->>", order);
                 var addTaskPayload = {
 
                     "payload":{
@@ -71,7 +71,7 @@ module.exports = {
                                 "field": [
                                     {
                                         "name": "Order ID",
-                                        "value": order.orderId
+                                        "value": order.orderId + "-" + retailerDetails.name.toLowerCase().replace(" ", "")
                                     },
                                     {
                                         "name": "Retailer Phone Number",
