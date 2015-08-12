@@ -100,9 +100,7 @@ module.exports = {
                 }
                 var pad = "0000";
                 var orderId =  pad.substring(0, pad.length - id.length) + id;
-                sails.log.debug("generated  order Id without retailer name->>>>",  orderId);
-                orderId = orderId + opts.retailerName.toLowerCase().replace(" ", "")  ;
-                sails.log.debug("generated  final order Id with retailer name->>>>",  orderId);
+                sails.log.debug("generated  order Id ->>",  orderId);
                 opts.orderId = orderId;
                 Order.create(opts, function(err, savedOrder){
                     if(err){
