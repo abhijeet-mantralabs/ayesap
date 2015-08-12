@@ -268,7 +268,27 @@ module.exports = {
                                     sails.log.debug("bikerUpdateTime diff in ms-->>", diffTime);
                                     if(diffTime < sails.config.globals.bikerLastTimeCheckms){
                                         sails.log.debug("biker time update less thn 15 min(less thn 900000 ms")
-                                        //---code will go here
+                                        //---this code will be umcommented , below this (just after the condition the code will be delted or commented
+//                                        var formattedRes = {
+//                                            resId : resource["id"],
+//                                            resName: resource["name"],
+//                                            maxCapacity  : resource["maxcapacity"],
+//                                            usedCapacity : resource["usedcapacity"],
+//                                            resourceType : resource["resource type"],
+//                                            resourceValue: resource["resource value"],
+//                                            resMobile : resource["mobile"],
+//                                            location : {
+//                                                latitude:  parseFloat(resource["lat"]),
+//                                                longitude: parseFloat(resource["lng"])
+//                                            },
+//                                            zoneId: req.body.zoneId,
+//                                            time:  resource["time"],
+//                                            speed:   resource["speed"],
+//                                            checkin: resource["checkin"],
+//                                            checkForOnlyRiderCheckedIn : true
+//                                        }
+//                                        checkedResIdArr.push(formattedRes.resId);
+//                                        checkedInRes.push(formattedRes);
                                     }
                                     var formattedRes = {
                                         resId : resource["id"],
