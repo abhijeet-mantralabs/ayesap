@@ -321,6 +321,7 @@ header .logo-homepage img {
 }
 .odf {
   margin-top: 25px;
+  margin-bottom: 52px;
 }
 .odf .input-form input {
   padding-right: 65px;
@@ -332,11 +333,18 @@ header .logo-homepage img {
   bottom: -3px;
   right: 0;
 }
+.odf .cust-address-head {
+  margin-bottom: 10px;
+}
 .locality .ip-holder {
   height: 0;
 }
 .sub-locality {
   width: 80%;
+}
+.cust-address {
+  width: 90%;
+  float: right;
 }
 .cust-address .ip-holder {
   height: 0;

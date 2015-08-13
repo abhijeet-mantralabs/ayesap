@@ -11,14 +11,14 @@
     		</div> -->
     	</div>
     	<form>
-    		<div class="odf">
+    		<div class="odf clearfix">    
     			<div class="input-form">
-                	<input type="text" placeholder="Order Amount" ng-model="bookNow.orderAmount">
+                	<input type="number" placeholder="Order Amount" ng-model="orderAmount">
                 	<span class="form-info">Rupees</span>
                 	<p class="ip-holder"></p>
             	</div>
             	<div class="input-form">
-                	<input type="text" placeholder="Amount to be collected" ng-model="bookNow.CODValue">
+                	<input type="number" placeholder="Amount to be collected" ng-model="CODValue">
                 	<span class="form-info mandatory">(mandatory)</span>
                 	<p class="ip-holder"></p>
             	</div>
@@ -41,6 +41,9 @@
             		<p class="triangle-bottomright"></p>
             		<p class="ip-holder"></p>
             	</div> -->
+                <div class="cust-address-head">
+                    CUSTOMER ADDRESS (optional)
+                </div>
             	<div class="input-form cust-address">
                 	<input type="text" placeholder="address" ng-model="customerDetails.address.address">
                     <p class="ip-holder"></p>
@@ -64,7 +67,7 @@
     		</div>
     	</form>
     </div>
-    <div class="footer-home text-center" ng-click="bookResource(bookNow,customerDetails)">
+    <div class="footer-home text-center" ng-click="bookResource(orderAmount,CODValue,customerDetails)">
     	<p>BOOK NOW</p>
     </div>
 </div>

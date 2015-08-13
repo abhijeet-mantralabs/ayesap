@@ -188,13 +188,14 @@ define(['modules/AyesapModule', 'directives/sidemenu', 'services/retailer'], fun
         $scope.user = $rootScope.user;
         $scope.nearestResource = $rootScope.nearestResource;
 
-        $scope.bookResource = function(bookResource,customerDetails){
-            console.log('customerDetails',customerDetails);
-            console.log('bookResource',bookResource);
-            console.log('inside bookresource');
-            // var data = {
-            //      retailerDetails: $scope.log.assertEmpty()
-            // }
+        $scope.bookResource = function(orderAmount,CODValue,customerDetails){
+            var data = {
+                 retailerDetails: $scope.user,
+                 customerDetails: customerDetails,
+                 orderAmount:orderAmount,
+                 CODValue:CODValue
+            }
+            console.log('data',data);
         }
     })
 
