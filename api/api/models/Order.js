@@ -16,8 +16,7 @@ module.exports = {
             type:'array'
         },
         taskId:{
-            type:'string',
-            unique: true
+            type:'string'
         },
         retailerId:{
             type:'string'
@@ -90,10 +89,10 @@ module.exports = {
     registerOrder:function(opts, cb){
         Order.find().max('orderId').exec(function(err, order){
             if(err){
-                console.log("max error in fetching order from db ---- ---->> ", err)
+                sails.log.debug("max error in fetching order from db ---- ---->> ", err)
                 cb(err);
             }else{
-                console.log("max orderid: ------ >> ", order);
+                sails.log.debug("max orderid: ------ >> ", order);
                 if(order.length == 0){
                     id = "" +   order.length+1;
                 }else{
@@ -101,7 +100,7 @@ module.exports = {
                 }
                 var pad = "0000";
                 var orderId =  pad.substring(0, pad.length - id.length) + id;
-                console.log("generated  order Id ->>>>",  orderId)
+                sails.log.debug("generated  order Id ->>",  orderId);
                 opts.orderId = orderId;
                 Order.create(opts, function(err, savedOrder){
                     if(err){

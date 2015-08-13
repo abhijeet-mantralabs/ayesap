@@ -63,6 +63,15 @@ module.exports.connections = {
     user: null,
     password: null,
     database: 'ayesap'
+  },
+
+  mongoDBDev: {
+    adapter: 'sails-mongo',
+    host: 'localhost',
+    port: 27017,
+    user: null,
+    password: null,
+    database: 'ayesapdev'
   }
 
   /***************************************************************************

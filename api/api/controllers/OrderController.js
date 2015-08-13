@@ -23,7 +23,7 @@ module.exports = {
         if(!req.body || !req.body.retailerDetails || !req.body.customerDetails || !req.body.paymentType || !req.body.orderAmount){
             res.status(400).json( {status: 400 , message: " some required field(s) missing" });
         }else{
-            console.log("all fine in payload")
+            sails.log.debug("all fine in payload")
         }
 
         var retailerDetails = req.body.retailerDetails;
@@ -38,9 +38,10 @@ module.exports = {
             orderStatusBackend: "req-not-received",
             orderStatusTrail:[],
             lastStatus: "req-not-received",
-            currentStatus : "req-not-received"
+            currentStatus : "req-not-received",
+            retailerName: retailerDetails.name
         }
-        console.log("book now api time---->>",req.body.bookNowTime);
+        sails.log.debug("book now api time---->>",req.body.bookNowTime);
 
         orderDBPayload.bookNowResType = req.body.resourceType;
 
@@ -52,16 +53,16 @@ module.exports = {
         var customerDBPayload = {
             mobile: customerDetails.mobile
         }
-        console.log("order initially saved payload after--------->>>>>")
-        console.log(orderDBPayload);
-        console.log("order initially saved payload after ends--------->>>>>")
+        sails.log.debug("order initially saved payload after--------->>>>>")
+        sails.log.debug(orderDBPayload);
+        sails.log.debug("order initially saved payload after ends--------->>>>>")
         Order.registerOrder(orderDBPayload, function(err, order){
             if(err) {
                 console.log("order not initially saved to db")
                 res.status(err.status).json(err);
             }
             else{
-                console.log("order initially Saved--->>", order)
+                console.log("order initially Saved--->>", order);
                 var addTaskPayload = {
 
                     "payload":{
@@ -221,6 +222,12 @@ module.exports = {
                         sails.log.debug("addTaskpayload actual ------ >>>>   ");
                         sails.log.debug(JSON.stringify(addTaskPayload.payload));
 
+                        addTaskPayload.email = req.session.config.email;
+                        addTaskPayload.key = req.session.config.key;
+                        addTaskPayload.APIurl = req.session.config.APIurl;
+                        addTaskPayload.taskAutoAssignOptionInUse = req.session.config.taskAutoAssignOptionInUse;
+
+
                         OrderService.createOrder(addTaskPayload, function(err, response){
                             if(err){
                                 console.log("error in order controller book order--->>");
@@ -230,7 +237,7 @@ module.exports = {
 //                         '{"output":{"status":403,"data":{"errorcode":"403105","message":"Currently no shift is running with resources"}}}'
 
                                 response = JSON.parse(response);
-                                sails.log.debug("object like output-->>>>>");
+                                sails.log.debug("object like output from service-->>>>>");
                                 sails.log.debug(response.output);
                                 order.customerId = customer.customerId;
 
@@ -271,46 +278,68 @@ module.exports = {
         });
     },
     getOrderStatus: function(req, res){
-        sails.log(req.body)
+        sails.log.debug("order completed updated original------>>>", req.body);
+        sails.log.debug("------------");
+        sails.log.debug(req);
+        sails.log.debug("------------");
+
         var latestOrderStatus = req.body;
 
 
-        if(req.body && req.body.token == "taskstatus"){
+        if( req.body && !(_.isEmpty(req.body)) &&  req.body.token == "taskstatus"){
+            sails.log.debug("order status rcvd successfully--->>", req.body);
             OrderStatus.createOrderStatus(latestOrderStatus, function(err, savedOrderStatus){
                 if(err){
                     res.status(err.status).json(err);
                 }else{
-
                     Order.fetchOrderByTaskId({taskId:latestOrderStatus.taskid }, function(err, matchedOrder){
-//                        same as before but will be updated
-                        matchedOrder.orderStatusTrail.push(savedOrderStatus.id);
-                        matchedOrder.updateTime = latestOrderStatus.updatetime ;
-                        matchedOrder.currentStatus =  sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
-                        matchedOrder.lastStatus = sails.config.globals.taskStatusDesc[latestOrderStatus.laststatus] ;
-                        matchedOrder.orderStatusBackend = sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
-
-//                        only when order event updated like completed
-                        matchedOrder.resId = latestOrderStatus.resid ;
-                        matchedOrder.resMobile = latestOrderStatus.mobile ;
-                        matchedOrder.resName = latestOrderStatus.resname ;
-                        matchedOrder.resLastUpdatedLat = latestOrderStatus.lat;
-                        matchedOrder.resLastUpdatedLong = latestOrderStatus.lng ;
-                        Order.updateOrder(matchedOrder , function(err, matchedUpdatedOrder){
-                            if(err){
-                                sails.log.error("err in updating order with latest order status details->>>")
-                                res.status(err.status).json(err);
-                            }else{
-                                sails.log.debug("original order status saved to DB and updated at main order collection----- >>", savedOrderStatus)
-                                res.json({message: "request registered", details: "original order status saved"} );
+                        if(err){
+                            sails.log.debug("fatal error unable to fetch order of which update rcvd-->>")
+                        }else{
+                            //     same as before but will be updated
+                            if(matchedOrder.updateTime){
+                                matchedOrder.lastStatusUpdateTime = matchedOrder.updateTime ;
                             }
-                        })
+                            matchedOrder.orderStatusTrail.push(savedOrderStatus.id);
+                            matchedOrder.updateTime = latestOrderStatus.updatetime ;
+                            matchedOrder.currentStatus =  sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
+                            matchedOrder.lastStatus = sails.config.globals.taskStatusDesc[latestOrderStatus.laststatus] ;
+                            matchedOrder.orderStatusBackend = sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
 
+                            //     only when order event updated like completed/pending/any of the proper update
+                            matchedOrder.resId = latestOrderStatus.resid ;
+                            matchedOrder.resMobile = latestOrderStatus.mobile ;
+                            matchedOrder.resName = latestOrderStatus.resname ;
+                            matchedOrder.resLastUpdatedLat = latestOrderStatus.lat;
+                            matchedOrder.resLastUpdatedLong = latestOrderStatus.lng ;
+                            if(matchedOrder.currentStatus == "40007"){
+                                matchedOrder.EnrouteTime = latestOrderStatus.updatetime ;
+                            }else{
+                                matchedOrder.EnrouteTime = "";
+                            }
+
+
+
+                            Order.updateOrder(matchedOrder , function(err, matchedUpdatedOrder){
+                                if(err){
+                                    sails.log.error("err in updating order with latest order status details->>>")
+                                    res.status(err.status).json(err);
+                                }else{
+                                    sails.log.debug("original order status saved to DB and updated at main order collection----- >>", savedOrderStatus)
+                                    res.json({message: "request registered", details: "original order status saved"} );
+                                }
+                            })
+                        }
                     })
                 }
             })
         }else{
-            sails.log.debug("token is different")
-            res.json({message: "update order status request not registered", details: "order not saved, wrong"} );
+            if(req.body && req.body.token != "taskstatus"){
+                sails.log.debug("token is different");
+            }else if(!req.body || _.isEmpty(req.body)){
+                res.json({message: "order status not updated, not a valid order status", details: req.body} );
+            }
+
         }
 
     },

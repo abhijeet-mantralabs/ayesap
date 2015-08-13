@@ -5,17 +5,19 @@
 var rp = require('request-promise');
 var partner = sails.config.globals.partnerDetails;
 var APIurl = sails.config.globals.APIurl;
+
+
 module.exports = {
     getRidersInZone: function (zone,  callback) {
 //        zone = 7;
 //        riderActiveStatus = 1;
         var options = {
-            uri : APIurl,
+            uri : sails.config.globals.APIurl,
             method : 'POST',
             form: {
                 method: "getallresources",
-                email: partner.email,
-                key: partner.key,
+                email: sails.config.globals.partnerDetails.email,
+                key: sails.config.globals.partnerDetails.key,
                 zoneid: zone,
                 status: sails.config.globals.riderActiveStatusInUse
             }

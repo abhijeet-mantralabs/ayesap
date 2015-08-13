@@ -139,8 +139,11 @@ module.exports = {
                     saltAndHash(opts.plainPass ,function(hash) {
                         opts.password = hash;
                         opts.registrationStatus = "approved";
+                        console.log(opts)
                         Retailer.update({retailerId: opts.retailerId, mobile: opts.mobile}, opts ,  function (err, retailerUpdated) {
                             if (!err){
+                                console.log("new retailer adminly reg.---->> model output");
+                                console.log(retailerUpdated[0])
                                 cb(null, retailerUpdated[0]);
                             }else{
                                 cb(err);
