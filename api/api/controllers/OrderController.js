@@ -286,6 +286,7 @@ module.exports = {
         var latestOrderStatus = req.body;
 
 
+
         if( req.body && !(_.isEmpty(req.body)) &&  req.body.token == "taskstatus"){
             sails.log.debug("order status rcvd successfully--->>", req.body);
             OrderStatus.createOrderStatus(latestOrderStatus, function(err, savedOrderStatus){
