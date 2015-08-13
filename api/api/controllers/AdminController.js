@@ -85,9 +85,11 @@ module.exports = {
            "groceryCheckCapacity":  1,
            "configType" : "backendconfig"
       }
-*/      sails.log.debug(req.body);
-        if(!req.body || !req.body.foodCheckCapacity || !req.body.groceryCheckCapacity || !req.body.configType || !req.body.email ||  !req.body.key || !req.body.APIurl ||  !req.body.riderActiveStatusInUse ||  !req.body.taskAutoAssignOptionInUse || !req.body.lastTimeCheckms || !req.body.bikerLastTimeCheckms || !req.body.distanceCheckCircleInMeter){
+*/
+        if(!req.body || !req.body.foodCheckCapacity || !req.body.groceryCheckCapacity || !req.body.configType || !req.body.email || !req.body.key || !req.body.APIurl || !req.body.riderActiveStatusInUse || !req.body.taskAutoAssignOptionInUse || !req.body.lastTimeCheckms || !req.body.bikerLastTimeCheckms || !req.body.distanceCheckCircleInMeter){
+            sails.log.debug(req.body);
             res.status(400).json( {status: 400 , message: "some field(s) missing" });
+
         }else{
 
             var configType = req.body.configType.toLowerCase().replace(" ", "");

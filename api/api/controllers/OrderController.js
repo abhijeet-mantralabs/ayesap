@@ -34,7 +34,7 @@ module.exports = {
             retailerMobile : retailerDetails.mobile,
             customerMobile: customerDetails.mobile,
             paymentType: req.body.paymentType,
-            orderAmount: req.body.orderAmount,
+            orderAmount: parseInt(req.body.orderAmount),
             orderStatusBackend: "req-not-received",
             orderStatusTrail:[],
             lastStatus: "req-not-received",
@@ -124,7 +124,7 @@ module.exports = {
                                     },
                                     {
                                         "name": "Order Amount",
-                                        "value": req.body.orderAmount
+                                        "value": parseInt(req.body.orderAmount)
                                     },
 
                                     {
