@@ -59,7 +59,7 @@ module.exports.routes = {
 
     'POST /resources/reqForResRegister': 'ResourceController.reqForResRegister',
     'GET /resources/listReqResources': 'ResourceController.getResourceList',
-    'GET /resources/getRidersCron': 'ResourceController.getRiderByZone',
+//    'GET /resources/getRidersCron': 'ResourceController.getRiderByZone',
     'POST /resource/getAllRiderStatus': 'ResourceController.getAllResourceStatus',
 
     'POST /order/bookOrder': 'OrderController.bookOrder',
@@ -67,5 +67,15 @@ module.exports.routes = {
     'POST /order/getOrdersByRetailer': 'OrderController.getOrdersByRetailer',
 
 
-    'GET /zone/getZonesData': 'ResourceController.getZonesData'
+    'GET /zone/getZonesData': 'ResourceController.getZonesData',
+
+
+    'POST /admin/registerAdmin': 'AdminController.registerAdmin',
+    'POST /admin/adminLogin': 'AdminController.adminLogin',
+    'POST /admin/adminLogout': 'AdminController.adminLogout',
+    'POST /admin/saveConfig': 'AdminController.saveConfigByAdmin',
+    'GET /admin/getConfig': 'AdminController.getBackendConfig'
+
+
+
 };

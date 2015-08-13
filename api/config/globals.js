@@ -64,6 +64,75 @@ module.exports.globals = {
 	// models: true
 
   // IF YOU ARE CHANGING HERE MAKE SURE THAT YOU UPDATE THE SETBACKURL WITH NEW API KEY and MAIL
+
+
+  configObj:{
+      configObjLive:{
+//          taskStatusDesc : {
+//              "10001" : "Pending",
+//              "10002" : "Completed",
+//              "10003" : "Failed",
+//              "10004" : "Rescheduled",
+//              "10005" : "Pending Approval"
+//          },
+          partnerDetails: {
+              email: "retailerapp@ayesap.com",
+              key: "089ee14b926fabea6dd95890032d1a37e69c1011c710977af774ec3a7b5b39a6"
+          },
+          APIurl : "http://103.241.183.119/fvapi",
+          riderActiveStatusInUse : 1,
+          taskAutoAssignOptionInUse: 1,
+          lastTimeCheckms : 60000,
+          distanceCheckCircleInMeter: 2000,
+          bikerLastTimeCheckms: 900000,
+          taskStatusDesc :{
+              "40001" : "Unassigned",
+              "40002" : "Rejected",
+              "40003" : "Not Seen",
+              "40004" : "Pending",
+              "40005" : "Arrived for Pick Up",
+              "40006" : "Pick Up Cancelled",
+              "40007" : "Enroute",
+              "40008" : "Reached Delivery Point",
+              "40009" : "Delivered",
+              "40010" : "Cancelled by Customer",
+              "40011" : "Rescheduled by Customer"
+          }
+      },
+      configObjStaging:{
+//          taskStatusDesc : {
+//              "10001" : "Pending",
+//              "10002" : "Completed",
+//              "10003" : "Failed",
+//              "10004" : "Rescheduled",
+//              "10005" : "Pending Approval"
+//          },
+              partnerDetails: {
+                  email: "test@ayesap.com",
+                  key: "40fb7164e459a38813f304e3b45db2b074be149818924e46fdc49cc38a3e4955"
+              },
+              APIurl : "http://103.241.183.119/fvapi",
+              riderActiveStatusInUse : 1,
+              taskAutoAssignOptionInUse: 1,
+              lastTimeCheckms : 60000,
+              distanceCheckCircleInMeter: 2000,
+              bikerLastTimeCheckms: 900000,
+              taskStatusDesc :{
+                  "40001" : "Unassigned",
+                  "40002" : "Rejected",
+                  "40003" : "Not Seen",
+                  "40004" : "Pending",
+                  "40005" : "Arrived for Pick Up",
+                  "40006" : "Pick Up Cancelled",
+                  "40007" : "Enroute",
+                  "40008" : "Reached Delivery Point",
+                  "40009" : "Delivered",
+                  "40010" : "Cancelled by Customer",
+                  "40011" : "Rescheduled by Customer"
+              }
+      }
+  },
+
   partnerDetails: {
     email: "abhijeet@mantralabsglobal.com",
     key: "25b7c81e770034aeda70db74af0fb638beca992d2a535641e6313f38b9665016"

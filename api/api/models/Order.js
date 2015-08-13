@@ -100,7 +100,7 @@ module.exports = {
                 }
                 var pad = "0000";
                 var orderId =  pad.substring(0, pad.length - id.length) + id;
-                sails.log.debug("generated  order Id->>>>",  orderId);
+                sails.log.debug("generated  order Id ->>",  orderId);
                 opts.orderId = orderId;
                 Order.create(opts, function(err, savedOrder){
                     if(err){

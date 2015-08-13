@@ -3,25 +3,23 @@
  */
 
 var rp = require('request-promise');
-var partner = sails.config.globals.partnerDetails;
-var APIurl = sails.config.globals.APIurl;
 var request = require('request');
 module.exports = {
-    getRidersInZone: function (zone,  callback) {
+    getRidersInZone: function (config, zone,  callback) {
 //        zone = 7;
 //        riderActiveStatus = 1;
         console.log("zone---->>>",zone)
         var options = {
-            uri : APIurl,
+            uri : config.APIurl,
             method : 'POST',
             form: {
                 method: "getallresources",
-                email: partner.email,
-                key: partner.key,
+                email: config.email,
+                key: config.key,
                 zoneid: zone
             }
         };
-//        status: sails.config.globals.riderActiveStatusInUse
+//        status: req.session.config.riderActiveStatusInUse
 
 //        rp(options)
 //            .then(function (response) {

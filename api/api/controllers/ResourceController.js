@@ -48,9 +48,9 @@ module.exports = {
 //            var zone = req.body.zoneId;
 //            console.log(zone)
 //
-//            if(sails.config.globals.riderActiveStatusInUse == 1){
+//            if(req.session.config.riderActiveStatusInUse == 1){
 //                var  checkForOnlyRiderCheckedIn = true;
-//            }else if(sails.config.globals.riderActiveStatusInUse == 0){
+//            }else if(req.session.config.riderActiveStatusInUse == 0){
 //                var  checkForOnlyRiderCheckedIn  = false;
 //            }
 //            ActiveResourceService.getRidersInZone(zone, function(err, response) {
@@ -101,9 +101,9 @@ module.exports = {
 //            var zone = req.body.zoneId;
 //            console.log(zone)
 //
-////            if(sails.config.globals.riderActiveStatusInUse == 1){
+////            if(req.session.config.riderActiveStatusInUse == 1){
 ////                var  checkForOnlyRiderCheckedIn = true;
-////            }else if(sails.config.globals.riderActiveStatusInUse == 0){
+////            }else if(req.session.config.riderActiveStatusInUse == 0){
 ////                var  checkForOnlyRiderCheckedIn  = false;
 ////            }
 //            ActiveResourceService.getRidersInZone(zone, function(err, response) {
@@ -164,7 +164,7 @@ module.exports = {
 
 
             var fetchZoneResource = function(zone, retailerLocation){
-                ActiveResource.findRidersNearBy(zone, retailerLocation, sails.config.globals.distanceCheckCircleInMeter, function(err, DBResWithInCircle){
+                ActiveResource.findRidersNearBy(zone, retailerLocation, req.session.config.distanceCheckCircleInMeter, function(err, DBResWithInCircle){
                     if(err){
                         sails.log.debug("err in controller for finding with in 2 km riders")
                         sails.log.debug(err)
@@ -241,7 +241,14 @@ module.exports = {
             }
 
             var callZoneService = function(zone, retailerLocation){
-                ActiveResourceService.getRidersInZone(zone, function(err, response) {
+                var backendConfig = {
+                    email: req.session.config.email,
+                    key: req.session.config.key,
+                    APIurl: req.session.config.APIurl
+                }
+
+                sails.log.debug("callZoneServiceFunction  active resource service.get riders in zone---***--->>",backendConfig )
+                ActiveResourceService.getRidersInZone(backendConfig ,zone, function(err, response) {
                     if (err) {
                         console.log("error in controller", err)
                         res.status(err.status).json(error);
@@ -266,7 +273,7 @@ module.exports = {
                                     var resourceISOTime = convertDateToISO(resource.time);
                                     var diffTime = nowTime  - resourceISOTime.getTime() ;
                                     sails.log.debug("bikerUpdateTime diff in ms-->>", diffTime);
-                                    if(diffTime < sails.config.globals.bikerLastTimeCheckms){
+                                    if(diffTime < req.session.config.bikerLastTimeCheckms){
                                         sails.log.debug("biker time update less thn 15 min(less thn 900000 ms")
                                         //---this code will be umcommented , below this (just after the condition the code will be delted or commented
 //                                        var formattedRes = {
@@ -385,13 +392,15 @@ module.exports = {
                     if(fetchedZone == "no zone found"){
                         sails.log.debug(fetchedZone)
                         callZoneService(req.body.zoneId, retailerLocation);
-                    }else{
+                    }else {
                         console.log("zones found-->>")
 
                         var now = new Date();
-                        var timeDiffInms = now  - fetchedZone.updatedAt.getTime();
-                        sails.log.debug("zone updated time diff. in ms--->>",timeDiffInms);
-                        if(timeDiffInms < sails.config.globals.lastTimeCheckms ){
+                        var timeDiffInms = now - fetchedZone.updatedAt.getTime();
+                        sails.log.debug("zone updated time diff. in ms--->>", timeDiffInms);
+//                        if(timeDiffInms < sails.config.globals.lastTimeCheckms ){
+//                    }
+                        if(timeDiffInms < req.session.config.lastTimeCheckms ){
                             sails.log.debug("zones last updated time less thn 1 min.. feteching directly from db-->>");
                             fetchZoneResource(req.body.zoneId, retailerLocation);
                         }else{

@@ -222,6 +222,12 @@ module.exports = {
                         sails.log.debug("addTaskpayload actual ------ >>>>   ");
                         sails.log.debug(JSON.stringify(addTaskPayload.payload));
 
+                        addTaskPayload.email = req.session.config.email;
+                        addTaskPayload.key = req.session.config.key;
+                        addTaskPayload.APIurl = req.session.config.APIurl;
+                        addTaskPayload.taskAutoAssignOptionInUse = req.session.config.taskAutoAssignOptionInUse;
+
+
                         OrderService.createOrder(addTaskPayload, function(err, response){
                             if(err){
                                 console.log("error in order controller book order--->>");
