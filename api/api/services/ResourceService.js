@@ -12,14 +12,14 @@ module.exports = {
 //        zone = 7;
 //        riderActiveStatus = 1;
         var options = {
-            uri : req.session.config.APIurl,
+            uri : sails.config.globals.APIurl,
             method : 'POST',
             form: {
                 method: "getallresources",
-                email: req.session.config.email,
-                key: req.session.config.key,
+                email: sails.config.globals.partnerDetails.email,
+                key: sails.config.globals.partnerDetails.key,
                 zoneid: zone,
-                status: req.session.config.riderActiveStatusInUse
+                status: sails.config.globals.riderActiveStatusInUse
             }
         };
 //        rp(options)

@@ -15,13 +15,13 @@ module.exports = {
         sails.log.debug(payload.payload)
 //        var route = 1 // should be 1 at live push , should be 0 while testing
         var options = {
-            uri : req.session.config.APIurl,
+            uri : payload.APIurl,
             method : 'POST',
             form: {
                 method: "addtask",
-                email: req.session.config.email,
-                key: req.session.config.key,
-                route:  req.session.config.taskAutoAssignOptionInUse,
+                email: payload.email,
+                key: payload.key,
+                route:  payload.taskAutoAssignOptionInUse,
                 payload: JSON.stringify(payload.payload)
             }
         };

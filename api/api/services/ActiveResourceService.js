@@ -5,17 +5,17 @@
 var rp = require('request-promise');
 var request = require('request');
 module.exports = {
-    getRidersInZone: function (zone,  callback) {
+    getRidersInZone: function (config, zone,  callback) {
 //        zone = 7;
 //        riderActiveStatus = 1;
         console.log("zone---->>>",zone)
         var options = {
-            uri : req.session.config.APIurl,
+            uri : config.APIurl,
             method : 'POST',
             form: {
                 method: "getallresources",
-                email: req.session.config.email,
-                key: req.session.config.key,
+                email: config.email,
+                key: config.key,
                 zoneid: zone
             }
         };

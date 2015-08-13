@@ -241,7 +241,14 @@ module.exports = {
             }
 
             var callZoneService = function(zone, retailerLocation){
-                ActiveResourceService.getRidersInZone(zone, function(err, response) {
+                var backendConfig = {
+                    email: req.session.config.email,
+                    key: req.session.config.key,
+                    APIurl: req.session.config.APIurl
+                }
+
+                sails.log.debug("callZoneServiceFunction  active resource service.get riders in zone---***--->>",backendConfig )
+                ActiveResourceService.getRidersInZone(backendConfig ,zone, function(err, response) {
                     if (err) {
                         console.log("error in controller", err)
                         res.status(err.status).json(error);
