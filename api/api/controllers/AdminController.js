@@ -93,7 +93,18 @@ module.exports = {
         }else{
 
             var configType = req.body.configType.toLowerCase().replace(" ", "");
+
             if(configType == "backendconfig"){
+                payload = req.body;
+                payload.riderActiveStatusInUse = parseInt(payload.riderActiveStatusInUse);
+                payload.taskAutoAssignOptionInUse = parseInt(payload.taskAutoAssignOptionInUse);
+                payload.lastTimeCheckms = parseInt(payload.lastTimeCheckms);
+                payload.distanceCheckCircleInMeter = parseInt(payload.distanceCheckCircleInMeter);
+                payload.bikerLastTimeCheckms = parseInt(payload.bikerLastTimeCheckms);
+                payload.foodCheckCapacity = parseInt(payload.foodCheckCapacity);
+                payload.groceryCheckCapacity = parseInt(payload.groceryCheckCapacity);
+
+                sails.log.debug(payload);
                 Config.saveConfigByAdminDB(req.body, function(err, config){
                     if(err) {
                         res.status(err.status).json(err);
