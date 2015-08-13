@@ -68,7 +68,7 @@ module.exports.http = {
 //                req.session.config = configs[0];
 //              req.session.config.riderActiveStatusInUse
               if(configs.length > 0){
-                  console.log("http middleware DB config --->>",configs);
+
                     req.session.config = {
                         email: configs[0].email,
                         key: configs[0].key,
@@ -80,7 +80,7 @@ module.exports.http = {
                         APIurl: configs[0].APIurl,
                         configType : configs[0].configType
                     };
-                    console.log("http middleware req session config --->>",req.session.config)
+                    console.log("http middleware db config --->>",req.session.config)
                 }else{
 
                     req.session.config = {
@@ -94,7 +94,8 @@ module.exports.http = {
                         APIurl: sails.config.globals.APIurl,
                         configType : "backendconfig"
                     };
-                }
+                  console.log("http middleware config global config --->>",req.session.config);
+              }
 
 //              {
 //                  "email": "abhijeet@mantralabsglobal.com",
@@ -121,7 +122,7 @@ module.exports.http = {
                   APIurl: sails.config.globals.APIurl,
                   configType : "backendconfig"
               };
-
+              console.log("http middleware config global config --->>",req.session.config);
           }
 
       });
