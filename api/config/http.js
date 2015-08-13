@@ -65,10 +65,10 @@ module.exports.http = {
   myConfigLoader: function(req, res, next){
       Config.find().exec(function(err, configs){
           if(!err){
-              console.log("http middleware config --->>",configs);
 //                req.session.config = configs[0];
 //              req.session.config.riderActiveStatusInUse
               if(configs.length > 0){
+                  console.log("http middleware DB config --->>",configs);
                     req.session.config = {
                         email: configs[0].email,
                         key: configs[0].key,
@@ -82,6 +82,7 @@ module.exports.http = {
                     };
                     console.log("http middleware req session config --->>",req.session.config)
                 }else{
+
                     req.session.config = {
                         email: sails.config.globals.partnerDetails.email,
                         key: sails.config.globals.partnerDetails.key,
@@ -108,6 +109,7 @@ module.exports.http = {
 //              }
 
           }else{
+              console.log("http middleware global file config --->>",configs);
               req.session.config = {
                   email: sails.config.globals.partnerDetails.email,
                   key: sails.config.globals.partnerDetails.key,
