@@ -130,7 +130,19 @@ module.exports = {
                 res.json({message: "saved config fetched", details: { config: config}} );
             }
         })
+    },
+    getCustomersList: function(req, res){
+
+            Customer.listCustomers( function (err, customers) {
+                if (err) {
+                    res.status(err.status).json({error: err});
+                } else {
+                    res.json({ details:{  customersList:  customers}} );
+                }
+            });
+
     }
+
 
 
 

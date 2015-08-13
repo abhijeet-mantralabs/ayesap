@@ -65,6 +65,7 @@ module.exports.routes = {
     'POST /order/bookOrder': 'OrderController.bookOrder',
     'POST /order/updateOrderStatus': 'OrderController.getOrderStatus',
     'POST /order/getOrdersByRetailer': 'OrderController.getOrdersByRetailer',
+    'GET /order/getAllOrders' : 'OrderController.getOrdersList',
 
 
     'GET /zone/getZonesData': 'ResourceController.getZonesData',
@@ -74,7 +75,10 @@ module.exports.routes = {
     'POST /admin/adminLogin': 'AdminController.adminLogin',
     'POST /admin/adminLogout': 'AdminController.adminLogout',
     'POST /admin/saveConfig': 'AdminController.saveConfigByAdmin',
-    'GET /admin/getConfig': 'AdminController.getBackendConfig'
+    'GET /admin/getConfig': 'AdminController.getBackendConfig',
+    'GET /admin/getCustomers': 'AdminController.getCustomersList',
+    'GET /order/getAllOrders' : 'OrderController.getOrdersList'
+
 
 
 

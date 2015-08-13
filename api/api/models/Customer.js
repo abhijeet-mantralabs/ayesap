@@ -82,5 +82,14 @@ module.exports = {
                 cb(null, customer);
             }
         });
+    },
+    listCustomers: function (cb) {
+        Customer.find().exec(function(err, customers){
+            if(err){
+                cb(err);
+            }else if(customers){
+                cb(null, customers);
+            }
+        });
     }
 }

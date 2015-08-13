@@ -360,6 +360,18 @@ module.exports = {
         }
 
 
+    },
+
+    getOrdersList: function(req, res){
+
+        Order.listOrders( function (err, orders) {
+            if (err) {
+                res.status(err.status).json({error: err});
+            } else {
+                res.json({ details:{  orderList:  orders}} );
+            }
+        });
+
     }
 };
 

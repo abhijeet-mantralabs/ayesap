@@ -150,5 +150,14 @@ module.exports = {
                 cb(null, order);
             }
         });
+    },
+    listOrders: function (cb) {
+        Order.find().exec(function(err, orders){
+            if(err){
+                cb(err);
+            }else if(orders){
+                cb(null, orders);
+            }
+        });
     }
 }
