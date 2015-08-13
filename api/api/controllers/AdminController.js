@@ -54,7 +54,69 @@ module.exports = {
             req.session.admin =  null;
             res.json({message: "admin logged out successfully"});
         }
+    },
+    saveConfigByAdmin: function(req, res){
+
+/*--------------->> sample payload  for live -----
+      {
+          "email": "retailerapp@ayesap.com",
+          "key": "089ee14b926fabea6dd95890032d1a37e69c1011c710977af774ec3a7b5b39a6",
+          "APIurl" : "http://103.241.183.119/fvapi",
+          "riderActiveStatusInUse" : 1,
+          "taskAutoAssignOptionInUse": 1,
+          "lastTimeCheckms" : 60000,
+          "distanceCheckCircleInMeter": 2000,
+          "bikerLastTimeCheckms": 900000,
+          "configType": "live"
+       }
+ */
+
+/*--------------->> sample payload  for staging -----
+        {
+           "email": "abhijeet@mantralabsglobal.com",
+           "key": "25b7c81e770034aeda70db74af0fb638beca992d2a535641e6313f38b9665016",
+           "APIurl" : "http://103.241.183.119/fvapi",
+           "riderActiveStatusInUse" : 1,
+           "taskAutoAssignOptionInUse": 1,
+           "lastTimeCheckms" : 60000,
+           "distanceCheckCircleInMeter": 2000,
+           "bikerLastTimeCheckms": 900000,
+           "configType" : "backendconfig"
+      }
+*/
+        if(!req.body || !req.body.configType || !req.body.email ||  !req.body.key || !req.body.APIurl ||  !req.body.riderActiveStatusInUse ||  !req.body.taskAutoAssignOptionInUse || !req.body.lastTimeCheckms || !req.body.bikerLastTimeCheckms || !req.body.distanceCheckCircleInMeter){
+            res.status(400).json( {status: 400 , message: "some field(s) missing" });
+        }else{
+            var configType = req.body.configType.toLowerCase().replace(" ", "");
+            if(configType == "backendconfig"){
+                Config.saveConfigByAdminDB(req.body, function(err, config){
+                    if(err) {
+                        res.status(err.status).json(err);
+                    }
+                    else{
+                        console.log(config)
+                        res.json({message: "config saved to DB", details:{ config: config}} );
+                    }
+                });
+            }else{
+                res.status(400).json( {status: 400 , message: "configType should be backendconfig only"});
+            }
+
+        }
+
+    },
+    getBackendConfig:function(req, res){
+        Config.getConfigByDB(function(err, config){
+            if(err){
+                sails.log.error("err in fetching config->>>")
+                res.status(err.status).json(err);
+            }else{
+                res.json({message: "saved config fetched", details: { config: config}} );
+            }
+        })
     }
+
+
 
 };
 

@@ -21,7 +21,9 @@ module.exports.http = {
   *                                                                           *
   ****************************************************************************/
 
+
   middleware: {
+
 
   /***************************************************************************
   *                                                                          *
@@ -30,23 +32,24 @@ module.exports.http = {
   *                                                                          *
   ***************************************************************************/
 
-    // order: [
-    //   'startRequestTimer',
-    //   'cookieParser',
-    //   'session',
-    //   'myRequestLogger',
-    //   'bodyParser',
-    //   'handleBodyParserError',
-    //   'compress',
-    //   'methodOverride',
-    //   'poweredBy',
-    //   '$custom',
-    //   'router',
-    //   'www',
-    //   'favicon',
-    //   '404',
-    //   '500'
-    // ],
+    order: [
+       'startRequestTimer',
+       'cookieParser',
+       'session',
+//       'myRequestLogger',
+       'myConfigLoader',
+       'bodyParser',
+       'handleBodyParserError',
+       'compress',
+       'methodOverride',
+       'poweredBy',
+       '$custom',
+       'router',
+       'www',
+       'favicon',
+       '404',
+       '500'
+    ],
 
   /****************************************************************************
   *                                                                           *
@@ -59,19 +62,70 @@ module.exports.http = {
     //     return next();
     // }
 
-    configLoader: function(req, res, next){
-        Config.find().exec(function(err, configs){
-            if(!err){
-                var config = {};
-                _.each(configs, function(configL){
-                    config[configL.name] = configL.value;
-                })
-                req.configs = config;
+  myConfigLoader: function(req, res, next){
+      Config.find().exec(function(err, configs){
+          if(!err){
+              console.log("http middleware config --->>",configs);
+//                req.session.config = configs[0];
+//              req.session.config.riderActiveStatusInUse
+              if(configs.length > 0){
+                    req.session.config = {
+                        email: configs[0].email,
+                        key: configs[0].key,
+                        riderActiveStatusInUse : configs[0].riderActiveStatusInUse,
+                        taskAutoAssignOptionInUse: configs[0].taskAutoAssignOptionInUse,
+                        lastTimeCheckms : configs[0].lastTimeCheckms,
+                        distanceCheckCircleInMeter: configs[0].distanceCheckCircleInMeter,
+                        bikerLastTimeCheckms: configs[0].bikerLastTimeCheckms,
+                        APIurl: configs[0].APIurl,
+                        configType : configs[0].configType
+                    };
+                    console.log("http middleware req session config --->>",req.session.config)
+                }else{
+                    req.session.config = {
+                        email: sails.config.globals.partnerDetails.email,
+                        key: sails.config.globals.partnerDetails.key,
+                        riderActiveStatusInUse : sails.config.globals.riderActiveStatusInUse,
+                        taskAutoAssignOptionInUse: sails.config.globals.taskAutoAssignOptionInUse,
+                        lastTimeCheckms : sails.config.globals.lastTimeCheckms,
+                        distanceCheckCircleInMeter: sails.config.globals.distanceCheckCircleInMeter,
+                        bikerLastTimeCheckms: sails.config.globals.bikerLastTimeCheckms,
+                        APIurl: sails.config.globals.APIurl,
+                        configType : "backendconfig"
+                    };
+                }
 
-            }
-            return next();
-        });
-    }
+//              {
+//                  "email": "abhijeet@mantralabsglobal.com",
+//                  "key": "25b7c81e770034aeda70db74af0fb638beca992d2a535641e6313f38b9665016",
+//                  "APIurl" : "http://103.241.183.119/fvapi",
+//                  "riderActiveStatusInUse" : 1,
+//                  "taskAutoAssignOptionInUse": 1,
+//                  "lastTimeCheckms" : 60000,
+//                  "distanceCheckCircleInMeter": 2000,
+//                  "bikerLastTimeCheckms": 900000,
+//                  "configType" : "backendconfig"
+//              }
+
+          }else{
+              req.session.config = {
+                  email: sails.config.globals.partnerDetails.email,
+                  key: sails.config.globals.partnerDetails.key,
+                  riderActiveStatusInUse : sails.config.globals.riderActiveStatusInUse,
+                  taskAutoAssignOptionInUse: sails.config.globals.taskAutoAssignOptionInUse,
+                  lastTimeCheckms : sails.config.globals.lastTimeCheckms,
+                  distanceCheckCircleInMeter: sails.config.globals.distanceCheckCircleInMeter,
+                  bikerLastTimeCheckms: sails.config.globals.bikerLastTimeCheckms,
+                  APIurl: sails.config.globals.APIurl,
+                  configType : "backendconfig"
+              };
+
+          }
+
+      });
+      return next();
+  }
+
 
 
   /***************************************************************************

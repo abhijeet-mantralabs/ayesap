@@ -6,6 +6,7 @@
 var rp = require('request-promise');
 var partner = sails.config.globals.partnerDetails;
 var APIurl = sails.config.globals.APIurl;
+
 var request = require('request');
 module.exports = {
     createOrder: function (payload,  callback) {
@@ -14,13 +15,13 @@ module.exports = {
         sails.log.debug(payload.payload)
 //        var route = 1 // should be 1 at live push , should be 0 while testing
         var options = {
-            uri : APIurl,
+            uri : req.session.config.APIurl,
             method : 'POST',
             form: {
                 method: "addtask",
-                email: partner.email,
-                key: partner.key,
-                route:  sails.config.globals.taskAutoAssignOptionInUse,
+                email: req.session.config.email,
+                key: req.session.config.key,
+                route:  req.session.config.taskAutoAssignOptionInUse,
                 payload: JSON.stringify(payload.payload)
             }
         };

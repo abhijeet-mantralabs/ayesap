@@ -68,9 +68,6 @@ module.exports = {
               cb({status: 401 , message: "admin does not exist with this email" }, null);
           }
       });
-  },
-  updateConfigByAdmin: function(req, res){
-
   }
 };
 
