@@ -78,6 +78,8 @@ module.exports.http = {
                         distanceCheckCircleInMeter: configs[0].distanceCheckCircleInMeter,
                         bikerLastTimeCheckms: configs[0].bikerLastTimeCheckms,
                         APIurl: configs[0].APIurl,
+                        foodCheckCapacity:  configs[0].foodCheckCapacity,
+                        groceryCheckCapacity:  configs[0].groceryCheckCapacity,
                         configType : configs[0].configType
                     };
                     console.log("http middleware db config --->>",req.session.config)
@@ -92,6 +94,8 @@ module.exports.http = {
                         distanceCheckCircleInMeter: sails.config.globals.distanceCheckCircleInMeter,
                         bikerLastTimeCheckms: sails.config.globals.bikerLastTimeCheckms,
                         APIurl: sails.config.globals.APIurl,
+                        foodCheckCapacity:  sails.config.globals.foodCheckCapacity,
+                        groceryCheckCapacity:  sails.config.globals.groceryCheckCapacity,
                         configType : "backendconfig"
                     };
                   console.log("http middleware config global config --->>",req.session.config);
@@ -120,6 +124,8 @@ module.exports.http = {
                   distanceCheckCircleInMeter: sails.config.globals.distanceCheckCircleInMeter,
                   bikerLastTimeCheckms: sails.config.globals.bikerLastTimeCheckms,
                   APIurl: sails.config.globals.APIurl,
+                  foodCheckCapacity:  sails.config.globals.foodCheckCapacity,
+                  groceryCheckCapacity:  sails.config.globals.groceryCheckCapacity,
                   configType : "backendconfig"
               };
               console.log("http middleware config global config --->>",req.session.config);

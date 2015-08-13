@@ -75,16 +75,18 @@ module.exports = {
         {
            "email": "abhijeet@mantralabsglobal.com",
            "key": "25b7c81e770034aeda70db74af0fb638beca992d2a535641e6313f38b9665016",
-           "APIurl" : "http://103.241.183.119/fvapi",
+           "APIurl" : "http://103.231.125.120/fvapi",
            "riderActiveStatusInUse" : 1,
            "taskAutoAssignOptionInUse": 1,
            "lastTimeCheckms" : 60000,
            "distanceCheckCircleInMeter": 2000,
            "bikerLastTimeCheckms": 900000,
+           "foodCheckCapacity":  0,
+           "groceryCheckCapacity":  1,
            "configType" : "backendconfig"
       }
 */
-        if(!req.body || !req.body.configType || !req.body.email ||  !req.body.key || !req.body.APIurl ||  !req.body.riderActiveStatusInUse ||  !req.body.taskAutoAssignOptionInUse || !req.body.lastTimeCheckms || !req.body.bikerLastTimeCheckms || !req.body.distanceCheckCircleInMeter){
+        if(!req.body || !req.body.foodCheckCapacity || !req.body.groceryCheckCapacity || !req.body.configType || !req.body.email ||  !req.body.key || !req.body.APIurl ||  !req.body.riderActiveStatusInUse ||  !req.body.taskAutoAssignOptionInUse || !req.body.lastTimeCheckms || !req.body.bikerLastTimeCheckms || !req.body.distanceCheckCircleInMeter){
             res.status(400).json( {status: 400 , message: "some field(s) missing" });
         }else{
             var configType = req.body.configType.toLowerCase().replace(" ", "");

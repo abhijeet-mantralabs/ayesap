@@ -178,9 +178,9 @@ module.exports = {
                                 var resAcceptable = "no";
                                 if(req.body.retailerType != "Food" && req.body.retailerType != "Grocery"){
                                    resAcceptable = "yes"
-                                }else if(req.body.retailerType == "Food" && nearResource.usedCapacity == 0){
+                                }else if(req.body.retailerType == "Food" && nearResource.usedCapacity == req.session.config.foodCheckCapacity){
                                    resAcceptable = "yes"
-                                }else if(req.body.retailerType == "Grocery" && nearResource.usedCapacity <= 1){
+                                }else if(req.body.retailerType == "Grocery" && nearResource.usedCapacity <= req.session.config.groceryCheckCapacity){
                                    resAcceptable = "yes"
                                 }
 
@@ -276,47 +276,47 @@ module.exports = {
                                     if(diffTime < req.session.config.bikerLastTimeCheckms){
                                         sails.log.debug("biker time update less thn 15 min(less thn 900000 ms")
                                         //---this code will be umcommented , below this (just after the condition the code will be delted or commented
-//                                        var formattedRes = {
-//                                            resId : resource["id"],
-//                                            resName: resource["name"],
-//                                            maxCapacity  : resource["maxcapacity"],
-//                                            usedCapacity : resource["usedcapacity"],
-//                                            resourceType : resource["resource type"],
-//                                            resourceValue: resource["resource value"],
-//                                            resMobile : resource["mobile"],
-//                                            location : {
-//                                                latitude:  parseFloat(resource["lat"]),
-//                                                longitude: parseFloat(resource["lng"])
-//                                            },
-//                                            zoneId: req.body.zoneId,
-//                                            time:  resource["time"],
-//                                            speed:   resource["speed"],
-//                                            checkin: resource["checkin"],
-//                                            checkForOnlyRiderCheckedIn : true
-//                                        }
-//                                        checkedResIdArr.push(formattedRes.resId);
-//                                        checkedInRes.push(formattedRes);
+                                        var formattedRes = {
+                                            resId : resource["id"],
+                                            resName: resource["name"],
+                                            maxCapacity  : resource["maxcapacity"],
+                                            usedCapacity : resource["usedcapacity"],
+                                            resourceType : resource["resource type"],
+                                            resourceValue: resource["resource value"],
+                                            resMobile : resource["mobile"],
+                                            location : {
+                                                latitude:  parseFloat(resource["lat"]),
+                                                longitude: parseFloat(resource["lng"])
+                                            },
+                                            zoneId: req.body.zoneId,
+                                            time:  resource["time"],
+                                            speed:   resource["speed"],
+                                            checkin: resource["checkin"],
+                                            checkForOnlyRiderCheckedIn : true
+                                        }
+                                        checkedResIdArr.push(formattedRes.resId);
+                                        checkedInRes.push(formattedRes);
                                     }
-                                    var formattedRes = {
-                                        resId : resource["id"],
-                                        resName: resource["name"],
-                                        maxCapacity  : resource["maxcapacity"],
-                                        usedCapacity : resource["usedcapacity"],
-                                        resourceType : resource["resource type"],
-                                        resourceValue: resource["resource value"],
-                                        resMobile : resource["mobile"],
-                                        location : {
-                                            latitude:  parseFloat(resource["lat"]),
-                                            longitude: parseFloat(resource["lng"])
-                                        },
-                                        zoneId: req.body.zoneId,
-                                        time:  resource["time"],
-                                        speed:   resource["speed"],
-                                        checkin: resource["checkin"],
-                                        checkForOnlyRiderCheckedIn : true
-                                    }
-                                    checkedResIdArr.push(formattedRes.resId);
-                                    checkedInRes.push(formattedRes);
+//                                    var formattedRes = {
+//                                        resId : resource["id"],
+//                                        resName: resource["name"],
+//                                        maxCapacity  : resource["maxcapacity"],
+//                                        usedCapacity : resource["usedcapacity"],
+//                                        resourceType : resource["resource type"],
+//                                        resourceValue: resource["resource value"],
+//                                        resMobile : resource["mobile"],
+//                                        location : {
+//                                            latitude:  parseFloat(resource["lat"]),
+//                                            longitude: parseFloat(resource["lng"])
+//                                        },
+//                                        zoneId: req.body.zoneId,
+//                                        time:  resource["time"],
+//                                        speed:   resource["speed"],
+//                                        checkin: resource["checkin"],
+//                                        checkForOnlyRiderCheckedIn : true
+//                                    }
+//                                    checkedResIdArr.push(formattedRes.resId);
+//                                    checkedInRes.push(formattedRes);
                                 }
                             })
                             async.map(checkedInRes, function(res, cb){
