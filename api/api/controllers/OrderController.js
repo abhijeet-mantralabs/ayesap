@@ -373,6 +373,20 @@ module.exports = {
             }
         });
 
+    },
+    getOrderDetailsbyId: function(req, res){
+        if(!req.body || !req.body.orderId){
+            res.status(400).json( {status: 400 , message: " order id is missing" });
+        }else{
+            Order.fetchOrderByOrderId({orderId: req.body.orderId} , function(err, orders){
+                if(err){
+                    sails.log.error("err in fetching order by order id->>>")
+                    res.status(err.status).json(err);
+                }else{
+                    res.json({message: "order fetched", details: orders} );
+                }
+            })
+        }
     }
 };
 
