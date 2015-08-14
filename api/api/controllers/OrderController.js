@@ -313,7 +313,7 @@ module.exports = {
                             matchedOrder.resName = latestOrderStatus.resname ;
                             matchedOrder.resLastUpdatedLat = latestOrderStatus.lat;
                             matchedOrder.resLastUpdatedLong = latestOrderStatus.lng ;
-                            if(matchedOrder.currentStatus == "40007"){
+                            if(matchedOrder.currentStatus == "Enroute"){
                                 matchedOrder.EnrouteTime = latestOrderStatus.updatetime ;
                             }else{
                                 matchedOrder.EnrouteTime = "";
