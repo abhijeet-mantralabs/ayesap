@@ -92,7 +92,7 @@ module.exports = {
 
         }else{
 
-            var configType = req.body.configType.toLowerCase().replace(" ", "");
+            var configType = req.body.configType.toLowerCase().replace(/\s/g, '');
 
             if(configType == "backendconfig"){
                 payload = req.body;
