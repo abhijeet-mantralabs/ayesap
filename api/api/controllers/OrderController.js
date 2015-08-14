@@ -337,6 +337,7 @@ module.exports = {
         }else{
             if(req.body && req.body.token != "taskstatus"){
                 sails.log.debug("token is different");
+                res.json({message: "token is different", details: req.body} );
             }else if(!req.body || _.isEmpty(req.body)){
                 res.json({message: "order status not updated, not a valid order status", details: req.body} );
             }
