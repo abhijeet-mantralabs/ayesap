@@ -66,6 +66,7 @@ module.exports.routes = {
     'POST /order/updateOrderStatus': 'OrderController.getOrderStatus',
     'POST /order/getOrdersByRetailer': 'OrderController.getOrdersByRetailer',
     'GET /order/getAllOrders' : 'OrderController.getOrdersList',
+    'POST /order/getOrderDetailsbyId': 'OrderController.getOrderDetailsbyId',
 
 
     'GET /zone/getZonesData': 'ResourceController.getZonesData',

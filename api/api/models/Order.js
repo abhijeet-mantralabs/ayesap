@@ -159,5 +159,15 @@ module.exports = {
                 cb(null, orders);
             }
         });
+    },
+    fetchOrderByOrderId: function(opts, cb) {
+        Order.findOne({orderId: opts.orderId}).exec(function (err, order) {
+            if (err) {
+                console.log(" error in fetching order against task from db ---- ---->> ", err)
+                cb(err);
+            } else {
+                cb(null, order);
+            }
+        });
     }
 }
