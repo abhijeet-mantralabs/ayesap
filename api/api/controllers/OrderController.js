@@ -71,7 +71,7 @@ module.exports = {
                                 "field": [
                                     {
                                         "name": "Order ID",
-                                        "value": order.orderId + "-" + retailerDetails.name.toLowerCase().replace(" ", "")
+                                        "value": order.orderId + "-" + retailerDetails.name.toLowerCase().replace(/\s/g, '')
                                     },
                                     {
                                         "name": "Retailer Phone Number",
