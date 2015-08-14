@@ -155,8 +155,8 @@ module.exports.globals = {
 //        key: "40fb7164e459a38813f304e3b45db2b074be149818924e46fdc49cc38a3e4955"
 //    },
 
-  APIurl : "http://103.241.183.119/fvapi",
-//      APIurl : "http://103.231.125.120/fvapi",
+//  APIurl : "http://103.241.183.119/fvapi",
+      APIurl : "http://103.231.125.120/fvapi",
 
     listOfZones: [9],
 //  taskStatusDesc : {
