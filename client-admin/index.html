@@ -15,6 +15,9 @@
        
         <script type="text/javascript" src="app/scripts/vendor/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="app/scripts/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="app/scripts/excel/xlsx.min.js"></script>
+        <script type="text/javascript" src="app/scripts/excel/Blob.js"></script>
+        <script type="text/javascript" src="app/scripts/excel/FileSaver.js"></script>
         <script src="app/scripts/base.js"></script> 
 </head>
 <body ng-app="admin">
@@ -22,12 +25,12 @@
         <div class="logo text-center">
             <img src="app/img/retailer-logo.png" alt="">
             <span>Ayesap Admin</span>
+            <button ng-show="showPage" type="button" class="btn btn-success pull-right" ng-click="logout()">Logout</button>
         </div> 
-
         <div class="admin-login" ng-show="login">
             <form>
                 <div class="form-group text-center">
-                    <input type="text" class="form-control align-center" placeholder="Id" ng-model="admin.id">
+                    <input type="text" class="form-control align-center" placeholder="email" ng-model="admin.email">
                 </div>
                 <div class="form-group text-center">
                     <input type="password" class="form-control align-center" placeholder="password" ng-model="admin.password">
@@ -38,15 +41,21 @@
                 
             </form>
         </div>
-        <div class="nav-container" ng-show="true">
+        <div class="nav-container" ng-show="showPage">
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#retailer-list" aria-controls="retailer-list" role="tab" data-toggle="tab">List of Retailers</a></li>
+                <li role="presentation" class="active current-nav-tab-retailers"><a href="#retailer-list" aria-controls="retailer-list" role="tab" data-toggle="tab">List of Retailers</a></li>
                 <li role="presentation" ng-show="enterDetails"><a href="#add-retailer" aria-controls="add-retailer" role="tab" data-toggle="tab">add-retailer</a></li>
-                <li role="presentation"><a href="#resource-list" aria-controls="resource-list" role="tab" data-toggle="tab">List of Rider Requests</a></li>
+                <li role="presentation" class="current-nav-tab-riders"><a href="#resource-list" aria-controls="resource-list" role="tab" data-toggle="tab">List of Rider Requests</a></li>
+
+                <li role="presentation" class="current-nav-tab-customers"><a href="#customer-list" aria-controls="customer-list" role="tab" data-toggle="tab">Customers</a></li>
+                <li role="presentation" class="current-nav-tab-orders"><a href="#order-list" aria-controls="order-list" role="tab" data-toggle="tab">Orders</a></li>
+                <li role="presentation" ng-show="orderDetails"><a href="#order-details" aria-controls="order-details" role="tab" data-toggle="tab">Order Details</a></li>
+                <li role="presentation"><a href="#config-list" aria-controls="config-list" role="tab" data-toggle="tab">Configuration</a></li>
             </ul>
 
           <!-- Tab panes -->
             <div class="tab-content">
+
                 <div role="tabpanel" class="tab-pane active retailer-detail" id="retailer-list">
                     <button class="btn btn-success pull-right" ng-click="refreshList()">Refresh List</button>
                     <table class="table">
@@ -61,7 +70,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="retailer" ng-click="showDetails(retailer, $index)" ng-repeat="retailer in retailers" ng-class="{'add-bg' : selectedRetailer == $index}">
+                            <tr class="retailer-link" ng-click="showDetails(retailer, $index)" ng-repeat="retailer in retailers" ng-class="{'add-bg' : selectedRetailer == $index}">
                                 <!-- <th scope="row">{{$index+1}}</th> -->
                                 <th scope="row">{{retailer.retailerId}}</th>
                                 <td>{{retailer.name}}</td>
@@ -71,7 +80,9 @@
                             </tr>
                         </tbody>
                     </table>
+                    <button ng-if="retailers.length > 0" class="btn btn-primary" ng-click="exportExcelFile()">Download</button>
                 </div>
+
                 <div role="tabpanel" class="tab-pane retailer-detail" id="add-retailer">
                     <!-- <label class="col-sm-2 control-label">Email</label>
                     <div class="col-sm-5">
@@ -289,6 +300,7 @@
                     <div class="alert alert-danger col-sm-5 col-sm-offset-2" role="alert" ng-if="error">{{error}}</div>
 
                 </div>
+
                 <div role="tabpanel" class="tab-pane retailer-detail" id="resource-list">
                     <table class="table">
                         <thead>
@@ -307,7 +319,256 @@
                             </tr>
                         </tbody>
                     </table>
+                    <button ng-if="resources.length > 0" class="btn btn-primary" ng-click="exportExcelFile()">Download</button>
                 </div>
+
+                <div role="tabpanel" class="tab-pane retailer-detail" id="customer-list">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <!-- <th>#</th> -->
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Mobile-no</th>
+                                <th>Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="retailer"ng-repeat="customer in customers">
+                                <!-- <th scope="row">{{$index+1}}</th> -->
+                                <th scope="row">{{customer.customerId}}</th>
+                                <td>{{customer.name}}</td>
+                                <td>{{customer.mobile}}</td>
+                                <td>{{customer.address}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button ng-if="customers.length > 0" class="btn btn-primary" ng-click="exportExcelFile()">Download</button>
+                </div>
+
+                <div role="tabpanel" class="tab-pane retailer-detail" id="order-list">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <!-- <th>#</th> -->
+                                <th>Task Id</th>
+                                <th>Order Id</th>
+                                <th>Retailer Id</th>
+                                <th>Retailer Mobile</th>
+                                <th>Customer Mobile</th>
+                                <th>Order Amount</th>
+                                <th>Current Status</th>
+                                <th>Update Time</th>
+                                <th>Resource Id</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="retailer-link"ng-repeat="order in orders" ng-click="showOrderDetails(order, $index)" ng-class="{'add-bg' : selectedOrder == $index}">
+                                <!-- <th scope="row">{{$index+1}}</th> -->
+                                <th scope="row">{{order.taskId}}</th>
+                                <td>{{order.orderId}}</td>
+                                <td>{{order.retailerId}}</td>
+                                <td>{{order.retailerMobile}}</td>
+                                <td>{{order.customerMobile}}</td>
+                                <td>{{order.orderAmount}}</td>
+                                <td>{{order.currentStatus}}</td>
+                                <td>{{order.updateTime}}</td>
+                                <td>{{order.resId}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button ng-if="orders.length > 0" class="btn btn-primary" ng-click="exportExcelFile()">Download</button>
+                </div>
+
+                <div role="tabpanel" class="tab-pane retailer-detail" id="order-details">
+                    <!-- <label class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-5">
+                      <p class="form-control-static">email@example.com</p>
+                    </div> -->
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">retailerId:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{orderDetails.retailerId}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">retailerMobile:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{orderDetails.retailerMobile}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">customerMobile:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{orderDetails.customerMobile}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">orderDetailsAmount:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{orderDetails.orderAmount}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">lastStatus:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{orderDetails.lastStatus}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">currentStatus:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{orderDetails.currentStatus}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">retailerName:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{orderDetails.retailerName}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">bookNowTime:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{orderDetails.bookNowTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">orderDetailsId:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{orderDetails.orderId}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">CODValue:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{orderDetails.CODValue}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">customerId:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{orderDetails.customerId}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">custFullAddress:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{orderDetails.custFullAddress}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">custName:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{orderDetails.custName}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">taskId:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{orderDetails.taskId}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">updateTime:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{orderDetails.updateTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">resId:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{orderDetails.resId}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">resMobile:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{orderDetails.resMobile}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">lastStatusUpdateTime:</label>
+                            <div class="col-sm-5">
+                                <p class="form-control pre-populated">{{orderDetails.lastStatusUpdateTime}}</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div role="tabpanel" class="tab-pane retailer-detail" id="config-list">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="email" class="col-sm-2 control-label">Email:</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="email" placeholder="email" ng-model="customconfig.email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="key" class="col-sm-2 control-label">Key:</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="key" placeholder="key" ng-model="customconfig.key">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="APIurl" class="col-sm-2 control-label">APIurl:</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="APIurl" placeholder="APIurl" ng-model="customconfig.APIurl">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="riderActiveStatusInUse" class="col-sm-2 control-label">riderActiveStatusInUse:</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="riderActiveStatusInUse" placeholder="riderActiveStatusInUse" ng-model="customconfig.riderActiveStatusInUse">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskAutoAssignOptionInUse" class="col-sm-2 control-label">taskAutoAssignOptionInUse:</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="taskAutoAssignOptionInUse" placeholder="taskAutoAssignOptionInUse" ng-model="customconfig.taskAutoAssignOptionInUse">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastTimeCheckms" class="col-sm-2 control-label">lastTimeCheckms:</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="lastTimeCheckms" placeholder="lastTimeCheckms" ng-model="customconfig.lastTimeCheckms">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="distanceCheckCircleInMeter" class="col-sm-2 control-label">distanceCheckCircleInMeter:</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="distanceCheckCircleInMeter" placeholder="distanceCheckCircleInMeter" ng-model="customconfig.distanceCheckCircleInMeter">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="bikerLastTimeCheckms" class="col-sm-2 control-label">bikerLastTimeCheckms:</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="bikerLastTimeCheckms" placeholder="bikerLastTimeCheckms" ng-model="customconfig.bikerLastTimeCheckms">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="foodCheckCapacity" class="col-sm-2 control-label">foodCheckCapacity:</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="foodCheckCapacity" placeholder="foodCheckCapacity" ng-model="customconfig.foodCheckCapacity">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="groceryCheckCapacity" class="col-sm-2 control-label">groceryCheckCapacity:</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="groceryCheckCapacity" placeholder="groceryCheckCapacity" ng-model="customconfig.groceryCheckCapacity">
+                            </div>
+                        </div>
+                        <div class="col-sm-offset-3 col-sm-5">
+                                <button type="submit" class="btn btn-success col-sm-3" ng-click="saveConfig(customconfig)">Save</button>
+                        </div>
+                        <div ng-if="message" class="alert alert-success col-sm-5 col-sm-offset-2">
+                            <p>{{message}}</p>
+                        </div>
+                        <div class="alert alert-danger col-sm-5 col-sm-offset-2" role="alert" ng-if="error">{{error}}</div>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
