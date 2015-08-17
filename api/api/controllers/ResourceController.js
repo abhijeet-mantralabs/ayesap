@@ -273,7 +273,7 @@ module.exports = {
                                     var resourceISOTime = convertDateToISO(resource.time.date);
                                     var diffTime = nowTime  - resourceISOTime.getTime() ;
                                     sails.log.debug("bikerUpdateTime diff in ms-->>", diffTime);
-                                    if(diffTime < req.session.config.bikerLastTimeCheckms){
+//                                    if(diffTime < req.session.config.bikerLastTimeCheckms){
                                         sails.log.debug("biker time update less thn 15 min(less thn 900000 ms")
                                         //---this code will be umcommented , below this (just after the condition the code will be delted or commented
                                         var formattedRes = {
@@ -296,7 +296,7 @@ module.exports = {
                                         }
                                         checkedResIdArr.push(formattedRes.resId);
                                         checkedInRes.push(formattedRes);
-                                    }
+//                                    }
 //                                    var formattedRes = {
 //                                        resId : resource["id"],
 //                                        resName: resource["name"],
