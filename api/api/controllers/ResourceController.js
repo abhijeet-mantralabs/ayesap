@@ -270,7 +270,7 @@ module.exports = {
                             _.forEach(response.output.data.resources, function(resource){
                                 if( (resource.checkin == 1) && (resource.usedcapacity < resource.maxcapacity)){
 
-                                    var resourceISOTime = convertDateToISO(resource.time);
+                                    var resourceISOTime = convertDateToISO(resource.time.date);
                                     var diffTime = nowTime  - resourceISOTime.getTime() ;
                                     sails.log.debug("bikerUpdateTime diff in ms-->>", diffTime);
                                     if(diffTime < req.session.config.bikerLastTimeCheckms){
