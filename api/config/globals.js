@@ -134,10 +134,15 @@ module.exports.globals = {
       }
   },
 
-  partnerDetails: {
-    email: "abhijeet@mantralabsglobal.com",
-    key: "25b7c81e770034aeda70db74af0fb638beca992d2a535641e6313f38b9665016"
-  },
+//  partnerDetails: {
+//    email: "abhijeet@mantralabsglobal.com",
+//    key: "25b7c81e770034aeda70db74af0fb638beca992d2a535641e6313f38b9665016"
+//  },
+
+    partnerDetails: {
+        email: "anuragkhemka123@gmail.com",
+        key: "0fbc9039145b6449a7765dcc00d3bd8377d93ac8cccda9f0292b5976e6d67c75"
+    },
 
 //   partnerDetails: {
 //    email: "anurag.khemka@iiml.org",
@@ -170,12 +175,12 @@ module.exports.globals = {
         "40001" : "Unassigned",
         "40002" : "Rejected",
         "40003" : "Not Seen",
-        "10001" : "Pending",
+        "40004" : "Pending",
         "40005" : "Arrived for Pick Up",
         "40006" : "Pick Up Cancelled",
         "40007" : "Enroute",
         "40008" : "Reached Delivery Point",
-        "10002" : "Delivered",
+        "40009" : "Delivered",
         "40010" : "Cancelled by Customer",
         "40011" : "Rescheduled by Customer"
     },
