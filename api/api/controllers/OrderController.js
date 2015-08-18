@@ -282,11 +282,7 @@ module.exports = {
         sails.log.debug("------------");
         sails.log.debug(req);
         sails.log.debug("------------");
-
         var latestOrderStatus = req.body;
-
-
-
         if( req.body && !(_.isEmpty(req.body)) &&  req.body.token == "taskstatus"){
             sails.log.debug("order status rcvd successfully--->>", req.body);
             OrderStatus.createOrderStatus(latestOrderStatus, function(err, savedOrderStatus){
@@ -335,10 +331,11 @@ module.exports = {
                 }
             })
         }else{
-            if(req.body && req.body.token != "taskstatus"){
-                sails.log.debug("token is different");
-                res.json({message: "token is different", details: req.body} );
-            }else if(!req.body || _.isEmpty(req.body)){
+//            if(req.body && req.body.token != "taskstatus"){
+//                sails.log.debug("token is different");
+//                res.json({message: "token is different", details: req.body} );
+//            }else
+            if(!req.body || _.isEmpty(req.body)){
                 res.json({message: "order status not updated, not a valid order status", details: req.body} );
             }
 
