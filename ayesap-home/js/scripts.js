@@ -126,7 +126,7 @@ $( "#retailer-form" ).submit(function( event ) {
     // Send the data using post
     //var base_url = "http://ayesap.zolome.com/api/";
     //var base_url = "http://localhost:1337/";
-    var base_url = "http://www.ayesap.com/api/";
+    var base_url = "http://52.10.61.76:1340/";
     var posting = $.post( base_url+'retailer/requestForRegister', formData)
 
     posting.done(function( data ) {
