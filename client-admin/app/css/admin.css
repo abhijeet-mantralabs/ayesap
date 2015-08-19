@@ -5,6 +5,10 @@ body {
   padding: 15px;
   font-size: 16px;
 }
+.admin-login {
+  width: 400px;
+  margin: 0 auto;
+}
 .admin-login .align-center {
   margin: 0 auto;
   margin: 20px auto;
@@ -20,12 +24,15 @@ body {
   padding: 5px;
   margin-bottom: 5px;
 }
-.retailer {
+.retailer-link {
   border-bottom: 1px solid #eee;
   cursor: pointer;
 }
-.retailer:hover {
+.retailer-link:hover {
   background-color: #eee;
+}
+.retailer {
+  border-bottom: 1px solid #eee;
 }
 .pre-populated {
   border: none;
