@@ -151,7 +151,7 @@ module.exports = {
 //    },
     getAllResourceStatus: function(req, res) {
         //sample input-->> {zoneId: 9}
-
+        sails.log.debug("getAllResourceStatus req.body-->",req.body);
         if(!req.body || !req.body.zoneId || !req.body.latitude || !req.body.longitude || !req.body.retailerType){
             res.status(400).json( {status: 400 , message: "zone Id/latlong/type is missing" });
         }else{
