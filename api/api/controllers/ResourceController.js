@@ -450,6 +450,7 @@ var difference = function(array){
 };
 
 function convertDateToISO(datetime){
+    console.log('convertDateToISO--->',datetime);
     var match = datetime.match(/^(\d+)-(\d+)-(\d+) (\d+)\:(\d+)\:(\d+)\.(\d+)$/)
     var updateISOTime = new Date(match[1], match[2] - 1, match[3], match[4], match[5], match[6], match[7])
     return updateISOTime;
