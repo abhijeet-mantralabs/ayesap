@@ -269,7 +269,7 @@ module.exports = {
 
                             _.forEach(response.output.data.resources, function(resource){
                                 if( (resource.checkin == 1) && (resource.usedcapacity < resource.maxcapacity)){
-
+                                    sails.log.debug("resource.time.date-->",resource.time.date);
                                     var resourceISOTime = convertDateToISO(resource.time.date);
                                     var diffTime = nowTime  - resourceISOTime.getTime() ;
                                     sails.log.debug("bikerUpdateTime diff in ms-->>", diffTime);
@@ -450,7 +450,7 @@ var difference = function(array){
 };
 
 function convertDateToISO(datetime){
-    console.log('convertDateToISO--->',datetime);
+    sails.log.debug("convertDateToISO--->",datetime);
     var match = datetime.match(/^(\d+)-(\d+)-(\d+) (\d+)\:(\d+)\:(\d+)\.(\d+)$/)
     var updateISOTime = new Date(match[1], match[2] - 1, match[3], match[4], match[5], match[6], match[7])
     return updateISOTime;
