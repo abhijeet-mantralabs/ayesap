@@ -454,7 +454,9 @@ function convertDateToISO(datetime){
     // var match = datetime.match(/^(\d+)-(\d+)-(\d+) (\d+)\:(\d+)\:(\d+)\.(\d+)$/)
     // var updateISOTime = new Date(match[1], match[2] - 1, match[3], match[4], match[5], match[6], match[7])
     // return updateISOTime;
-    return datetime;
+    var arr = datetime.split(/-|\s|:/);
+    var updateISOTime = new Date(arr[0], arr[1] -1, arr[2], arr[3], arr[4], arr[5]); 
+    return updateISOTime;
 }
 
 
