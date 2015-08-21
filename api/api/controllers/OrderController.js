@@ -279,9 +279,6 @@ module.exports = {
     },
     getOrderStatus: function(req, res){
         sails.log.debug("order completed updated original------>>>", req.body);
-        sails.log.debug("------------");
-        sails.log.debug(req);
-        sails.log.debug("------------");
         var latestOrderStatus = req.body;
         if( req.body && !(_.isEmpty(req.body)) &&  req.body.token == "taskstatus"){
             sails.log.debug("order status rcvd successfully--->>", req.body);
