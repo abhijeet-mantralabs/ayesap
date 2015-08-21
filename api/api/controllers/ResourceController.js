@@ -269,8 +269,8 @@ module.exports = {
 
                             _.forEach(response.output.data.resources, function(resource){
                                 if( (resource.checkin == 1) && (resource.usedcapacity < resource.maxcapacity)){
-                                    sails.log.debug("resource.time.date-->",resource.time.date);
-                                    var resourceISOTime = convertDateToISO(resource.time.date);
+                                    sails.log.debug("resource.time-->",resource.time.date);
+                                    var resourceISOTime = convertDateToISO(resource.time);
                                     var diffTime = nowTime  - resourceISOTime.getTime() ;
                                     sails.log.debug("bikerUpdateTime diff in ms-->>", diffTime);
                                     if(diffTime < req.session.config.bikerLastTimeCheckms){
