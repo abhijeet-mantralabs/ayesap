@@ -164,6 +164,7 @@ module.exports = {
 
 
             var fetchZoneResource = function(zone, retailerLocation){
+                var finalList ={};
                 ActiveResource.findRidersNearBy(zone, retailerLocation, req.session.config.distanceCheckCircleInMeter, function(err, DBResWithInCircle){
                     if(err){
                         sails.log.debug("err in controller for finding with in 2 km riders")
@@ -202,7 +203,7 @@ module.exports = {
                                     }
 //                                    return a.eta > b.eta;
                                 });
-                                var finalList = {
+                                finalList = {
                                     nearestRider :resWithInCircle[0],
                                     resourceList: resWithInCircle,
                                     eta:  Math.ceil(resWithInCircle[0].eta),
@@ -210,13 +211,13 @@ module.exports = {
                                 }
                             }else{
                                 sails.log.debug("no riders nearby after full filters ------>>")
-                                var finalList = {
+                                finalList = {
                                     resourceList: resWithInCircle
                                 }
                             }
                         }else{
                             sails.log.debug("no riders nearby ------>>")
-                            var finalList = {
+                            finalList = {
                                 resourceList: resWithInCircle
                             }
                         }
