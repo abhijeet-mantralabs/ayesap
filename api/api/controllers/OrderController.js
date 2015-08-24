@@ -320,7 +320,7 @@ module.exports = {
                                     res.status(err.status).json(err);
                                 }else{
                                     sails.log.debug("original order status saved to DB and updated at main order collection----- >>", savedOrderStatus)
-                                    res.json({message: "request registered", details: "original order status saved"} );
+                                    res.json({message: "request registered", details: matchedUpdatedOrder } );
                                 }
                             })
                         }
