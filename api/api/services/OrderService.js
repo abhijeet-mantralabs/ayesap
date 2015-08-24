@@ -40,7 +40,7 @@ module.exports = {
                 sails.log.error("book order service error");
                 return callback(error, {"status": "Failed"});
             }else{
-                sails.log.debug("positive response from service");
+                sails.log.debug("positive response from service-->",body);
                 return callback(null, body);
             }
 

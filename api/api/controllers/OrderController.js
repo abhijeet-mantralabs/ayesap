@@ -242,7 +242,7 @@ module.exports = {
 //                        {"output":{"status":201,"data":{"taskid":["FV-9-01678"]}}}
 //                         '{"output":{"status":403,"data":{"errorcode":"403105","message":"Currently no shift is running with resources"}}}'
 
-                                response = JSON.parse(response);
+                                // response = JSON.parse(response);
                                 sails.log.debug("object like output from service-->>>>>");
                                 sails.log.debug(response.output);
                                 order.customerId = customer.customerId;
