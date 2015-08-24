@@ -104,8 +104,10 @@ module.exports = {
                 opts.orderId = orderId;
                 Order.create(opts, function(err, savedOrder){
                     if(err){
+                        sail.log.debug("savedOrder err-->",err);
                         cb(err);
                     }else{
+                        sail.log.debug("saved order -->",savedOrder);
                         cb(null,savedOrder);
                     }
                 });

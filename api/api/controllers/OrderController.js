@@ -138,13 +138,19 @@ module.exports = {
                                     {
                                         "name": "Retailer Type",
                                         "value": retailerDetails.retailerType
+                                    },
+                                    {
+                                        "name": "No. of Shipments",
+                                        "value": retailerDetails.shipment
                                     }
+
                                 ]
                             }
                         }
                     }
 
                 }
+
 
                 addTaskPayload["restype"] = req.body.resourceType;
                 if(customerDetails.address){
@@ -178,10 +184,10 @@ module.exports = {
                    }
                    addTaskPayload.payload.payload.task.field.push(customerAddressObj);
                     customerDBPayload.address = customerDetails.address.address;
-                    customerDBPayload.street = customerDetails.address.street,
-                    customerDBPayload.area = customerDetails.address.area,
-                    customerDBPayload.city = customerDetails.address.city,
-                    customerDBPayload.pincode = customerDetails.address.pinCode
+                    customerDBPayload.street = customerDetails.address.street;
+                    customerDBPayload.area = customerDetails.address.area;
+                    customerDBPayload.city = customerDetails.address.city;
+                    customerDBPayload.pincode = customerDetails.address.pinCode;
 
                 }else{
                     addTaskPayload["zoneid"] = retailerDetails.zone
