@@ -12,7 +12,7 @@ module.exports = {
     createOrder: function (payload,  callback) {
 
         sails.log.debug("addTaskFinal service  Payload --- >>>")
-        sails.log.debug(JSON.stringify(payload.payload.payload));
+        sails.log.debug(payload.payload)
 //        var route = 1 // should be 1 at live push , should be 0 while testing
         var options = {
             uri : payload.APIurl,
@@ -22,7 +22,7 @@ module.exports = {
                 email: payload.email,
                 key: payload.key,
                 route:  payload.taskAutoAssignOptionInUse,
-                payload: JSON.stringify(payload.payload.payload)
+                payload: JSON.stringify(payload.payload)
             }
         };
         if(payload.zoneid){
@@ -32,7 +32,7 @@ module.exports = {
 //            options.form.restype = payload.restype;
 //        }
         sails.log.debug("book now service options -- >>>  "),
-            sails.log.debug(JSON.stringify(options));
+            sails.log.debug(options);
         sails.log.debug("book now service options -- ends>>>  ");
 
         request(options, function(error, response, body){
