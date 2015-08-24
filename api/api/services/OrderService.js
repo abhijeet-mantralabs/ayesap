@@ -22,7 +22,7 @@ module.exports = {
                 email: payload.email,
                 key: payload.key,
                 route:  payload.taskAutoAssignOptionInUse,
-                payload: JSON.stringify(payload.payload)
+                payload: JSON.stringify(payload.payload.payload)
             }
         };
         if(payload.zoneid){
