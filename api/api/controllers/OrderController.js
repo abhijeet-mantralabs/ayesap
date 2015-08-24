@@ -141,7 +141,7 @@ module.exports = {
                                     },
                                     {
                                         "name": "No. of Shipments",
-                                        "value": retailerDetails.shipment
+                                        "value": req.body.shipment
                                     }
 
                                 ]
