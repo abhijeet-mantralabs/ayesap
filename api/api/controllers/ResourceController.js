@@ -270,10 +270,13 @@ module.exports = {
 
                             _.forEach(response.output.data.resources, function(resource){
                                 if( (resource.checkin == 1) && (resource.usedcapacity < resource.maxcapacity)){
-                                    sails.log.debug("resource.time-->",resource.time.date);
+                                    // sails.log.debug("resource.time-->",resource.time.date);
                                     var resourceISOTime = convertDateToISO(resource.time);
+                                    sails.log.debug('converted resource time -->', resourceISOTime);
+                                    sails.log.debug('current time is -->', nowTime);
                                     var diffTime = nowTime  - resourceISOTime.getTime() ;
                                     sails.log.debug("bikerUpdateTime diff in ms-->>", diffTime);
+                                    sails.log.debug('biker last check in time -->',req.session.config.bikerLastTimeCheckms);
                                     if(diffTime < req.session.config.bikerLastTimeCheckms){
                                         sails.log.debug("biker time update less thn 15 min(less thn 900000 ms")
                                         //---this code will be umcommented , below this (just after the condition the code will be delted or commented
