@@ -268,6 +268,9 @@ module.exports = {
 
                             var nowTime = new Date();
 
+                            nowTime.setHours(nowTime.getHours() + 5);
+                            nowTime.setMinutes(nowTime.getMinutes() + 30);
+
                             _.forEach(response.output.data.resources, function(resource){
                                 if( (resource.checkin == 1) && (resource.usedcapacity < resource.maxcapacity)){
                                     // sails.log.debug("resource.time-->",resource.time.date);
