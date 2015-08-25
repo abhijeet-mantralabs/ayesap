@@ -297,14 +297,15 @@ module.exports = {
                             sails.log.debug("fatal error unable to fetch order of which update rcvd-->>")
                         }else{
                             //     same as before but will be updated
+                            sails.log.debug('matchedOrder-->',matchedOrder);
                             if(matchedOrder.updateTime){
                                 matchedOrder.lastStatusUpdateTime = matchedOrder.updateTime ;
                             }
                             matchedOrder.orderStatusTrail.push(savedOrderStatus.id);
-                            matchedOrder.updateTime = latestOrderStatus.updatetime ;
-                            matchedOrder.currentStatus =  sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
-                            matchedOrder.lastStatus = sails.config.globals.taskStatusDesc[latestOrderStatus.laststatus] ;
-                            matchedOrder.orderStatusBackend = sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
+                            matchedOrder.updateTime = latestOrderStatus.updatetime;
+                            matchedOrder.currentStatus =  sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus];
+                            matchedOrder.lastStatus = sails.config.globals.taskStatusDesc[latestOrderStatus.laststatus];
+                            matchedOrder.orderStatusBackend = sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus];
 
                             //     only when order event updated like completed/pending/any of the proper update
                             matchedOrder.resId = latestOrderStatus.resid ;
