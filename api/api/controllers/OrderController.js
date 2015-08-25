@@ -292,7 +292,7 @@ module.exports = {
                 if(err){
                     res.status(err.status).json(err);
                 }else{
-                    Order.fetchOrderByTaskId({taskId:latestOrderStatus.taskid }, function(err, matchedOrder){
+                    Order.fetchOrderByTaskId({taskId:latestOrderStatus.taskid}, function(err, matchedOrder){
                         if(err){
                             sails.log.debug("fatal error unable to fetch order of which update rcvd-->>")
                         }else{

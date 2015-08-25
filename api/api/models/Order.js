@@ -134,11 +134,13 @@ module.exports = {
         });
     },
     fetchOrderByTaskId: function(opts, cb){
+        sails.log.debug('opts for fetching order by taskid -->',opts);
         Order.findOne({taskId:opts.taskId}).exec(function(err, order){
             if(err){
                 console.log(" error in fetching order against task from db ---- ---->> ", err)
                 cb(err);
             }else{
+                sails.log.debug('fetched order -->',order);
                 cb(null, order);
             }
         });
