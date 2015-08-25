@@ -138,11 +138,11 @@ module.exports = {
                                     {
                                         "name": "Retailer Type",
                                         "value": retailerDetails.retailerType
-                                    },
-                                    {
-                                        "name": "No. of Shipments",
-                                        "value": req.body.shipment
                                     }
+                                    // {
+                                    //     "name": "No. of Shipments",
+                                    //     "value": req.body.shipment
+                                    // }
 
                                 ]
                             }
