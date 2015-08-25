@@ -265,7 +265,7 @@ module.exports = {
                                         }
                                         else{
 
-                                            sails.log.debug("order saved to db")
+                                            sails.log.debug("order saved to db -->",order);
                                             res.json({message: "Your request has been received successfully", details:{ order: order}});
                                         }
                                     })
