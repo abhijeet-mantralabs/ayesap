@@ -255,7 +255,7 @@ module.exports = {
                                     order.custName = customerDetails.name;
                                 }
                                 if(response.output.status == 201){
-                                    order.taskId = response.output.data.taskid[0];
+                                    order.taskId = response.output.data.taskid;
                                     order.orderStatusBackend = "Pending";
                                     order.lastStatus = "req-not-received";
                                     order.currentStatus = "Pending";
