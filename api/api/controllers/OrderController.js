@@ -220,7 +220,7 @@ module.exports = {
 //                res.json({message: "order successfully booked", details:{ order: addTaskPayload.payload}});
                 Customer.createCustomer(customerDBPayload, function(err, customer){
                     if(err){
-
+                        sails.log.error(err);
                     }else{
                         sails.log.debug("customer saved");
                         sails.log.debug("addTaskpayload overall------ >>>>   ");
