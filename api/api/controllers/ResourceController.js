@@ -170,7 +170,7 @@ module.exports = {
                         sails.log.debug("err in controller for finding with in 2 km riders")
                         sails.log.debug(err)
                     }else{
-                        sails.log.debug("resWithIn distance Circle--->>")
+                        sails.log.debug("resWithIn distance Circle--->>",DBResWithInCircle);
                         var resWithInCircle = [];
                         if(DBResWithInCircle.length>0){
 
@@ -188,6 +188,7 @@ module.exports = {
 
                                 if(resAcceptable == "yes"){
                                     nearResource.distance =  geolib.getDistance(retailerLocation, nearResource.location);
+                                    sails.log.debug("nearResource.distance-->",nearResource.distance);
                                     nearResource.eta =  (((geolib.getDistance(retailerLocation, nearResource.location))*1.5)/(nearResource.speed*(5/18)))/60;
                                     resWithInCircle.push(nearResource);
                                 }
