@@ -178,10 +178,13 @@ module.exports = {
 
                                 var resAcceptable = "no";
                                 if(req.body.retailerType != "Food" && req.body.retailerType != "Grocery"){
+                                    sails.log.debug("in side retailerType != Food && retailerType != Grocery-->");
                                    resAcceptable = "yes"
                                 }else if(req.body.retailerType == "Food" && nearResource.usedCapacity == req.session.config.foodCheckCapacity){
+                                   sails.log.debug("in side 1st elseif");
                                    resAcceptable = "yes"
                                 }else if(req.body.retailerType == "Grocery" && nearResource.usedCapacity <= req.session.config.groceryCheckCapacity){
+                                   sails.log.debug("in side last elseif");
                                    resAcceptable = "yes"
                                 }
 
