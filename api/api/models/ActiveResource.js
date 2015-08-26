@@ -95,6 +95,7 @@ module.exports = {
             if(err){
                 cb(err);
             }else if(resources){
+                sails.log.debug('listResourceByZone -->',resources);
                 cb(null, resources);
             }
         });
