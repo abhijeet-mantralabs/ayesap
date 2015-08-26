@@ -327,7 +327,7 @@ module.exports = {
                                 }
                             })
                             async.map(checkedInRes, function(res, cb){
-                                sails.log.debug("inside async.map");
+                                sails.log.debug("inside async.map checkedInRes -->",checkedInRes);
                                 ActiveResource.saveUpRes(res, function(err, response){
                                     if(err){
 
