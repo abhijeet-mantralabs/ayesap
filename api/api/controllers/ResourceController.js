@@ -185,7 +185,7 @@ module.exports = {
                                    resAcceptable = "yes"
                                 }
 
-
+                                sails.log.debug("resAcceptable attr for resources within circle-->",resAcceptable);
                                 if(resAcceptable == "yes"){
                                     nearResource.distance =  geolib.getDistance(retailerLocation, nearResource.location);
                                     sails.log.debug("nearResource.distance-->",nearResource.distance);
