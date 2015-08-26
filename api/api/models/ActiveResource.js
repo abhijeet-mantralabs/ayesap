@@ -120,8 +120,7 @@ module.exports = {
                 sails.log.debug(err);
                 cb(err);
             }else if(matchedRes){
-//                sails.log.debug("From db matching resources within 2 km fetched -->>", matchedRes)
-                sails.log.debug(matchedRes);
+               sails.log.debug("From db matching resources within 2 km fetched -->>", matchedRes);
                 cb(null, matchedRes);
             }else if(!matchedRes){
                 sails.log.debug("no matched resources");
