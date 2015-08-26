@@ -327,6 +327,7 @@ module.exports = {
                                 }
                             })
                             async.map(checkedInRes, function(res, cb){
+                                sails.log.debug("inside async.map");
                                 ActiveResource.saveUpRes(res, function(err, response){
                                     if(err){
 
@@ -377,7 +378,6 @@ module.exports = {
                                         }else{
                                             updateZone(zoneData, retailerLocation);
                                         }
-
                                    }
                                 })
 
