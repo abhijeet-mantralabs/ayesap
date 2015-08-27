@@ -138,6 +138,10 @@ module.exports = {
                                     {
                                         "name": "Retailer Type",
                                         "value": retailerDetails.retailerType
+                                    },
+                                    {
+                                        "name": "No. of Shipments",
+                                        "value": req.body.shipment
                                     }
                                 ]
                             }
@@ -145,6 +149,7 @@ module.exports = {
                     }
 
                 }
+
 
                 addTaskPayload["restype"] = req.body.resourceType;
                 if(customerDetails.address){
@@ -178,10 +183,10 @@ module.exports = {
                    }
                    addTaskPayload.payload.payload.task.field.push(customerAddressObj);
                     customerDBPayload.address = customerDetails.address.address;
-                    customerDBPayload.street = customerDetails.address.street,
-                    customerDBPayload.area = customerDetails.address.area,
-                    customerDBPayload.city = customerDetails.address.city,
-                    customerDBPayload.pincode = customerDetails.address.pinCode
+                    customerDBPayload.street = customerDetails.address.street;
+                    customerDBPayload.area = customerDetails.address.area;
+                    customerDBPayload.city = customerDetails.address.city;
+                    customerDBPayload.pincode = customerDetails.address.pinCode;
 
                 }else{
                     addTaskPayload["zoneid"] = retailerDetails.zone
@@ -214,7 +219,7 @@ module.exports = {
 //                res.json({message: "order successfully booked", details:{ order: addTaskPayload.payload}});
                 Customer.createCustomer(customerDBPayload, function(err, customer){
                     if(err){
-
+                        sails.log.error(err);
                     }else{
                         sails.log.debug("customer saved");
                         sails.log.debug("addTaskpayload overall------ >>>>   ");
@@ -249,7 +254,7 @@ module.exports = {
                                     order.custName = customerDetails.name;
                                 }
                                 if(response.output.status == 201){
-                                    order.taskId = response.output.data.taskid[0];
+                                    order.taskId = response.output.data.taskid;
                                     order.orderStatusBackend = "Pending";
                                     order.lastStatus = "req-not-received";
                                     order.currentStatus = "Pending";
@@ -259,7 +264,7 @@ module.exports = {
                                         }
                                         else{
 
-                                            sails.log.debug("order saved to db")
+                                            sails.log.debug("order saved to db -->",order);
                                             res.json({message: "Your request has been received successfully", details:{ order: order}});
                                         }
                                     })
@@ -286,19 +291,20 @@ module.exports = {
                 if(err){
                     res.status(err.status).json(err);
                 }else{
-                    Order.fetchOrderByTaskId({taskId:latestOrderStatus.taskid }, function(err, matchedOrder){
+                    Order.fetchOrderByTaskId({taskId:latestOrderStatus.taskid}, function(err, matchedOrder){
                         if(err){
                             sails.log.debug("fatal error unable to fetch order of which update rcvd-->>")
                         }else{
                             //     same as before but will be updated
+                            sails.log.debug('matchedOrder-->',matchedOrder);
                             if(matchedOrder.updateTime){
                                 matchedOrder.lastStatusUpdateTime = matchedOrder.updateTime ;
                             }
                             matchedOrder.orderStatusTrail.push(savedOrderStatus.id);
-                            matchedOrder.updateTime = latestOrderStatus.updatetime ;
-                            matchedOrder.currentStatus =  sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
-                            matchedOrder.lastStatus = sails.config.globals.taskStatusDesc[latestOrderStatus.laststatus] ;
-                            matchedOrder.orderStatusBackend = sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus] ;
+                            matchedOrder.updateTime = latestOrderStatus.updatetime;
+                            matchedOrder.currentStatus =  sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus];
+                            matchedOrder.lastStatus = sails.config.globals.taskStatusDesc[latestOrderStatus.laststatus];
+                            matchedOrder.orderStatusBackend = sails.config.globals.taskStatusDesc[latestOrderStatus.currentstatus];
 
                             //     only when order event updated like completed/pending/any of the proper update
                             matchedOrder.resId = latestOrderStatus.resid ;
@@ -320,7 +326,7 @@ module.exports = {
                                     res.status(err.status).json(err);
                                 }else{
                                     sails.log.debug("original order status saved to DB and updated at main order collection----- >>", savedOrderStatus)
-                                    res.json({message: "request registered", details: "original order status saved"} );
+                                    res.json({message: "request registered", details: matchedUpdatedOrder } );
                                 }
                             })
                         }

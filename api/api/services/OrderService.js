@@ -32,7 +32,7 @@ module.exports = {
 //            options.form.restype = payload.restype;
 //        }
         sails.log.debug("book now service options -- >>>  "),
-            sails.log.debug(JSON.stringify(options));
+            sails.log.debug(options);
         sails.log.debug("book now service options -- ends>>>  ");
 
         request(options, function(error, response, body){
@@ -40,7 +40,7 @@ module.exports = {
                 sails.log.error("book order service error");
                 return callback(error, {"status": "Failed"});
             }else{
-                sails.log.debug("positive response from service");
+                sails.log.debug("positive response from service-->",body);
                 return callback(null, body);
             }
 

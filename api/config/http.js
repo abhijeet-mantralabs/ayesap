@@ -8,7 +8,6 @@
  * For more information on configuration, check out:
  * http://sailsjs.org/#/documentation/reference/sails.config/sails.config.http.html
  */
-
 module.exports.http = {
 
   /****************************************************************************
@@ -37,7 +36,7 @@ module.exports.http = {
        'cookieParser',
        'session',
 //       'myRequestLogger',
-       'myConfigLoader',
+	'myConfigLoader',
        'bodyParser',
        'handleBodyParserError',
        'compress',
@@ -146,7 +145,9 @@ module.exports.http = {
   *                                                                          *
   ***************************************************************************/
 
-    bodyParser: require('skipper')
+
+	//bodyParser: require('skipper')
+
 
   }
 

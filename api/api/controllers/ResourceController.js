@@ -151,7 +151,7 @@ module.exports = {
 //    },
     getAllResourceStatus: function(req, res) {
         //sample input-->> {zoneId: 9}
-
+        sails.log.debug("getAllResourceStatus req.body-->",req.body);
         if(!req.body || !req.body.zoneId || !req.body.latitude || !req.body.longitude || !req.body.retailerType){
             res.status(400).json( {status: 400 , message: "zone Id/latlong/type is missing" });
         }else{
@@ -164,12 +164,13 @@ module.exports = {
 
 
             var fetchZoneResource = function(zone, retailerLocation){
+                var finalList ={};
                 ActiveResource.findRidersNearBy(zone, retailerLocation, req.session.config.distanceCheckCircleInMeter, function(err, DBResWithInCircle){
                     if(err){
                         sails.log.debug("err in controller for finding with in 2 km riders")
                         sails.log.debug(err)
                     }else{
-                        sails.log.debug("resWithIn distance Circle--->>")
+                        sails.log.debug("resWithIn distance Circle--->>",DBResWithInCircle);
                         var resWithInCircle = [];
                         if(DBResWithInCircle.length>0){
 
@@ -177,16 +178,20 @@ module.exports = {
 
                                 var resAcceptable = "no";
                                 if(req.body.retailerType != "Food" && req.body.retailerType != "Grocery"){
-                                   resAcceptable = "yes"
+                                    sails.log.debug("in side retailerType != Food && retailerType != Grocery-->");
+                                   resAcceptable = "yes";
                                 }else if(req.body.retailerType == "Food" && nearResource.usedCapacity == req.session.config.foodCheckCapacity){
-                                   resAcceptable = "yes"
+                                   sails.log.debug("in side 1st elseif");
+                                   resAcceptable = "yes";
                                 }else if(req.body.retailerType == "Grocery" && nearResource.usedCapacity <= req.session.config.groceryCheckCapacity){
-                                   resAcceptable = "yes"
+                                   sails.log.debug("in side last elseif");
+                                   resAcceptable = "yes";
                                 }
 
-
+                                sails.log.debug("resAcceptable attr for resources within circle-->",resAcceptable);
                                 if(resAcceptable == "yes"){
                                     nearResource.distance =  geolib.getDistance(retailerLocation, nearResource.location);
+                                    sails.log.debug("nearResource.distance-->",nearResource.distance);
                                     nearResource.eta =  (((geolib.getDistance(retailerLocation, nearResource.location))*1.5)/(nearResource.speed*(5/18)))/60;
                                     resWithInCircle.push(nearResource);
                                 }
@@ -202,7 +207,7 @@ module.exports = {
                                     }
 //                                    return a.eta > b.eta;
                                 });
-                                var finalList = {
+                                finalList = {
                                     nearestRider :resWithInCircle[0],
                                     resourceList: resWithInCircle,
                                     eta:  Math.ceil(resWithInCircle[0].eta),
@@ -210,13 +215,13 @@ module.exports = {
                                 }
                             }else{
                                 sails.log.debug("no riders nearby after full filters ------>>")
-                                var finalList = {
+                                finalList = {
                                     resourceList: resWithInCircle
                                 }
                             }
                         }else{
                             sails.log.debug("no riders nearby ------>>")
-                            var finalList = {
+                            finalList = {
                                 resourceList: resWithInCircle
                             }
                         }
@@ -267,12 +272,18 @@ module.exports = {
 
                             var nowTime = new Date();
 
+                            nowTime.setHours(nowTime.getHours() + 5);
+                            nowTime.setMinutes(nowTime.getMinutes() + 30);
+
                             _.forEach(response.output.data.resources, function(resource){
                                 if( (resource.checkin == 1) && (resource.usedcapacity < resource.maxcapacity)){
-
-                                    var resourceISOTime = convertDateToISO(resource.time.date);
+                                    // sails.log.debug("resource.time-->",resource.time.date);
+                                    var resourceISOTime = convertDateToISO(resource.time);
+                                    sails.log.debug('converted resource time -->', resourceISOTime);
+                                    sails.log.debug('current time is -->', nowTime);
                                     var diffTime = nowTime  - resourceISOTime.getTime() ;
                                     sails.log.debug("bikerUpdateTime diff in ms-->>", diffTime);
+                                    sails.log.debug('biker last check in time -->',req.session.config.bikerLastTimeCheckms);
                                     if(diffTime < req.session.config.bikerLastTimeCheckms){
                                         sails.log.debug("biker time update less thn 15 min(less thn 900000 ms")
                                         //---this code will be umcommented , below this (just after the condition the code will be delted or commented
@@ -320,6 +331,7 @@ module.exports = {
                                 }
                             })
                             async.map(checkedInRes, function(res, cb){
+                                sails.log.debug("inside async.map checkedInRes -->",checkedInRes);
                                 ActiveResource.saveUpRes(res, function(err, response){
                                     if(err){
 
@@ -370,7 +382,6 @@ module.exports = {
                                         }else{
                                             updateZone(zoneData, retailerLocation);
                                         }
-
                                    }
                                 })
 
@@ -450,8 +461,12 @@ var difference = function(array){
 };
 
 function convertDateToISO(datetime){
-    var match = datetime.match(/^(\d+)-(\d+)-(\d+) (\d+)\:(\d+)\:(\d+)\.(\d+)$/)
-    var updateISOTime = new Date(match[1], match[2] - 1, match[3], match[4], match[5], match[6], match[7])
+    sails.log.debug("convertDateToISO--->",datetime);
+    // var match = datetime.match(/^(\d+)-(\d+)-(\d+) (\d+)\:(\d+)\:(\d+)\.(\d+)$/)
+    // var updateISOTime = new Date(match[1], match[2] - 1, match[3], match[4], match[5], match[6], match[7])
+    // return updateISOTime;
+    var arr = datetime.split(/-|\s|:/);
+    var updateISOTime = new Date(arr[0], arr[1] -1, arr[2], arr[3], arr[4], arr[5]); 
     return updateISOTime;
 }
 
