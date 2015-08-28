@@ -338,14 +338,14 @@ module.exports = {
 
                                 
                                 async.map(checkedInRes, function(res, cb){
-                                sails.log.debug("inside async.map checkedInRes -->",checkedInRes);
-                                ActiveResource.saveUpRes(res, function(err, response){
-                                    if(err){
+                                    sails.log.debug("inside async.map checkedInRes -->",checkedInRes);
+                                    ActiveResource.saveUpRes(res, function(err, response){
+                                        if(err){
 
-                                    }else{
-                                        cb(null, res);
-                                    }
-                                })
+                                        }else{
+                                            cb(null, res);
+                                        }
+                                    })
                                 }, function(err, checkedInRes){
 
                                     var zoneData = {
@@ -354,7 +354,7 @@ module.exports = {
                                     }
 
 
-                                   sails.log.debug("checkedResIds arr--->>>",checkedResIdArr);
+                                    sails.log.debug("checkedResIds arr--->>>",checkedResIdArr);
                                     DBResByZoneIdArr = []
                                     var notInZoneNow = [];
                                     ActiveResource.listResourceByZone({zoneId:req.body.zoneId }, function(err, ResByZone){
@@ -365,8 +365,6 @@ module.exports = {
                                            sails.log.debug("DB checkedResIds arr--->>>",DBResByZoneIdArr);
                                            notInZoneNow = difference(DBResByZoneIdArr, checkedResIdArr)
                                            sails.log.debug("not in zone now--->>>",notInZoneNow);
-
-
 
                                             if(notInZoneNow.length > 0){
                                                 async.map(notInZoneNow, function(noZoneResId, cb){
@@ -391,8 +389,6 @@ module.exports = {
                                             }
                                        }
                                     })
-
-
                                 });
                             }
 
