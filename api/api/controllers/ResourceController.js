@@ -336,7 +336,6 @@ module.exports = {
                                 res.json({message: "no rider fetched empty from FV backend", details: {resourceList: [] } });
                             }else{
 
-                                
                                 async.map(checkedInRes, function(res, cb){
                                     sails.log.debug("inside async.map checkedInRes -->",checkedInRes);
                                     ActiveResource.saveUpRes(res, function(err, response){
