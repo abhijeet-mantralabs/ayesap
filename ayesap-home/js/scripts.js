@@ -105,7 +105,8 @@ $(window).scroll(function (event){
 // $(".screenshot").hover(function () {
 //     $(this).children('.screenshot-cover').slideToggle();
 // });
-var base_url = "http://52.76.37.110:1340/";
+//var base_url = "http://52.76.37.110:1340/";
+var base_url = "http://ayesaplive.zolome.com/api/"
 // Attach a submit handler to the form for retailer
 $( "#retailer-form" ).submit(function( event ) {
     $("#result-retailer").empty();
