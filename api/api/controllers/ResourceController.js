@@ -285,7 +285,7 @@ module.exports = {
                                     sails.log.debug("bikerUpdateTime diff in ms-->>", diffTime);
                                     sails.log.debug('biker last check in time -->',req.session.config.bikerLastTimeCheckms);
                                     if(diffTime < req.session.config.bikerLastTimeCheckms){
-                                        sails.log.debug("biker time update less thn 15 min(less thn 900000 ms")
+                                        sails.log.debug("biker time update less thn 15 min(less thn 900000 ms-->>", resource)
                                         //---this code will be umcommented , below this (just after the condition the code will be delted or commented
                                         var formattedRes = {
                                             resId : resource["id"],
@@ -330,8 +330,14 @@ module.exports = {
 //                                    checkedInRes.push(formattedRes);
                                 }
                             })
-                            async.map(checkedInRes, function(res, cb){
-                                sails.log.debug("inside async.map checkedInRes -->",checkedInRes);
+                            
+                            if(checkedInRes.length==0){
+
+                                res.json({message: "no rider fetched empty from FV backend", details: {resourceList: [] } });
+                            }else{
+
+                                async.map(checkedInRes, function(res, cb){
+                                sails.log.debug("inside async.map checkedInRes  -->",checkedInRes);
                                 ActiveResource.saveUpRes(res, function(err, response){
                                     if(err){
 
@@ -387,6 +393,8 @@ module.exports = {
 
 
                             });
+                            }
+                            
                         }else if(response && response.output && (response.output.status == 403) && response.output.data){
                            console.log("message on 7-->>")
                             res.json({message: response.output.data.message, details: {resourceList: [] } });
